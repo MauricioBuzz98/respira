@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "respira/team",
+  "version": "1.0.0",
+  "title": "Equipo (slider)",
+  "category": "respira",
+  "icon": "groups",
+  "description": "Slider de miembros del equipo con foto, cargo y redes sociales. Items repetibles.",
+  "keywords": ["equipo", "team", "leaders", "slider"],
+  "textdomain": "respira",
+  "attributes": {
+    "subtitle": { "type": "string", "default": "Our Leaders" },
+    "title":    { "type": "string", "default": "Conoce a nuestro equipo" },
+    "source":   { "type": "string", "default": "dynamic" },
+    "count":    { "type": "number", "default": 8 },
+    "items": {
+      "type": "array",
+      "default": [
+        { "name": "Arlene McCoy",  "designation": "Directora General",     "link": "", "imageId": 0, "imageUrl": "", "imageAlt": "", "facebook": "", "twitter": "", "instagram": "" },
+        { "name": "Ralph Edwards", "designation": "Director Ejecutivo",     "link": "", "imageId": 0, "imageUrl": "", "imageAlt": "", "facebook": "", "twitter": "", "instagram": "" },
+        { "name": "Wade Warren",   "designation": "Director y CEO",         "link": "", "imageId": 0, "imageUrl": "", "imageAlt": "", "facebook": "", "twitter": "", "instagram": "" },
+        { "name": "Albert Flores", "designation": "CEO y Fundador",         "link": "", "imageId": 0, "imageUrl": "", "imageAlt": "", "facebook": "", "twitter": "", "instagram": "" }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:render.php"
+}

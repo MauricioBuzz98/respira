@@ -1,0 +1,67 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "useRootPaddingAwareAlignments": false,
+    "color": {
+      "defaultPalette": false,
+      "defaultGradients": false,
+      "custom": true,
+      "customGradient": true,
+      "palette": [
+        { "slug": "primary",  "color": "#5A514B", "name": "Café (primario)" },
+        { "slug": "almendra", "color": "#F1F0EA", "name": "Almendra (primario)" },
+        { "slug": "negro",    "color": "#000000", "name": "Negro" },
+        { "slug": "blanco",   "color": "#FFFFFF", "name": "Blanco" }
+      ]
+    },
+    "typography": {
+      "customFontSize": true,
+      "lineHeight": true,
+      "dropCap": false,
+      "fontFamilies": [
+        {
+          "slug": "avenir",
+          "name": "Avenir (cuerpo)",
+          "fontFamily": "\"Avenir Next\", \"Avenir\", \"Montserrat\", sans-serif"
+        },
+        {
+          "slug": "aboreto",
+          "name": "Aboreto (titulares)",
+          "fontFamily": "\"Aboreto\", serif"
+        }
+      ],
+      "fontSizes": [
+        { "slug": "small",   "size": "14px", "name": "Pequeno" },
+        { "slug": "medium",  "size": "16px", "name": "Normal" },
+        { "slug": "large",   "size": "24px", "name": "Grande" },
+        { "slug": "x-large", "size": "32px", "name": "Muy grande" },
+        { "slug": "xx-large","size": "48px", "name": "Titulo" }
+      ]
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true,
+      "units": ["px", "%", "em", "rem", "vw", "vh"]
+    },
+    "layout": {
+      "contentSize": "1350px",
+      "wideSize": "1760px"
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#FFFFFF",
+      "text": "#5A514B"
+    },
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--avenir)"
+    },
+    "elements": {
+      "link": {
+        "color": { "text": "var(--wp--preset--color--primary)" }
+      }
+    }
+  }
+}

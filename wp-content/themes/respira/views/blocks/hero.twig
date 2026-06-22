@@ -1,0 +1,67 @@
+{#
+  Bloque: respira/hero — banner-section de Realest (carrusel Swiper).
+  Reusa la clase .banner-h1-slider para que script.js inicialice el Swiper,
+  conserva el texto circular (SVG), el contador de rating y los efectos WOW.
+  El id del path circular es único por slide (loop.index) para no romper el SVG.
+#}
+<section {{ wrapper_attributes|raw }}>
+  <div class="banner-section">
+    <div class="outer-box">
+      <div class="swiper-container banner-h1-slider pb-0">
+        <div class="swiper-wrapper">
+          {% for slide in items %}
+            <div class="banner-block swiper-slide">
+              <div class="inner-block">
+
+                {% if slide.bg %}
+                  <div class="bg bg-image"><img src="{{ slide.bg }}" alt="{{ slide.bgAlt }}"></div>
+                {% endif %}
+
+                {% if slide.circleText %}
+                  <div class="icon wow fadeInUp" data-wow-delay="200ms">
+                    <i class="fa-classic fa-solid fa-arrow-down"></i>
+                    <span>
+                      <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{{ slide.circleText }}">
+                        <path id="circlePath{{ loop.index }}" d="M100 100 m -80 0 a 80 80 0 1 1 160 0 a 80 80 0 1 1 -160 0" fill="none" />
+                        <text font-size="14" letter-spacing="6" text-anchor="middle" dominant-baseline="middle">
+                          <textPath href="#circlePath{{ loop.index }}" startOffset="50%">{{ slide.circleText }}</textPath>
+                        </text>
+                      </svg>
+                    </span>
+                  </div>
+                {% endif %}
+
+                {% if slide.title %}
+                  <div class="h1 banner-title wow fadeInUp" data-wow-delay="400ms">{{ slide.title }}</div>
+                {% endif %}
+
+                <div class="content-box wow fadeInUp" data-wow-delay="600ms">
+                  {% if slide.text %}
+                    <div class="text">{{ slide.text }}</div>
+                  {% endif %}
+                  <div class="content">
+                    {% if slide.ratingValue or slide.ratingText %}
+                      <div class="info-box">
+                        <div class="h2 count-box"><span class="count-text" data-speed="1000" data-stop="{{ slide.ratingValue }}">{{ slide.ratingValue }}</span></div>
+                        <div class="info">
+                          <div class="rating">
+                            {% for i in 1..5 %}<i class="fa-solid fa-star"></i>{% endfor %}
+                          </div>
+                          {% if slide.ratingText %}<div class="text">{{ slide.ratingText }}</div>{% endif %}
+                        </div>
+                      </div>
+                    {% endif %}
+                    {% if slide.side %}
+                      <div class="image"><img src="{{ slide.side }}" alt="{{ slide.sideAlt }}"></div>
+                    {% endif %}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

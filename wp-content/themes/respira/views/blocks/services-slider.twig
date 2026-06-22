@@ -1,0 +1,54 @@
+{#
+  Bloque: respira/services-slider — services-section-two de Realest.
+  Reusa la clase .service-h1-slider para que script.js inicialice el Swiper.
+  El número de cada slide se autogenera (01, 02, ...).
+#}
+<section {{ wrapper_attributes|raw }}>
+  <div class="services-section-two">
+    <div class="outer-box">
+
+      {% if bg %}
+        <div class="bg bg-image"><img src="{{ bg }}" alt="{{ bgAlt }}"></div>
+      {% endif %}
+
+      {% if subtitle or title %}
+        <div class="auto-container">
+          <div class="sec-title light">
+            {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
+            {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="swiper-container service-h1-slider pb-0">
+        <div class="swiper-wrapper">
+          {% for item in items %}
+            <div class="service-block-two swiper-slide">
+              <div class="inner-block">
+                <div class="content">
+                  <div class="icon-box">
+                    {% if item.icon %}<div class="icon"><i class="{{ item.icon }}"></i></div>{% endif %}
+                    <div class="count">{{ '%02d'|format(loop.index) }}</div>
+                  </div>
+                  <div class="h4 title">
+                    {% if item.link %}<a href="{{ item.link }}">{{ item.title }}</a>{% else %}{{ item.title }}{% endif %}
+                  </div>
+                  {% if item.text %}<div class="text">{{ item.text }}</div>{% endif %}
+                </div>
+                <div class="images-box">
+                  {% if item.link %}<a class="btn-icon-style" href="{{ item.link }}"><i class="fa-solid fa-arrow-right"></i></a>{% endif %}
+                  {% if item.image %}<div class="image"><img src="{{ item.image }}" alt="{{ item.alt }}"></div>{% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="arrow-box">
+          <div class="slider-prev"><i class="fa-solid fa-arrow-left"></i></div>
+          <div class="slider-next"><i class="fa-solid fa-arrow-right"></i></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

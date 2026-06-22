@@ -1,0 +1,41 @@
+{#
+  Bloque: respira/services — markup services-section-three de Realest.
+#}
+<section {{ wrapper_attributes|raw }}>
+  <div class="services-section-three">
+    <div class="auto-container">
+
+      {% if subtitle or title %}
+        <div class="sec-title text-center">
+          {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
+          {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
+        </div>
+      {% endif %}
+
+      <div class="row row-cols-xl-5 row-cols-md-2 row-cols-sm-1 row-cols-1 gx-4">
+        {% for item in items %}
+          <div class="column col wow fadeInUp">
+            <div class="service-block-three">
+              <div class="inner-block">
+                {% if item.icon %}
+                  <div class="icon"><i class="{{ item.icon }}"></i></div>
+                {% endif %}
+                <div class="h4 title">
+                  {% if item.link %}
+                    <a href="{{ item.link }}">{{ item.title }}</a>
+                  {% else %}
+                    {{ item.title }}
+                  {% endif %}
+                </div>
+                {% if item.imageUrl %}
+                  <div class="image"><img src="{{ item.imageUrl }}" alt="{{ item.imageAlt }}"></div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "respira/services",
+  "version": "1.0.0",
+  "title": "Servicios (grid)",
+  "category": "respira",
+  "icon": "grid-view",
+  "description": "Cuadrícula de servicios con ícono, título e imagen. Items repetibles.",
+  "keywords": ["servicios", "services", "grid"],
+  "textdomain": "respira",
+  "attributes": {
+    "subtitle": { "type": "string", "default": "" },
+    "title":    { "type": "string", "default": "" },
+    "items": {
+      "type": "array",
+      "default": [
+        { "icon": "flaticon-set-property",      "title": "Smart Home System",      "link": "", "imageId": 0, "imageUrl": "", "imageAlt": "" },
+        { "icon": "flaticon-set-management",     "title": "Solar Energy Panels",     "link": "", "imageId": 0, "imageUrl": "", "imageAlt": "" },
+        { "icon": "flaticon-set-house-design",   "title": "Central Air Conditioning","link": "", "imageId": 0, "imageUrl": "", "imageAlt": "" },
+        { "icon": "flaticon-set-building",       "title": "Investment Consulting",   "link": "", "imageId": 0, "imageUrl": "", "imageAlt": "" },
+        { "icon": "flaticon-set-investment",     "title": "Reasonable Price",        "link": "", "imageId": 0, "imageUrl": "", "imageAlt": "" }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:render.php"
+}

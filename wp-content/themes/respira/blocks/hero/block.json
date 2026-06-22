@@ -1,0 +1,50 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "respira/hero",
+  "version": "2.0.0",
+  "title": "Hero / Banner (carrusel)",
+  "category": "respira",
+  "icon": "cover-image",
+  "description": "Banner principal con carrusel Swiper, texto circular animado, rating y efectos WOW. Slides repetibles. Reproduce la banner-section de la plantilla.",
+  "keywords": ["hero", "banner", "slider", "carrusel"],
+  "textdomain": "respira",
+  "attributes": {
+    "items": {
+      "type": "array",
+      "default": [
+        {
+          "bgImageId": 0, "bgImageUrl": "banner/banner1-1.jpg", "bgImageAlt": "",
+          "title": "Crafting A Brighter Future With Excellence",
+          "text": "We create iconic real estate developments that provide enduring value to investors and communities.",
+          "ratingValue": "4.8", "ratingText": "Based on 204 Reviews",
+          "circleText": "MY PROJECTS · MY PROJECTS ·",
+          "sideImageId": 0, "sideImageUrl": "resource/banner1-1.png", "sideImageAlt": ""
+        },
+        {
+          "bgImageId": 0, "bgImageUrl": "banner/banner1-2.jpg", "bgImageAlt": "",
+          "title": "Crafting A Brighter Future With Excellence",
+          "text": "We create iconic real estate developments that provide enduring value to investors and communities.",
+          "ratingValue": "4.8", "ratingText": "Based on 204 Reviews",
+          "circleText": "MY PROJECTS · MY PROJECTS ·",
+          "sideImageId": 0, "sideImageUrl": "resource/banner1-1.png", "sideImageAlt": ""
+        },
+        {
+          "bgImageId": 0, "bgImageUrl": "banner/banner1-3.jpg", "bgImageAlt": "",
+          "title": "Crafting A Brighter Future With Excellence",
+          "text": "We create iconic real estate developments that provide enduring value to investors and communities.",
+          "ratingValue": "4.8", "ratingText": "Based on 204 Reviews",
+          "circleText": "MY PROJECTS · MY PROJECTS ·",
+          "sideImageId": 0, "sideImageUrl": "resource/banner1-1.png", "sideImageAlt": ""
+        }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"]
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:render.php"
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "respira/faq",
+  "version": "1.0.0",
+  "title": "FAQ (acordeón)",
+  "category": "respira",
+  "icon": "editor-help",
+  "description": "Sección de preguntas frecuentes con acordeón. Preguntas/respuestas repetibles.",
+  "keywords": ["faq", "preguntas", "acordeon", "accordion"],
+  "textdomain": "respira",
+  "attributes": {
+    "subtitle":  { "type": "string", "default": "FAQ" },
+    "title":     { "type": "string", "default": "Todo lo que necesitas saber" },
+    "text":      { "type": "string", "default": "Resolvemos las dudas más comunes sobre nuestros servicios para que tomes la mejor decisión." },
+    "infoTitle": { "type": "string", "default": "¿Aún tienes preguntas?" },
+    "infoText":  { "type": "string", "default": "¿No encuentras la respuesta que buscas? Habla con nuestro equipo." },
+    "ctaLabel":  { "type": "string", "default": "Contáctanos" },
+    "ctaUrl":    { "type": "string", "default": "" },
+    "items": {
+      "type": "array",
+      "default": [
+        { "question": "¿Qué incluye el servicio de respiración?", "answer": "Cada plan incluye una evaluación inicial, un programa personalizado de ejercicios y seguimiento continuo por parte de nuestro equipo." },
+        { "question": "¿Cuánto tiempo dura cada sesión?", "answer": "Las sesiones tienen una duración aproximada de 45 a 60 minutos, dependiendo del programa que elijas y tus objetivos." },
+        { "question": "¿Necesito experiencia previa?", "answer": "No es necesaria ninguna experiencia previa. Adaptamos cada práctica a tu nivel y condición física actual." },
+        { "question": "¿Cómo agendo una sesión?", "answer": "Puedes agendar directamente desde nuestra web o escribirnos por mensaje. Te confirmamos disponibilidad en menos de 24 horas." },
+        { "question": "¿Ofrecen sesiones en línea?", "answer": "Sí, contamos con sesiones presenciales y en línea para que practiques desde donde te resulte más cómodo." }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:render.php"
+}

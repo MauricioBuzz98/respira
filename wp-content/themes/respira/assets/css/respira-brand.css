@@ -1,0 +1,108 @@
+/*
+ * Respira Escazú — override de marca.
+ * Sobrescribe las variables :root de la plantilla Realest con la paleta y
+ * tipografías del Manual de Marca. Se encola DESPUÉS de style.css.
+ *
+ * Paleta (Manual de Marca):
+ *   Café (primario)      #5A514B  rgb(90,81,75)
+ *   Almendra (primario)  #F1F0EA  rgb(241,240,234)
+ *   Negro (secundario)   #000000
+ *   Blanco (secundario)  #FFFFFF
+ *
+ * Tipografías (Manual de Marca):
+ *   Avenir  (primaria, cuerpo)              -> stack con fallback Montserrat
+ *   Aboreto (secundaria, titulares display) -> Google Fonts
+ */
+
+:root {
+  /* --- Acento / primario -> Café -------------------------------------- */
+  --theme-color1: #5A514B;
+  --theme-color1-rgb: 90, 81, 75;
+  --theme-color1-text-color: #F1F0EA;        /* texto claro sobre café */
+
+  /* --- Oscuro principal (cálido) -> Café ------------------------------ */
+  --theme-color2: #5A514B;
+  --theme-color2-rgb: 90, 81, 75;
+  --theme-color2-text-color: #FFFFFF;
+
+  /* --- Oscuros secundarios -> Negro ----------------------------------- */
+  --theme-color3: #000000;
+  --theme-color3-rgb: 0, 0, 0;
+  --theme-color3-text-color: #FFFFFF;
+
+  --theme-color4: #000000;
+  --theme-color4-rgb: 0, 0, 0;
+  --theme-color4-text-color: #FFFFFF;
+
+  /* --- Tonos claros -> Almendra --------------------------------------- */
+  --theme-color-light-gray: #F1F0EA;
+  --theme-color-lighter: #F1F0EA;
+  --theme-color-lighter2: #d8d4cb;
+  --theme-color-silver: #F1F0EA;
+  --theme-color-light: #F1F0EA;
+
+  /* --- Oscuros usados como texto/secciones -> Café -------------------- */
+  --theme-color-dark: #5A514B;
+  --theme-color-dark2: #000000;
+  --theme-color-gray: #5A514B;
+
+  /* --- Rating dentro de la paleta de marca ---------------------------- */
+  --review-color: #5A514B;
+
+  /* --- Negro / blanco de marca ---------------------------------------- */
+  --theme-color-black: #000000;
+  --theme-color-black-rgb: 0, 0, 0;
+  --theme-color-white: #FFFFFF;
+  --theme-color-white-rgb: 255, 255, 255;
+
+  /* --- Tipografías ----------------------------------------------------- */
+  /* Primaria (cuerpo): Avenir. Mac usa Avenir nativo; resto -> Montserrat. */
+  --body-font-family: "Avenir Next", "Avenir", "Montserrat", sans-serif;
+  /* Encabezados estándar: Avenir (la plantilla aplica los pesos). */
+  --heading-font-family: "Avenir Next", "Avenir", "Montserrat", sans-serif;
+  /* Display / titulares diferenciadores: Aboreto. */
+  --font-family-style3: "Aboreto", "Avenir Next", "Avenir", serif;
+}
+
+/* Fondo general del sitio en blanco; las secciones definen sus propios fondos
+   (café / almendra) según el diseño de cada bloque. */
+body {
+  background-color: var(--theme-color-white);
+}
+
+/* -------------------------------------------------------------------------
+   Botón primario (.btn-style-one)
+   En reposo el botón es transparente sobre fondo claro (solo el círculo del
+   ícono es café), por eso la etiqueta debe ser oscura para contrastar.
+   Sobre el hero oscuro, la etiqueta va clara.
+   ------------------------------------------------------------------------- */
+.btn-style-one {
+  color: var(--theme-color1);                 /* etiqueta café legible sobre claro */
+}
+.btn-style-one:hover {
+  color: var(--theme-color2-text-color);      /* sobre el relleno café -> blanco */
+}
+.respira-hero-inner .btn-style-one {
+  color: #F1F0EA;                             /* sobre el hero oscuro -> almendra */
+}
+
+/* -------------------------------------------------------------------------
+   Footer: el "degradado" original era una imagen PNG con glow amarillo-lima.
+   Lo sustituimos por un glow radial cálido en tono café (paleta de marca).
+   ------------------------------------------------------------------------- */
+.footer-style-one .widgets-section:before {
+  background-image: radial-gradient(ellipse at center,
+                      rgba(90, 81, 75, 0.6) 0%,
+                      rgba(90, 81, 75, 0) 70%);
+}
+
+/* -------------------------------------------------------------------------
+   Preloader: logo de la marca (sobre fondo blanco -> versión café).
+   El wordmark es horizontal, así que se ensancha la caja y se usa contain.
+   ------------------------------------------------------------------------- */
+.preloader:after {
+  background-image: url(../images/logo_respira_letras_cafe.png);
+  background-size: contain;
+  width: 240px;
+  margin-left: -120px;
+}

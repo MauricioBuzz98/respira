@@ -1,0 +1,14 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+<section class="error-section py-5 text-center">
+  <div class="auto-container">
+    <div class="h1">404</div>
+    <h2 class="title">{{ __('Pagina no encontrada', 'respira') }}</h2>
+    <p>{{ __('Lo sentimos, la pagina que buscas no existe o fue movida.', 'respira') }}</p>
+    <a class="theme-btn btn-style-one mt-3" href="{{ site.url }}">
+      <span class="btn-title">{{ __('Volver al inicio', 'respira') }}</span>
+    </a>
+  </div>
+</section>
+{% endblock %}

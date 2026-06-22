@@ -1,0 +1,14 @@
+{% extends 'index.twig' %}
+
+{#
+  Archivo (categorias, etiquetas, fechas). Reutiliza el listado de index.twig
+  pero anteponiendo el titulo del archivo.
+#}
+{% block content %}
+<section class="page-title-light py-4">
+  <div class="auto-container">
+    <h1 class="title">{{ title }}</h1>
+  </div>
+</section>
+{{ parent() }}
+{% endblock %}

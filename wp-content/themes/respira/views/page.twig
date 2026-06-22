@@ -1,0 +1,13 @@
+{% extends 'base.twig' %}
+
+{#
+  Pagina estandar. El contenido son los bloques apilados en el editor
+  (hero, servicios, etc.), que se renderizan via {{ post.content }}.
+  Las secciones de la plantilla son full-width con su propio .auto-container,
+  por eso aqui no se envuelve en un contenedor estrecho.
+#}
+{% block content %}
+  <article {{ function('post_class', 'page-content') }}>
+    {{ post.content }}
+  </article>
+{% endblock %}

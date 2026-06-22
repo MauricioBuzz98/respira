@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "respira/projects",
+  "version": "1.0.0",
+  "title": "Proyectos (galería)",
+  "category": "respira",
+  "icon": "format-gallery",
+  "description": "Cuadrícula de proyectos con subtítulo, título, enlace e imagen. Items repetibles.",
+  "keywords": ["proyectos", "projects", "galeria", "gallery"],
+  "textdomain": "respira",
+  "attributes": {
+    "subtitle": { "type": "string", "default": "Our Gallery" },
+    "title":    { "type": "string", "default": "Displaying Your Creations" },
+    "source":   { "type": "string", "default": "dynamic" },
+    "count":    { "type": "number", "default": 6 },
+    "category": { "type": "string", "default": "" },
+    "items": {
+      "type": "array",
+      "default": [
+        { "subtitle": "Development",   "title": "Apartment Building",        "link": "", "imageId": 0, "imageUrl": "", "imageAlt": "" },
+        { "subtitle": "Ux/UI design",  "title": "Eden Estate",               "link": "", "imageId": 0, "imageUrl": "", "imageAlt": "" },
+        { "subtitle": "Mobile solution","title": "Vista at Councill Square", "link": "", "imageId": 0, "imageUrl": "", "imageAlt": "" }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:render.php"
+}

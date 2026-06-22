@@ -1,0 +1,26 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+<section class="py-5">
+  <div class="auto-container">
+    <h1 class="title mb-4">
+      {{ __('Resultados para:', 'respira') }} <span>{{ search_term }}</span>
+    </h1>
+
+    <div class="row">
+      {% for post in posts %}
+        <div class="blog-block col-xl-4 col-md-6">
+          <div class="inner-block">
+            <div class="content">
+              <div class="h4 title"><a href="{{ post.link }}">{{ post.title }}</a></div>
+              <p>{{ post.preview }}</p>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <p>{{ __('No se encontraron resultados.', 'respira') }}</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

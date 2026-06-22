@@ -1,0 +1,42 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "respira/about",
+  "version": "1.0.0",
+  "title": "Nosotros (about)",
+  "category": "respira",
+  "icon": "groups",
+  "description": "Sección Nosotros con dos imágenes, badge, título, texto, dos features, CTA y teléfono.",
+  "keywords": ["nosotros", "about", "empresa"],
+  "textdomain": "respira",
+  "attributes": {
+    "image1Id":  { "type": "number", "default": 0 },
+    "image1Url": { "type": "string", "default": "" },
+    "image1Alt": { "type": "string", "default": "" },
+    "image2Id":  { "type": "number", "default": 0 },
+    "image2Url": { "type": "string", "default": "" },
+    "image2Alt": { "type": "string", "default": "" },
+    "badgeText":     { "type": "string", "default": "Equipo experto" },
+    "subtitle":      { "type": "string", "default": "About our company" },
+    "title":         { "type": "string", "default": "" },
+    "text":          { "type": "string", "default": "" },
+    "feature1Icon":  { "type": "string", "default": "flaticon-set-pencil-and-ruler" },
+    "feature1Title": { "type": "string", "default": "" },
+    "feature1Text":  { "type": "string", "default": "" },
+    "feature2Icon":  { "type": "string", "default": "flaticon-set-architect" },
+    "feature2Title": { "type": "string", "default": "" },
+    "feature2Text":  { "type": "string", "default": "" },
+    "ctaLabel":      { "type": "string", "default": "Leer más" },
+    "ctaUrl":        { "type": "string", "default": "" },
+    "phoneLabel":    { "type": "string", "default": "Llámanos" },
+    "phoneNumber":   { "type": "string", "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:render.php"
+}

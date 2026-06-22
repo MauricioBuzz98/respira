@@ -1,0 +1,56 @@
+{#
+  Bloque: respira/testimonials — markup testimonial-section de Realest.
+  Slider Swiper: conserva testi-h1-slider, swiper-wrapper, testimonial-block
+  swiper-slide y testi-slider-dots (script.js inicializa por .testi-h1-slider).
+#}
+<section {{ wrapper_attributes|raw }}>
+  <div class="testimonial-section">
+    <div class="outer-box">
+      <div class="shape-1"><img src="{{ theme.link }}/assets/images/icons/shape-7.png" alt=""></div>
+
+      {% if subtitle or title %}
+        <div class="sec-title text-center">
+          {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
+          {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
+        </div>
+      {% endif %}
+
+      <div class="auto-container">
+        <div class="swiper-container testi-h1-slider pb-0 overflow-hidden">
+          <div class="swiper-wrapper">
+            {% for item in items %}
+              <div class="testimonial-block swiper-slide">
+                <div class="inner-block">
+                  <div class="quote-icon"><i class="fa-solid fa-quote-right"></i></div>
+                  <div class="image-box">
+                    <div class="inner-box">
+                      {% if item.imageUrl %}
+                        <div class="image"><img src="{{ item.imageUrl }}" alt="{{ item.imageAlt }}"></div>
+                      {% endif %}
+                      {% if item.rating %}
+                        <div class="rating">
+                          {% for i in 1..item.rating %}<i class="fa-solid fa-star"></i>{% endfor %}
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="content-box">
+                    <div class="inner-box">
+                      <div class="text">{{ item.text }}</div>
+                      <div class="author-info">
+                        <div class="h4 name"><a href="#">{{ item.name }}</a></div>
+                        <div class="designation">{{ item.designation }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="testi-slider-dots"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

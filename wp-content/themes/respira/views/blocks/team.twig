@@ -1,0 +1,56 @@
+{#
+  Bloque: respira/team — markup team-section (slider Swiper) de Realest.
+  Conserva las clases swiper-container team-h1-slider, swiper-wrapper,
+  team-block swiper-slide y los botones team-h1-slider-prev/next que
+  inicializa script.js.
+#}
+<section {{ wrapper_attributes|raw }}>
+  <div class="team-section">
+    <div class="shape-1 bounce-x"><img src="{{ theme.link }}/assets/images/icons/shape-6.png" alt=""></div>
+    <div class="auto-container">
+      <div class="sec-title-box">
+        <div class="sec-title">
+          {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
+          {% if title %}<div class="h2 title char-animation">{{ title }}</div>{% endif %}
+        </div>
+        <div class="arrow-box">
+          <div class="team-h1-slider-prev"><i class="fa-solid fa-arrow-left"></i></div>
+          <div class="team-h1-slider-next"><i class="fa-solid fa-arrow-right"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-container team-h1-slider pb-0">
+      <div class="swiper-wrapper">
+        {% for item in items %}
+          <div class="team-block swiper-slide">
+            <div class="inner-block">
+              <div class="images-box">
+                <div class="image"><img src="{{ item.imageUrl }}" alt="{{ item.imageAlt }}"></div>
+                <svg class="shape" width="304" height="543" viewBox="0 0 304 543" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M304 0H103.746L0 288.319H86.8571L14.4762 543L265.397 192.212H176.127L304 0Z"></path>
+                </svg>
+                <ul class="social-link">
+                  {% if item.facebook %}<li><a href="{{ item.facebook }}"><i class="fa-brands fa-facebook"></i></a></li>{% endif %}
+                  {% if item.twitter %}<li><a href="{{ item.twitter }}"><i class="fa-brands fa-twitter"></i></a></li>{% endif %}
+                  {% if item.instagram %}<li><a href="{{ item.instagram }}"><i class="fa-brands fa-instagram"></i></a></li>{% endif %}
+                </ul>
+              </div>
+              <div class="author-info">
+                <div class="inner-box">
+                  <div class="h4 name">
+                    {% if item.link %}
+                      <a href="{{ item.link }}">{{ item.name }}</a>
+                    {% else %}
+                      {{ item.name }}
+                    {% endif %}
+                  </div>
+                  <div class="designation">{{ item.designation }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

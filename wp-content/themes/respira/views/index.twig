@@ -1,0 +1,42 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+<section class="blog-section py-5">
+  <div class="auto-container">
+    <div class="row">
+      {% for post in posts %}
+        <div class="blog-block col-xl-4 col-md-6">
+          <div class="inner-block">
+            {% if post.thumbnail %}
+              <div class="image-box">
+                <div class="image">
+                  <a href="{{ post.link }}"><img src="{{ post.thumbnail.src('large') }}" alt="{{ post.title }}"></a>
+                </div>
+              </div>
+            {% endif %}
+            <div class="content">
+              <div class="sub-title">{{ post.date }}</div>
+              <div class="h4 title"><a href="{{ post.link }}">{{ post.title }}</a></div>
+              <p>{{ post.preview }}</p>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <p>{{ __('No hay entradas todavia.', 'respira') }}</p>
+      {% endfor %}
+    </div>
+
+    {% if posts.pagination.pages|length > 1 %}
+      <div class="pagination-wrapper mt-4">
+        <ul class="pagination">
+          {% for page in posts.pagination.pages %}
+            <li class="{{ page.current ? 'active' }}">
+              <a href="{{ page.link }}">{{ page.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,21 @@
+/*
+Theme Name: Respira
+Theme URI: https://buzz.cr
+Author: Buzz
+Author URI: https://buzz.cr
+Description: Tema a medida construido con Timber v2 (Twig) y bloques nativos de Gutenberg, adaptado de la plantilla HTML "Realest". Las paginas se construyen apilando bloques renderizados con plantillas Twig. El CSS/JS proviene de la plantilla Realest (Bootstrap 5 + estilos propios); no usa Tailwind.
+Version: 1.0.0
+Requires at least: 6.7
+Tested up to: 6.9
+Requires PHP: 8.1
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: respira
+Tags: timber, twig, gutenberg, custom-blocks, bootstrap
+*/
+
+/*
+ * Esta hoja solo contiene los metadatos del tema (cabecera requerida por WordPress).
+ * Los estilos reales del front se encolan desde assets/css/style.css (plantilla Realest)
+ * en functions.php. No agregues estilos aqui.
+ */

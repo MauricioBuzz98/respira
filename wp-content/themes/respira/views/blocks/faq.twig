@@ -1,0 +1,71 @@
+{#
+  Bloque: respira/faq — markup faq-section de Realest.
+  La estructura ul.accordion-box > li.accordion.block > div.acc-btn + div.acc-content
+  la maneja script.js / jquery-ui por estas clases. No alterar las clases.
+#}
+<section {{ wrapper_attributes|raw }}>
+  <div class="faq-section">
+    <div class="shape-1"><img src="{{ theme.link }}/assets/images/icons/shape-9.png" alt=""></div>
+    <div class="auto-container">
+      <div class="row">
+
+        <div class="content-column col-xl-6">
+          <div class="inner-coloumn wow fadeInUp" data-wow-delay="200ms">
+
+            {% if subtitle or title or text %}
+              <div class="sec-title">
+                {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
+                {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
+                {% if text %}<div class="text">{{ text }}</div>{% endif %}
+              </div>
+            {% endif %}
+
+            <div class="info-box">
+              <div class="inner-box">
+                <div class="bg-image"><img src="{{ theme.link }}/assets/images/icons/shape-8.png" alt=""></div>
+                <div class="info">
+                  <div class="icon"><i class="fa-solid fa-circle-question"></i></div>
+                  <div class="content">
+                    {% if infoTitle %}<div class="h4 title">{{ infoTitle }}</div>{% endif %}
+                    {% if infoText %}<div class="text">{{ infoText }}</div>{% endif %}
+                  </div>
+                </div>
+                {% if ctaLabel %}
+                  <a class="theme-btn btn-style-three" href="{{ ctaUrl ?: '#' }}">
+                    <span class="btn-title">{{ ctaLabel }}</span>
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="faq-column col-xl-6 col-lg-10">
+          <div class="inner-column wow fadeInUp" data-wow-delay="400ms">
+            <div class="faq-box">
+              <div class="inner-box">
+                <ul class="accordion-box">
+                  {% for item in items %}
+                    {#-- El primer item queda abierto/activo, igual que el original --#}
+                    <li class="accordion block{{ loop.first ? ' active-block' : '' }}">
+                      <div class="acc-btn{{ loop.first ? ' active' : '' }}">{{ item.question }}
+                        <i class="icon fa-solid fa-chevron-down"></i>
+                      </div>
+                      <div class="acc-content{{ loop.first ? ' current' : '' }}">
+                        <div class="content">
+                          <div class="text">{{ item.answer }}</div>
+                        </div>
+                      </div>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

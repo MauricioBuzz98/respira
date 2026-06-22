@@ -1,0 +1,38 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "respira/why-choose-us",
+  "version": "1.0.0",
+  "title": "¿Por qué elegirnos?",
+  "category": "respira",
+  "icon": "yes-alt",
+  "description": "Sección con imagen, texto y lista de beneficios con CTA.",
+  "keywords": ["why choose us", "beneficios", "ventajas"],
+  "textdomain": "respira",
+  "attributes": {
+    "imageId":   { "type": "number", "default": 0 },
+    "imageUrl":  { "type": "string", "default": "" },
+    "imageAlt":  { "type": "string", "default": "" },
+    "subtitle":  { "type": "string", "default": "Why choose Us" },
+    "title":     { "type": "string", "default": "Comodidades premium pensadas para la vida moderna" },
+    "text":      { "type": "string", "default": "Diseñamos entornos construidos de alto impacto en campos que van desde la energía y la salud hasta el entretenimiento, buscando elevar tu proyecto más allá de lo esperado." },
+    "listItems": {
+      "type": "array",
+      "default": [
+        "Más de 10 años de experiencia en el sector.",
+        "Materiales sostenibles y de la más alta calidad.",
+        "Acompañamiento personalizado de principio a fin."
+      ]
+    },
+    "ctaLabel":  { "type": "string", "default": "Leer más" },
+    "ctaUrl":    { "type": "string", "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:render.php"
+}

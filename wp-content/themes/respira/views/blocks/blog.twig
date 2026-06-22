@@ -1,0 +1,51 @@
+{#
+  Bloque: respira/blog — markup blog-section de Realest (dinámico, entradas reales).
+#}
+<section {{ wrapper_attributes|raw }}>
+  <div class="blog-section pt-0 pb-0">
+    <div class="outer-box">
+      <div class="shape-1 bounce-x"><img src="{{ theme.link }}/assets/images/icons/shape-11.png" alt=""></div>
+      <div class="auto-container">
+
+        <div class="sec-title-box">
+          <div class="sec-title">
+            {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
+            {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
+          </div>
+          {% if ctaUrl %}
+            <a class="theme-btn btn-style-one" href="{{ ctaUrl }}">
+              <span class="icon">
+                <i class="fa-solid fa-arrow-right"></i>
+                <i class="fa-solid fa-arrow-right"></i>
+              </span>
+              <span class="btn-title">{{ ctaLabel }}</span>
+            </a>
+          {% endif %}
+        </div>
+
+        <div class="row gx-3">
+          {% for post in posts %}
+            <div class="blog-block col-xl-4 col-md-6">
+              <div class="inner-block">
+                <div class="image-box">
+                  <div class="image">
+                    {% if post.thumbnail %}
+                      <img src="{{ post.thumbnail.src('large') }}" alt="{{ post.thumbnail.alt }}">
+                      <img src="{{ post.thumbnail.src('large') }}" alt="{{ post.thumbnail.alt }}">
+                    {% endif %}
+                  </div>
+                  <a href="{{ post.link }}" class="icon"><i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                <div class="content">
+                  <div class="sub-title">Por <span>{{ post.author.name }}</span></div>
+                  <div class="h4 title"><a href="{{ post.link }}">{{ post.title }}</a></div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,90 @@
+{#
+  Footer (portado de Realest, footer-style-one).
+  Los "Quick Link" usan la ubicacion de menu "footer" si esta asignada.
+#}
+<footer class="main-footer footer-style-one">
+  <div class="shape-1"><img src="{{ theme.link }}/assets/images/abc/footer_detail.png" alt=""></div>
+
+  <div class="widgets-section">
+    <div class="anim-icon"><img src="{{ theme.link }}/assets/images/icons/footer-h1-2.png" alt=""></div>
+    <div class="auto-container">
+      <div class="row align-items-center">
+        <div class="footer-column col-lg-5">
+          <div class="footer-widget about-widget wow fadeInLeft">
+            <div class="footer-logo">
+              {% if site_logo %}
+                <img src="{{ site_logo.src }}" alt="{{ site.name }}">
+              {% else %}
+                <img src="{{ theme.link }}/assets/images/logo_respira_letras_blancas.png" alt="{{ site.name }}">
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="footer-column col-lg-2"></div>
+        <div class="footer-column style-two col-lg-5">
+          <div class="footer-widget subscribe-widget wow fadeInLeft" data-wow-delay="200ms">
+            <div class="h5 text">{{ options.footer_tagline }}</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="mb-40">
+
+      <div class="row">
+        <div class="footer-column border-0 col-lg-5 col-md-4">
+          <div class="footer-widget about-widget wow fadeInLeft">
+            <div class="widget-content">
+              <div class="contact-area">
+                <a class="phone" href="tel:{{ options.phone_tel }}">{{ options.phone }}</a>
+                <a class="mail" href="mailto:{{ options.email }}">{{ options.email }}</a>
+              </div>
+              <div class="social-widget mt-30">
+                <ul class="social-icon-list1 mb-5 mb-lg-0">
+                  <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                  <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                  <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                  <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-column border-0 col-xl-2 col-md-1"></div>
+
+        <div class="footer-column style-two border-0 col-lg-5 col-md-7">
+          <div class="row d-block d-md-flex">
+            <div class="footer-widget links-widget col wow fadeInLeft" data-wow-delay="400ms">
+              <div class="h5 widget-title">{{ __('Enlaces', 'respira') }}</div>
+              <div class="widget-content mb-5 mb-sm-0">
+                <ul class="user-links">
+                  {% if menu_footer %}
+                    {% for item in menu_footer.items %}
+                      <li><a href="{{ item.link }}">{{ item.title }}</a></li>
+                    {% endfor %}
+                  {% else %}
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Our Team</a></li>
+                    <li><a href="#">Our Portfolio</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="inner-container justify-content-center justify-content-sm-between">
+          <p class="copyright-text">© {{ "now"|date("Y") }} {{ site.name }}. {{ __('Todos los derechos reservados.', 'respira') }}</p>
+          <ul class="d-flex align-items-center gap-3">
+            <li><a href="#0">{{ __('Politica de privacidad', 'respira') }}</a></li>
+            <li><a href="#0">{{ __('Terminos del servicio', 'respira') }}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

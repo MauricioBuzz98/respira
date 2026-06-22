@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "respira/pricing",
+  "version": "1.0.0",
+  "title": "Precios / Planes",
+  "category": "respira",
+  "icon": "money-alt",
+  "description": "Tabla de precios con planes (título, monto, periodo, lista de características y CTA). Planes repetibles.",
+  "keywords": ["precios", "pricing", "planes", "tarifas"],
+  "textdomain": "respira",
+  "attributes": {
+    "subtitle": { "type": "string", "default": "" },
+    "title":    { "type": "string", "default": "" },
+    "items": {
+      "type": "array",
+      "default": [
+        { "planTitle": "Plan Básico",   "currency": "$", "amount": "29", "period": "por mes", "features": "Acceso a áreas comunes\nPiscina\nWifi de fibra\nSeguridad 24/7", "ctaLabel": "Reservar", "ctaUrl": "" },
+        { "planTitle": "Plan Plus",     "currency": "$", "amount": "40", "period": "por mes", "features": "Acceso a áreas comunes\nPiscina\nWifi de fibra\nSeguridad 24/7\nGimnasio", "ctaLabel": "Reservar", "ctaUrl": "" },
+        { "planTitle": "Plan Premium",  "currency": "$", "amount": "99", "period": "por mes", "features": "Acceso a áreas comunes\nPiscina\nWifi de fibra\nSeguridad 24/7\nGimnasio\nConcierge", "ctaLabel": "Reservar", "ctaUrl": "" }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:render.php"
+}

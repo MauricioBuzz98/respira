@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "respira/contact",
+  "version": "1.0.0",
+  "title": "Contacto",
+  "category": "respira",
+  "icon": "email",
+  "description": "Sección de contacto con imagen de fondo y formulario (marcador visual estático).",
+  "keywords": ["contacto", "contact", "formulario", "form"],
+  "textdomain": "respira",
+  "attributes": {
+    "bgImageId":  { "type": "number", "default": 0 },
+    "bgImageUrl": { "type": "string", "default": "" },
+    "bgImageAlt": { "type": "string", "default": "" },
+    "subtitle":   { "type": "string", "default": "Send Message" },
+    "title":      { "type": "string", "default": "¿Necesitas ayuda con tu proyecto?" },
+    "text":       { "type": "string", "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:render.php"
+}

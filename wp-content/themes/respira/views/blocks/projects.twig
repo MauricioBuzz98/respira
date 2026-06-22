@@ -1,0 +1,47 @@
+{#
+  Bloque: respira/projects — markup project-section de Realest.
+#}
+<section {{ wrapper_attributes|raw }}>
+  <div class="project-section">
+    <div class="shape-1 bounce-x"><img src="{{ theme.link }}/assets/images/icons/shape-3.png" alt=""></div>
+    <div class="auto-container">
+
+      {% if subtitle or title %}
+        <div class="row">
+          <div class="sec-title text-center">
+            {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
+            {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="project-h1_inner-container">
+        {% for item in items %}
+          <div class="project-block">
+            <div class="inner-block">
+              <div class="content-box">
+                <div class="inner-box">
+                  {% if item.subtitle %}<div class="sub-title">{{ item.subtitle }}</div>{% endif %}
+                  <div class="h3 title">{{ item.title }}</div>
+                  {% if item.link %}
+                    <a class="theme-btn btn-style-one" href="{{ item.link }}">
+                      <span class="icon">
+                        <i class="fa-solid fa-arrow-right"></i>
+                        <i class="fa-solid fa-arrow-right"></i>
+                      </span>
+                      <span class="btn-title">Ver más</span>
+                    </a>
+                  {% endif %}
+                </div>
+              </div>
+              {% if item.imageUrl %}
+                <div class="image"><img src="{{ item.imageUrl }}" alt="{{ item.imageAlt }}"></div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,53 @@
+{#
+  Bloque: respira/why-choose-us — markup why-choose-us-section de Realest.
+#}
+<section {{ wrapper_attributes|raw }}>
+  <div class="why-choose-us-section">
+    <div class="outer-box">
+      <div class="shape-1"><img src="{{ theme.link }}/assets/images/icons/shape-4.png" alt=""></div>
+
+      <div class="image-column">
+        <div class="image wow reveal-top tm-gsap-img-parallax overflow-hidden">
+          {% if imageUrl %}
+            <img src="{{ imageUrl }}" alt="{{ imageAlt }}">
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="content-column">
+        <div class="inner-column">
+          <div class="sec-title light">
+            {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
+            {% if title %}<div class="h2 title char-animation">{{ title }}</div>{% endif %}
+          </div>
+
+          {% if text %}
+            <div class="text">{{ text }}</div>
+          {% endif %}
+
+          {% if listItems %}
+            <ul class="list-style-one">
+              {% for item in listItems %}
+                <li>
+                  <i class="fa-solid fa-circle-check"></i>
+                  <span>{{ item }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
+          {% if ctaUrl or ctaLabel %}
+            <a class="theme-btn btn-style-two" href="{{ ctaUrl }}">
+              <span class="icon">
+                <i class="fa-solid fa-arrow-right"></i>
+                <i class="fa-solid fa-arrow-right"></i>
+              </span>
+              <span class="btn-title">{{ ctaLabel }}</span>
+            </a>
+          {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,104 @@
+{% extends 'base.twig' %}
+
+{#
+  Página de detalle de un Proyecto (CPT proyecto).
+  Reproduce el layout project-details de Realest. Los campos de la ficha
+  (Fecha, Cliente, Sitio web, Ubicación, Valor) vienen del meta del CPT.
+#}
+{% block content %}
+  {% set web = post.meta('_respira_website') %}
+
+  <section class="page-title" style="background-image: url({{ theme.link }}/assets/images/resource/page-title.jpg);">
+    <div class="auto-container">
+      <div class="title-outer text-center">
+        <div class="h1 title">{{ post.title }}</div>
+        <ul class="page-breadcrumb">
+          <li><a href="{{ site.url }}">{{ __('Inicio', 'respira') }}</a></li>
+          <li>{{ post.title }}</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="project-details pt-120">
+    <div class="container">
+
+      {% if post.thumbnail %}
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="project-details__top mb-30">
+              <div class="project-details__img"><img src="{{ post.thumbnail.src('large') }}" alt="{{ post.thumbnail.alt }}"></div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="project-details__content">
+        <div class="row">
+          <div class="col-xl-8 col-lg-8">
+            <div class="project-details__content-left">
+              <div class="h3 mb-4">{{ post.title }}</div>
+              {{ post.content }}
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4">
+            <div class="project-details__content-right">
+              <div class="project-details__details-box">
+                <div class="project-details__bg-shape"></div>
+                <ul class="list-unstyled project-details__details-list">
+                  {% if post.meta('_respira_date') %}
+                    <li><p class="project-details__client">{{ __('Fecha', 'respira') }}</p><div class="h4 project-details__name">{{ post.meta('_respira_date') }}</div></li>
+                  {% endif %}
+                  {% if post.meta('_respira_client') %}
+                    <li><p class="project-details__client">{{ __('Cliente', 'respira') }}</p><div class="h4 project-details__name">{{ post.meta('_respira_client') }}</div></li>
+                  {% endif %}
+                  {% if web %}
+                    <li><p class="project-details__client">{{ __('Sitio web', 'respira') }}</p><div class="h4 project-details__name"><a href="{{ 'http' in web ? web : 'https://' ~ web }}" target="_blank" rel="noopener">{{ web }}</a></div></li>
+                  {% endif %}
+                  {% if post.meta('_respira_location') %}
+                    <li><p class="project-details__client">{{ __('Ubicación', 'respira') }}</p><div class="h4 project-details__name">{{ post.meta('_respira_location') }}</div></li>
+                  {% endif %}
+                  {% if post.meta('_respira_value') %}
+                    <li><p class="project-details__client">{{ __('Valor', 'respira') }}</p><div class="h4 project-details__name">{{ post.meta('_respira_value') }}</div></li>
+                  {% endif %}
+                  {% set cats = post.terms('proyecto_categoria') %}
+                  {% if cats %}
+                    <li><p class="project-details__client">{{ __('Categoría', 'respira') }}</p><div class="h4 project-details__name">
+                      {% for t in cats %}<a href="{{ t.link }}">{{ t.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+                    </div></li>
+                  {% elseif post.meta('_respira_subtitle') %}
+                    <li><p class="project-details__client">{{ __('Categoría', 'respira') }}</p><div class="h4 project-details__name">{{ post.meta('_respira_subtitle') }}</div></li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% if post.prev or post.next %}
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="project-details__pagination-box">
+              <ul class="project-details__pagination list-unstyled clearfix">
+                {% if post.prev %}
+                  <li class="next">
+                    <div class="icon"><a href="{{ post.prev.link }}" aria-label="{{ __('Anterior', 'respira') }}"><i class="far fa-arrow-left-long"></i></a></div>
+                    <div class="content">{{ __('Anterior', 'respira') }}</div>
+                  </li>
+                {% endif %}
+                {% if post.next %}
+                  <li class="previous">
+                    <div class="content">{{ __('Siguiente', 'respira') }}</div>
+                    <div class="icon"><a href="{{ post.next.link }}" aria-label="{{ __('Siguiente', 'respira') }}"><i class="far fa-arrow-right-long"></i></a></div>
+                  </li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+    </div>
+  </section>
+{% endblock %}

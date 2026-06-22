@@ -1,0 +1,28 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+<section class="py-5">
+  <div class="auto-container">
+    <article {{ function('post_class', 'single-post mx-auto') }} style="max-width: 860px;">
+
+      {% if post.thumbnail %}
+        <figure class="image-box mb-4">
+          <img src="{{ post.thumbnail.src('large') }}" alt="{{ post.thumbnail.alt }}" class="img-fluid w-100">
+        </figure>
+      {% endif %}
+
+      <header class="mb-4">
+        <h1 class="title">{{ post.title }}</h1>
+        <div class="sub-title text-muted">
+          {{ post.date }} · {{ post.author.name }}
+        </div>
+      </header>
+
+      <div class="entry-content">
+        {{ post.content }}
+      </div>
+
+    </article>
+  </div>
+</section>
+{% endblock %}

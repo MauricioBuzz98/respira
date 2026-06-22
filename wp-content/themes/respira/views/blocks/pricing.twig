@@ -1,0 +1,44 @@
+{#
+  Bloque: respira/pricing — pricing-section-four de Realest.
+#}
+<section {{ wrapper_attributes|raw }}>
+  <div class="pricing-section-four">
+    <div class="auto-container">
+
+      {% if subtitle or title %}
+        <div class="sec-title text-center">
+          {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
+          {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
+        </div>
+      {% endif %}
+
+      <div class="row">
+        {% for item in items %}
+          <div class="pricing-block-four col-md-6 col-lg-4">
+            <div class="inner-box">
+              <div class="content-column">
+                <div class="inner-column wow fadeInLeft">
+                  <span class="pricing-title">{{ item.planTitle }}</span>
+                  <div class="h6 pricing-amount"><sup>{{ item.currency }}</sup>{{ item.amount }} <span>{{ item.period }}</span></div>
+                  {% if item.features %}
+                    <ul class="list-style-two">
+                      {% for f in item.features %}
+                        <li><i class="icon fa fa-circle-check"></i>{{ f }}</li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                  {% if item.ctaLabel %}
+                    <a class="theme-btn btn-style-five book-now" href="{{ item.ctaUrl ?: '#' }}">
+                      <span class="btn-title">{{ item.ctaLabel }}</span>
+                    </a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</section>

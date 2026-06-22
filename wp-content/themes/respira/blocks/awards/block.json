@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "respira/awards",
+  "version": "1.0.0",
+  "title": "Premios y reconocimientos",
+  "category": "respira",
+  "icon": "awards",
+  "description": "Sección de premios y reconocimientos con imagen lateral y lista repetible (año, título, estado, enlace).",
+  "keywords": ["premios", "awards", "reconocimientos"],
+  "textdomain": "respira",
+  "attributes": {
+    "subtitle": { "type": "string", "default": "Our Awards" },
+    "title":    { "type": "string", "default": "Premios y reconocimientos" },
+    "text":     { "type": "string", "default": "" },
+    "imageId":  { "type": "number", "default": 0 },
+    "imageUrl": { "type": "string", "default": "" },
+    "imageAlt": { "type": "string", "default": "" },
+    "items": {
+      "type": "array",
+      "default": [
+        { "year": "2026", "title": "Best Real Estate Agency",   "status": "Winner",    "link": "" },
+        { "year": "2026", "title": "Property Consultant Award",  "status": "Mentioned", "link": "" },
+        { "year": "2026", "title": "Best Customer Service",      "status": "Mentioned", "link": "" },
+        { "year": "2026", "title": "Project of the year",        "status": "Winner",    "link": "" }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:render.php"
+}

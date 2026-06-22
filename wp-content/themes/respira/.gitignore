@@ -1,0 +1,11 @@
+# Dependencias gestionadas por Composer / npm
+/vendor/
+/node_modules/
+
+# Salida del build de bloques (se genera con `npm run build`)
+/build/
+
+# Logs y temporales
+*.log
+.DS_Store
+Thumbs.db

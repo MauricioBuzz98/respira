@@ -1,0 +1,110 @@
+@font-face {
+    font-family: "FlaticonSetRealestate";
+    src: url("../fonts/flaticon-set-realestate.woff2") format("woff2"),
+url("../fonts/flaticon-set-realestate.woff") format("woff"),
+url("../fonts/flaticon-set-realestate.eot") format("embedded-opentype"),
+url("../fonts/flaticon-set-realestate.ttf") format("truetype"),
+url("../fonts/flaticon-set-realestate.svg") format("svg")
+}
+
+i[class^="flaticon-set-"]:before, i[class*=" flaticon-set-"]:before {
+    font-family: FlaticonSetRealestate !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-set-agreement:before {
+    content: "\f101";
+}
+.flaticon-set-property:before {
+    content: "\f102";
+}
+.flaticon-set-residential:before {
+    content: "\f103";
+}
+.flaticon-set-contract:before {
+    content: "\f104";
+}
+.flaticon-set-construction:before {
+    content: "\f105";
+}
+.flaticon-set-investment:before {
+    content: "\f106";
+}
+.flaticon-set-building:before {
+    content: "\f107";
+}
+.flaticon-set-investment-1:before {
+    content: "\f108";
+}
+.flaticon-set-building-1:before {
+    content: "\f109";
+}
+.flaticon-set-development:before {
+    content: "\f10a";
+}
+.flaticon-set-investment-2:before {
+    content: "\f10b";
+}
+.flaticon-set-property-1:before {
+    content: "\f10c";
+}
+.flaticon-set-building-2:before {
+    content: "\f10d";
+}
+.flaticon-set-hook:before {
+    content: "\f10e";
+}
+.flaticon-set-consulting:before {
+    content: "\f10f";
+}
+.flaticon-set-location:before {
+    content: "\f110";
+}
+.flaticon-set-building-plan:before {
+    content: "\f111";
+}
+.flaticon-set-accomodation:before {
+    content: "\f112";
+}
+.flaticon-set-management:before {
+    content: "\f113";
+}
+.flaticon-set-house-design:before {
+    content: "\f114";
+}
+.flaticon-set-blueprint:before {
+    content: "\f115";
+}
+.flaticon-set-urban-planning:before {
+    content: "\f116";
+}
+.flaticon-set-technical-drawing:before {
+    content: "\f117";
+}
+.flaticon-set-architect:before {
+    content: "\f118";
+}
+.flaticon-set-3d:before {
+    content: "\f119";
+}
+.flaticon-set-architecture:before {
+    content: "\f11a";
+}
+.flaticon-set-construction-1:before {
+    content: "\f11b";
+}
+.flaticon-set-pencil-and-ruler:before {
+    content: "\f11c";
+}
+.flaticon-set-tripod:before {
+    content: "\f11d";
+}
+.flaticon-set-engineer:before {
+    content: "\f11e";
+}
+

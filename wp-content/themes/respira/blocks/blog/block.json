@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "respira/blog",
+  "version": "1.0.0",
+  "title": "Blog / Noticias",
+  "category": "respira",
+  "icon": "admin-post",
+  "description": "Sección de blog dinámica: muestra las últimas entradas reales del sitio.",
+  "keywords": ["blog", "noticias", "news", "articles", "posts"],
+  "textdomain": "respira",
+  "attributes": {
+    "subtitle":   { "type": "string", "default": "News & Articles" },
+    "title":      { "type": "string", "default": "Últimas noticias" },
+    "ctaLabel":   { "type": "string", "default": "Ver todas" },
+    "ctaUrl":     { "type": "string", "default": "" },
+    "postsCount": { "type": "number", "default": 3 }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:render.php"
+}

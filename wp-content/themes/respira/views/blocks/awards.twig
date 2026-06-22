@@ -1,0 +1,57 @@
+{#
+  Bloque: respira/awards — markup award-section-one de Realest.
+#}
+<section {{ wrapper_attributes|raw }}>
+  <div class="award-section-one">
+    <div class="outer-box">
+      <div class="shape-1 bounce-x"><img src="{{ theme.link }}/assets/images/icons/shape-5.png" alt=""></div>
+      <div class="auto-container">
+
+        {% if subtitle or title or text %}
+          <div class="sec-title-box">
+            <div class="sec-title">
+              {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
+              {% if title %}<div class="h2 title char-animation">{{ title }}</div>{% endif %}
+            </div>
+            {% if text %}<div class="text">{{ text }}</div>{% endif %}
+          </div>
+        {% endif %}
+
+        <div class="row align-items-center">
+          <div class="image-column col-lg-3">
+            {% if image.url %}
+              <div class="image wow fadeInUp" data-wow-delay="300ms"><img src="{{ image.url }}" alt="{{ image.alt }}"></div>
+            {% endif %}
+          </div>
+          <div class="content-column col-lg-9">
+            <div class="inner-column wow fadeInUp" data-wow-delay="600ms">
+              {% for item in items %}
+                <div class="award-block">
+                  <div class="inner-block">
+                    <div class="row align-items-center">
+                      <div class="col-lg-6 col-md-8">
+                        <div class="left-side">
+                          <div class="count">{{ item.year }}</div>
+                          <div class="h4 title">{{ item.title }}</div>
+                        </div>
+                      </div>
+                      <div class="offset-xxl-1 col-lg-5 col-md-4">
+                        <div class="right-side">
+                          <div class="text">{{ item.status }}</div>
+                          {% if item.link %}
+                            <a class="link-btn" href="{{ item.link }}"><i class="fa-solid fa-arrow-right"></i></a>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

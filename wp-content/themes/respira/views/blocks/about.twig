@@ -1,0 +1,95 @@
+{#
+  Bloque: respira/about — markup about-section pt-0 de Realest (singleton).
+#}
+<section {{ wrapper_attributes|raw }}>
+  <div class="about-section pt-0">
+    <div class="shape-1"><img src="{{ theme.link }}/assets/images/icons/shape-2.png" alt=""></div>
+    <div class="auto-container">
+      <div class="row">
+
+        <div class="image-column col-xl-5 col-md-10">
+          <div class="inner-column wow fadeInUp" data-wow-delay="200ms">
+            {% if image1Url %}
+              <div class="images-box one">
+                <div class="image"><img src="{{ image1Url }}" alt="{{ image1Alt }}"></div>
+              </div>
+            {% endif %}
+            {% if image2Url %}
+              <div class="images-box two">
+                <div class="image"><img src="{{ image2Url }}" alt="{{ image2Alt }}"></div>
+              </div>
+            {% endif %}
+            <div class="info-box bounce-y">
+              {% if badgeText %}<div class="h5">{{ badgeText }}</div>{% endif %}
+              <div class="image"><img src="{{ theme.link }}/assets/images/resource/about1-1.png" alt=""></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-column col-xl-7 col-lg-10">
+          <div class="inner-column wow fadeInUp" data-wow-delay="400ms">
+            <div class="sec-title">
+              {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
+              {% if title %}<div class="h2 title char-animation">{{ title }}</div>{% endif %}
+              {% if text %}<div class="text">{{ text }}</div>{% endif %}
+            </div>
+
+            {% if feature1Title or feature1Text %}
+              <div class="about-block">
+                <div class="inner-block">
+                  {% if feature1Icon %}
+                    <div class="icon">
+                      <i class="{{ feature1Icon }}"></i>
+                    </div>
+                  {% endif %}
+                  <div class="content">
+                    {% if feature1Title %}<div class="h5 title">{{ feature1Title }}</div>{% endif %}
+                    {% if feature1Text %}<div class="text">{{ feature1Text }}</div>{% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+
+            {% if feature2Title or feature2Text %}
+              <div class="about-block">
+                <div class="inner-block">
+                  {% if feature2Icon %}
+                    <div class="icon">
+                      <i class="{{ feature2Icon }}"></i>
+                    </div>
+                  {% endif %}
+                  <div class="content">
+                    {% if feature2Title %}<div class="h5 title">{{ feature2Title }}</div>{% endif %}
+                    {% if feature2Text %}<div class="text">{{ feature2Text }}</div>{% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+
+            <div class="bottom-box">
+              {% if ctaUrl or ctaLabel %}
+                <a class="theme-btn btn-style-two" href="{{ ctaUrl }}">
+                  <span class="icon">
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </span>
+                  <span class="btn-title">{{ ctaLabel }}</span>
+                </a>
+              {% endif %}
+              {% if phoneNumber %}
+                <div class="info-box">
+                  <div class="icon"><i class="fa-solid fa-phone"></i></div>
+                  <div class="info">
+                    {% if phoneLabel %}<span>{{ phoneLabel }}</span>{% endif %}
+                    <a href="tel:{{ phoneNumber|replace({' ': '', '-': '', '(': '', ')': ''}) }}">{{ phoneNumber }}</a>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

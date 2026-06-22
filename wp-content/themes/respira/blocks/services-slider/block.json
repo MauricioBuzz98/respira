@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "respira/services-slider",
+  "version": "1.0.0",
+  "title": "Servicios (slider)",
+  "category": "respira",
+  "icon": "slides",
+  "description": "Carrusel de servicios (service-block-two) con ícono, número, título, texto e imagen. Variante slider de la sección de servicios.",
+  "keywords": ["servicios", "services", "slider", "carrusel"],
+  "textdomain": "respira",
+  "attributes": {
+    "subtitle":   { "type": "string", "default": "Our Services" },
+    "title":      { "type": "string", "default": "Check Out Our Key Services" },
+    "bgImageId":  { "type": "number", "default": 0 },
+    "bgImageUrl": { "type": "string", "default": "resource/service2-1.png" },
+    "bgImageAlt": { "type": "string", "default": "" },
+    "items": {
+      "type": "array",
+      "default": [
+        { "icon": "flaticon-set-residential",  "title": "Construction Management", "link": "", "text": "Gestión integral de proyectos de construcción de principio a fin.", "imageId": 0, "imageUrl": "resource/service2-1.jpg", "imageAlt": "" },
+        { "icon": "flaticon-set-accomodation",  "title": "Architecture & Design",   "link": "", "text": "Diseño arquitectónico que equilibra estética, función y bienestar.", "imageId": 0, "imageUrl": "resource/service2-2.jpg", "imageAlt": "" },
+        { "icon": "flaticon-set-blueprint",     "title": "Investment & Capital",     "link": "", "text": "Asesoría de inversión y capital para tu proyecto inmobiliario.", "imageId": 0, "imageUrl": "resource/service2-3.jpg", "imageAlt": "" }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:render.php"
+}

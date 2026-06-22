@@ -1,0 +1,63 @@
+{#
+  Bloque: respira/contact — markup contact-section de Realest.
+  El formulario es un marcador visual estático (action="#"); el backend no está implementado.
+#}
+<section {{ wrapper_attributes|raw }}>
+  <div class="contact-section">
+    <div class="outer-box">
+      {% if bgImageUrl %}
+        <div class="bg bg-image"><img src="{{ bgImageUrl }}" alt="{{ bgImageAlt }}"></div>
+      {% endif %}
+      <div class="row">
+        <div class="form-coumn col-lg-7 offset-lg-5">
+          <div class="inner-column">
+            <div class="shape-1"><img src="{{ theme.link }}/assets/images/icons/shape-10.png" alt=""></div>
+            <div class="sec-title light">
+              {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
+              {% if title %}<div class="h2 title char-animation">{{ title }}</div>{% endif %}
+              {% if text %}<div class="text">{{ text }}</div>{% endif %}
+            </div>
+            <div class="form-box">
+              <div class="inner-box">
+                <form action="#">
+                  <div class="row">
+                    <div class="col-sm-6 wow fadeInUp animated" data-wow-delay=".2s">
+                      <div class="form-clt">
+                        <input type="text" name="name" id="name" placeholder="Tu nombre" required="">
+                      </div>
+                    </div>
+                    <div class="col-sm-6 wow fadeInUp animated" data-wow-delay=".4s">
+                      <div class="form-clt">
+                        <input type="email" name="form_email" id="email" placeholder="Correo electrónico">
+                      </div>
+                    </div>
+                    <div class="col-sm-6 wow fadeInUp animated" data-wow-delay=".6s">
+                      <div class="form-clt">
+                        <input name="tel" id="tel" type="text" placeholder="Teléfono">
+                      </div>
+                    </div>
+                    <div class="col-sm-6 wow fadeInUp animated" data-wow-delay=".6s">
+                      <div class="form-clt">
+                        <input name="name" id="name2" type="text" placeholder="Asunto">
+                      </div>
+                    </div>
+                    <div class="col-sm-12 wow fadeInUp animated" data-wow-delay=".2s">
+                      <div class="form-clt">
+                        <textarea name="form_message" class="required" placeholder="Mensaje"></textarea>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 wow fadeInUp animated" data-wow-delay=".2s">
+                      <button class="theme-btn btn-style-three" type="submit">
+                        <span class="btn-title">Enviar mensaje</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,165 @@
+{#
+  Header (portado de Realest, header-style-one).
+  El menu se genera desde la ubicacion "primary" (Apariencia > Menus).
+  El logo usa el logo personalizado si existe; si no, el de la plantilla.
+#}
+{% import _self as nav %}
+
+{% macro items(items) %}
+  {% import _self as self %}
+  {% for item in items %}
+    <li class="{% if item.children %}dropdown{% endif %}{% if item.current or item.current_item_ancestor %} current{% endif %}">
+      <a href="{{ item.link }}">{{ item.title }}</a>
+      {% if item.children %}
+        <ul>
+          {{ self.items(item.children) }}
+        </ul>
+      {% endif %}
+    </li>
+  {% endfor %}
+{% endmacro %}
+
+<header class="main-header header-style-one">
+  <div class="header-upper">
+    <div class="inner-box">
+      <div class="info-box">
+        <a href="#" class="info">
+          <i class="icon fa-regular fa-location-dot"></i>
+          <span>{{ options.address }}</span>
+        </a>
+        <a href="mailto:{{ options.email }}" class="info">
+          <i class="fa-solid fa-envelope-open"></i>
+          <span>{{ options.email }}</span>
+        </a>
+      </div>
+      <div class="info-box">
+        <a href="#" class="info">
+          <span>{{ options.hours }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-lower">
+    <div class="inner-container">
+      <div class="main-box">
+        <div class="left-box">
+          <div class="logo-box">
+            <div class="logo">
+              <a href="{{ site.url }}">
+                {% if site_logo %}
+                  <img src="{{ site_logo.src }}" alt="{{ site.name }}">
+                {% else %}
+                  <img src="{{ theme.link }}/assets/images/logo_respira_letras_cafe.png" alt="{{ site.name }}">
+                {% endif %}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {# Nav #}
+        <div class="nav-outer">
+          <nav class="nav main-menu">
+            <ul class="navigation">
+              {% if menu_primary %}
+                {{ nav.items(menu_primary.items) }}
+              {% else %}
+                <li class="current"><a href="{{ site.url }}">{{ __('Inicio', 'respira') }}</a></li>
+              {% endif %}
+            </ul>
+          </nav>
+        </div>
+
+        <div class="right-box">
+          <a class="theme-btn btn-style-one" href="{{ options.cta_url }}">
+            <span class="icon">
+              <i class="fa-solid fa-arrow-right"></i>
+              <i class="fa-solid fa-arrow-right"></i>
+            </span>
+            <span class="btn-title">{{ options.cta_label }}</span>
+          </a>
+          {# Toggler movil #}
+          <button class="mobile-nav-toggler">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {# Menu movil (script.js clona aqui la navegacion) #}
+  <div class="mobile-menu">
+    <div class="menu-backdrop"></div>
+    <nav class="menu-box">
+      <div class="upper-box">
+        <div class="nav-logo">
+          <a href="{{ site.url }}"><img src="{{ theme.link }}/assets/images/logo_respira_letras_blancas.png" alt="{{ site.name }}"></a>
+        </div>
+        <div class="close-btn"><i class="icon fa fa-times"></i></div>
+      </div>
+      <ul class="navigation clearfix">
+        {# Vacio: script.js inserta aqui la misma navegacion #}
+      </ul>
+      <ul class="contact-list-one">
+        <li>
+          <i class="icon fa-regular fa-envelope"></i>
+          <span class="title">{{ __('Escribenos', 'respira') }}</span>
+          <div class="text"><a href="mailto:{{ options.email }}">{{ options.email }}</a></div>
+        </li>
+      </ul>
+      <ul class="social-links">
+        <li><a href="#"><i class="icon fab fa-twitter"></i></a></li>
+        <li><a href="#"><i class="icon fab fa-facebook-f"></i></a></li>
+        <li><a href="#"><i class="icon fab fa-pinterest-p"></i></a></li>
+        <li><a href="#"><i class="icon fab fa-vimeo-v"></i></a></li>
+      </ul>
+    </nav>
+  </div>
+
+  {# Buscador #}
+  <div class="search-popup">
+    <span class="search-back-drop"></span>
+    <button class="close-search"><span class="fa fa-times"></span></button>
+    <div class="search-inner">
+      <form role="search" method="get" action="{{ site.url }}">
+        <div class="form-group">
+          <input type="search" name="s" value="{{ function('get_search_query') }}" placeholder="{{ __('Buscar...', 'respira') }}" required>
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {# Sticky header (script.js clona la navegacion) #}
+  <div class="sticky-header">
+    <div class="auto-container">
+      <div class="inner-container">
+        <div class="logo">
+          <a href="{{ site.url }}">
+            {% if site_logo %}
+              <img src="{{ site_logo.src }}" alt="{{ site.name }}">
+            {% else %}
+              <img src="{{ theme.link }}/assets/images/logo_respira_letras_cafe.png" alt="{{ site.name }}">
+            {% endif %}
+          </a>
+        </div>
+        <div class="nav-outer">
+          <nav class="main-menu">
+            <div class="navbar-collapse show collapse clearfix">
+              <ul class="navigation clearfix">
+                {# Vacio: script.js inserta aqui la navegacion #}
+              </ul>
+            </div>
+          </nav>
+          <div class="mobile-nav-toggler">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

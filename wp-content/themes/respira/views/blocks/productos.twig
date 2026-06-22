@@ -1,0 +1,44 @@
+{#
+  Bloque: respira/productos — featured-products de Realest (sin filtro MixItUp).
+  Para una tienda real con carrito/pagos, integrar WooCommerce.
+#}
+<section {{ wrapper_attributes|raw }}>
+  <div class="featured-products">
+    <div class="auto-container">
+
+      {% if subtitle or title %}
+        <div class="sec-title text-center">
+          {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
+          {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
+        </div>
+      {% endif %}
+
+      {# Sin la clase .filter-list para no disparar mixItUp() (lib no incluida en el front). #}
+      <div class="respira-products-grid row">
+        {% for item in items %}
+          <div class="product-block col-lg-3 col-sm-6">
+            <div class="inner-box">
+              <div class="image">
+                {% if item.link %}<a href="{{ item.link }}">{% endif %}
+                  {% if item.image %}<img src="{{ item.image }}" alt="{{ item.alt }}">{% endif %}
+                {% if item.link %}</a>{% endif %}
+              </div>
+              <div class="content">
+                <div class="h4">{% if item.link %}<a href="{{ item.link }}">{{ item.title }}</a>{% else %}{{ item.title }}{% endif %}</div>
+                {% if item.price %}<span class="price">{{ item.price }}</span>{% endif %}
+                {% if item.rating %}
+                  <span class="rating">{% for i in 1..item.rating %}<i class="fa fa-star"></i>{% endfor %}</span>
+                {% endif %}
+              </div>
+              <div class="icon-box">
+                <a href="#" class="ui-btn like-btn"><i class="fa fa-heart"></i></a>
+                <a href="{{ cart_url ?: '#' }}" class="ui-btn add-to-cart"><i class="fa fa-shopping-cart"></i></a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</section>
