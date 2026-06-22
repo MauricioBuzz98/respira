@@ -71,6 +71,9 @@ class Content {
 				'designation' => [ 'label' => __( 'Cargo / empresa', 'respira' ), 'type' => 'text' ],
 				'rating'      => [ 'label' => __( 'Estrellas (1-5)', 'respira' ), 'type' => 'number' ],
 			],
+			'amenidades' => [
+				'icon' => [ 'label' => __( 'Ícono (clase flaticon/FontAwesome)', 'respira' ), 'type' => 'text' ],
+			],
 		];
 	}
 
@@ -108,11 +111,22 @@ class Content {
 			'rewrite'      => [ 'slug' => 'testimonios' ],
 		] );
 
+		register_post_type( 'amenidades', [
+			'labels'       => $this->labels( __( 'Amenidad', 'respira' ), __( 'Amenidades', 'respira' ) ),
+			'public'       => true,
+			'has_archive'  => true,
+			'menu_icon'    => 'dashicons-screenoptions',
+			'menu_position'=> 23,
+			'show_in_rest' => true,
+			'supports'     => [ 'title', 'editor', 'thumbnail', 'excerpt', 'page-attributes' ],
+			'rewrite'      => [ 'slug' => 'amenidades' ],
+		] );
+
 		// Flush de reglas de reescritura una sola vez tras registrar los CPTs,
-		// para que sus URLs (/proyectos/...) funcionen sin pasos manuales.
-		if ( '3' !== get_option( 'respira_rewrite_version' ) ) {
+		// para que sus URLs (/proyectos/, /amenidades/...) funcionen sin pasos manuales.
+		if ( '4' !== get_option( 'respira_rewrite_version' ) ) {
 			flush_rewrite_rules( false );
-			update_option( 'respira_rewrite_version', '3' );
+			update_option( 'respira_rewrite_version', '4' );
 		}
 	}
 

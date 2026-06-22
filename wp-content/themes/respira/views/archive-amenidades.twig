@@ -1,0 +1,51 @@
+{% extends 'base.twig' %}
+
+{#
+  Listado de Amenidades (archivo del CPT amenidades).
+  Reproduce la sección services-section-two de Realest (page-services.html):
+  grid de .service-block con imagen, ícono y título. Cada card enlaza al detalle.
+#}
+{% block content %}
+  <div style="padding: 0 15px;">
+    <section class="page-title" style="background-image: url({{ theme.link }}/assets/images/resource/page-title.jpg);">
+      <div class="auto-container">
+        <div class="title-outer text-center">
+          <div class="h1 title">{{ title }}</div>
+          <ul class="page-breadcrumb">
+            <li><a href="{{ site.url }}">{{ __('Inicio', 'respira') }}</a></li>
+            <li>{{ title }}</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="services-section-two pt-100 pb-100">
+    <div class="auto-container">
+      <div class="row gx-3">
+        {% for post in posts %}
+          <div class="col-xl-4 col-md-6">
+            <div class="service-block wow fadeInUp" data-wow-delay="{{ loop.index0 * 200 }}ms">
+              <div class="inner-block">
+                <div class="image">
+                  {% if post.thumbnail %}
+                    <img src="{{ post.thumbnail.src('large') }}" alt="{{ post.thumbnail.alt }}">
+                    <img src="{{ post.thumbnail.src('large') }}" alt="{{ post.thumbnail.alt }}">
+                  {% endif %}
+                  {% set icon = post.meta('_respira_icon') %}
+                  {% if icon %}<div class="icon"><i class="{{ icon }}"></i></div>{% endif %}
+                </div>
+                <div class="content">
+                  <div class="h4 title"><a href="{{ post.link }}">{{ post.title }}</a></div>
+                  <a class="btn-service-style" href="{{ post.link }}">{{ __('Ver más', 'respira') }} <i class="icon-arrow far fa-chevron-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% else %}
+          <p>{{ __('No hay amenidades todavía.', 'respira') }}</p>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

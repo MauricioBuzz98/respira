@@ -25,16 +25,46 @@ $resolve = static function ( string $url ) use ( $tpl_uri ): string {
 	return $tpl_uri . '/assets/images/' . ltrim( $url, '/' );
 };
 
+$source = (string) ( $attributes['source'] ?? 'amenidades' );
+$count  = max( 1, (int) ( $attributes['count'] ?? 6 ) );
+
 $items = [];
-foreach ( (array) ( $attributes['items'] ?? [] ) as $it ) {
-	$items[] = [
-		'icon'  => $it['icon'] ?? '',
-		'title' => $it['title'] ?? '',
-		'link'  => $it['link'] ?? '',
-		'text'  => $it['text'] ?? '',
-		'image' => $resolve( (string) ( $it['imageUrl'] ?? '' ) ),
-		'alt'   => $it['imageAlt'] ?? '',
-	];
+
+// Modo dinámico: amenidades del CPT. Cada card enlaza al listado (/amenidades/).
+if ( 'amenidades' === $source ) {
+	$archive = (string) ( get_post_type_archive_link( 'amenidades' ) ?: '' );
+	$posts   = get_posts( [
+		'post_type'   => 'amenidades',
+		'numberposts' => $count,
+		'orderby'     => 'menu_order date',
+		'order'       => 'ASC',
+	] );
+	foreach ( $posts as $p ) {
+		$thumb_id = get_post_thumbnail_id( $p->ID );
+		$items[]  = [
+			'icon'  => (string) get_post_meta( $p->ID, '_respira_icon', true ),
+			'title' => get_the_title( $p ),
+			'link'  => $archive,
+			'text'  => get_the_excerpt( $p ),
+			'image' => $thumb_id ? (string) wp_get_attachment_image_url( $thumb_id, 'large' ) : '',
+			'alt'   => $thumb_id ? (string) get_post_meta( $thumb_id, '_wp_attachment_image_alt', true ) : '',
+		];
+	}
+}
+
+// Modo manual, o fallback si el CPT no devolvió nada (conserva bloques ya insertados).
+if ( 'manual' === $source || empty( $items ) ) {
+	$items = [];
+	foreach ( (array) ( $attributes['items'] ?? [] ) as $it ) {
+		$items[] = [
+			'icon'  => $it['icon'] ?? '',
+			'title' => $it['title'] ?? '',
+			'link'  => $it['link'] ?? '',
+			'text'  => $it['text'] ?? '',
+			'image' => $resolve( (string) ( $it['imageUrl'] ?? '' ) ),
+			'alt'   => $it['imageAlt'] ?? '',
+		];
+	}
 }
 
 $context = Timber::context();

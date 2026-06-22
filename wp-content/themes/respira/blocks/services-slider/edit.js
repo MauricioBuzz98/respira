@@ -4,15 +4,16 @@ import {
 	MediaUpload,
 	MediaUploadCheck,
 } from '@wordpress/block-editor';
-import { PanelBody, TextControl, TextareaControl, Button } from '@wordpress/components';
+import { PanelBody, TextControl, TextareaControl, SelectControl, Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
 const EMPTY_ITEM = { icon: '', title: '', link: '', text: '', imageId: 0, imageUrl: '', imageAlt: '' };
 const isFullUrl = ( url ) => !! url && /^https?:\/\//.test( url );
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { subtitle, title, bgImageId, bgImageUrl, items } = attributes;
+	const { subtitle, title, source, count, bgImageId, bgImageUrl, items } = attributes;
 	const blockProps = useBlockProps( { className: 'respira-services-slider-editor' } );
+	const isManual = source === 'manual';
 
 	const updateItem = ( index, patch ) => {
 		const next = items.map( ( it, i ) => ( i === index ? { ...it, ...patch } : it ) );
@@ -41,6 +42,28 @@ export default function Edit( { attributes, setAttributes } ) {
 					</MediaUploadCheck>
 				</PanelBody>
 
+				<PanelBody title={ __( 'Qué mostrar', 'respira' ) }>
+					<SelectControl
+						label={ __( 'Origen', 'respira' ) }
+						value={ source }
+						options={ [
+							{ label: __( 'Amenidades (CPT)', 'respira' ), value: 'amenidades' },
+							{ label: __( 'Manual', 'respira' ), value: 'manual' },
+						] }
+						onChange={ ( v ) => setAttributes( { source: v } ) }
+					/>
+					{ ! isManual && (
+						<TextControl
+							type="number"
+							label={ __( 'Cantidad de amenidades', 'respira' ) }
+							value={ count }
+							min={ 1 }
+							onChange={ ( v ) => setAttributes( { count: parseInt( v, 10 ) || 1 } ) }
+						/>
+					) }
+				</PanelBody>
+
+				{ isManual && (
 				<PanelBody title={ __( 'Servicios', 'respira' ) }>
 					{ items.map( ( item, index ) => (
 						<div key={ index } style={ { borderBottom: '1px solid #e0e0e0', paddingBottom: 12, marginBottom: 12 } }>
@@ -68,6 +91,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					) ) }
 					<Button variant="primary" onClick={ addItem }>{ __( 'Agregar servicio', 'respira' ) }</Button>
 				</PanelBody>
+				) }
 			</InspectorControls>
 
 			<div { ...blockProps }>
@@ -78,19 +102,25 @@ export default function Edit( { attributes, setAttributes } ) {
 							{ title && <div style={ { fontSize: 22, fontWeight: 700 } }>{ title }</div> }
 						</div>
 					) }
-					<div style={ { display: 'flex', gap: 12, overflowX: 'auto' } }>
-						{ items.map( ( item, index ) => (
-							<div key={ index } style={ { minWidth: 200, border: '1px solid #444', borderRadius: 8, padding: 12 } }>
-								<div style={ { display: 'flex', justifyContent: 'space-between', alignItems: 'center' } }>
-									{ item.icon && <i className={ item.icon } style={ { fontSize: 24 } } /> }
-									<span style={ { opacity: 0.5 } }>{ String( index + 1 ).padStart( 2, '0' ) }</span>
+					{ isManual ? (
+						<div style={ { display: 'flex', gap: 12, overflowX: 'auto' } }>
+							{ items.map( ( item, index ) => (
+								<div key={ index } style={ { minWidth: 200, border: '1px solid #444', borderRadius: 8, padding: 12 } }>
+									<div style={ { display: 'flex', justifyContent: 'space-between', alignItems: 'center' } }>
+										{ item.icon && <i className={ item.icon } style={ { fontSize: 24 } } /> }
+										<span style={ { opacity: 0.5 } }>{ String( index + 1 ).padStart( 2, '0' ) }</span>
+									</div>
+									<div style={ { fontWeight: 600, marginTop: 6 } }>{ item.title || '—' }</div>
+									<div style={ { fontSize: 12, opacity: 0.7 } }>{ item.text }</div>
+									{ isFullUrl( item.imageUrl ) && <img src={ item.imageUrl } alt="" style={ { width: '100%', marginTop: 8, borderRadius: 6 } } /> }
 								</div>
-								<div style={ { fontWeight: 600, marginTop: 6 } }>{ item.title || '—' }</div>
-								<div style={ { fontSize: 12, opacity: 0.7 } }>{ item.text }</div>
-								{ isFullUrl( item.imageUrl ) && <img src={ item.imageUrl } alt="" style={ { width: '100%', marginTop: 8, borderRadius: 6 } } /> }
-							</div>
-						) ) }
-					</div>
+							) ) }
+						</div>
+					) : (
+						<p style={ { fontSize: 13, opacity: 0.85, margin: 0 } }>
+							{ __( 'Modo: amenidades del CPT «Amenidades» (hasta', 'respira' ) } <strong>{ count }</strong>{ __( '). Cada tarjeta enlaza al listado /amenidades/.', 'respira' ) }
+						</p>
+					) }
 				</div>
 			</div>
 		</>

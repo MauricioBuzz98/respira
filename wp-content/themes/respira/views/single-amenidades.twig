@@ -1,0 +1,59 @@
+{% extends 'base.twig' %}
+
+{#
+  Detalle de una Amenidad (CPT amenidades).
+  Adapta el layout services-details de Realest (page-service-details.html):
+  hero con breadcrumb, sidebar con todas las amenidades (resaltando la actual)
+  y columna principal con imagen destacada + título + descripción enriquecida.
+  La lista del sidebar (amenidades) la inyecta single-amenidades.php.
+#}
+{% block content %}
+  <div style="padding: 0 15px;">
+    <section class="page-title" style="background-image: url({{ theme.link }}/assets/images/resource/page-title.jpg);">
+      <div class="auto-container">
+        <div class="title-outer text-center">
+          <div class="h1 title">{{ post.title }}</div>
+          <ul class="page-breadcrumb">
+            <li><a href="{{ site.url }}">{{ __('Inicio', 'respira') }}</a></li>
+            <li><a href="{{ function('get_post_type_archive_link', 'amenidades') }}">{{ __('Amenidades', 'respira') }}</a></li>
+            <li>{{ post.title }}</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="services-details pt-120 pb-120">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-xl-4 col-lg-4">
+          <div class="service-sidebar">
+            <div class="sidebar-widget service-sidebar-single">
+              <div class="sidebar-service-list">
+                <ul>
+                  {% for a in amenidades %}
+                    <li{{ a.id == post.id ? ' class="current"' }}>
+                      <a href="{{ a.link }}"><i class="fas fa-angle-right"></i><span>{{ a.title }}</span></a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-8 col-lg-8">
+          <div class="services-details__content">
+            {% if post.thumbnail %}
+              <img class="w-100" src="{{ post.thumbnail.src('large') }}" alt="{{ post.thumbnail.alt }}">
+            {% endif %}
+            <div class="h3 mt-4">{{ post.title }}</div>
+            {{ post.content }}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+{% endblock %}

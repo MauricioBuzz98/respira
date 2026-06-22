@@ -12,6 +12,8 @@
   "attributes": {
     "subtitle":   { "type": "string", "default": "Our Services" },
     "title":      { "type": "string", "default": "Check Out Our Key Services" },
+    "source":     { "type": "string", "default": "amenidades" },
+    "count":      { "type": "number", "default": 6 },
     "bgImageId":  { "type": "number", "default": 0 },
     "bgImageUrl": { "type": "string", "default": "resource/service2-1.png" },
     "bgImageAlt": { "type": "string", "default": "" },
