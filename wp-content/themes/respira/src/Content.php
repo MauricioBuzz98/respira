@@ -17,11 +17,78 @@ class Content {
 	/** Prefijo de las meta keys. */
 	public const PREFIX = '_respira_';
 
+	/**
+	 * Iconos disponibles del set flaticon-set-realestate
+	 * (assets/css/flaticon-set-realestate.css). Mismo set que el selector del
+	 * bloque proyecto-niveles, para que ícono de amenidades y niveles coincidan.
+	 *
+	 * @return string[]
+	 */
+	public function icon_options(): array {
+		return [
+			'flaticon-set-agreement',
+			'flaticon-set-property',
+			'flaticon-set-residential',
+			'flaticon-set-contract',
+			'flaticon-set-construction',
+			'flaticon-set-investment',
+			'flaticon-set-building',
+			'flaticon-set-investment-1',
+			'flaticon-set-building-1',
+			'flaticon-set-development',
+			'flaticon-set-investment-2',
+			'flaticon-set-property-1',
+			'flaticon-set-building-2',
+			'flaticon-set-hook',
+			'flaticon-set-consulting',
+			'flaticon-set-location',
+			'flaticon-set-building-plan',
+			'flaticon-set-accomodation',
+			'flaticon-set-management',
+			'flaticon-set-house-design',
+			'flaticon-set-blueprint',
+			'flaticon-set-urban-planning',
+			'flaticon-set-technical-drawing',
+			'flaticon-set-architect',
+			'flaticon-set-3d',
+			'flaticon-set-architecture',
+			'flaticon-set-construction-1',
+			'flaticon-set-pencil-and-ruler',
+			'flaticon-set-tripod',
+			'flaticon-set-engineer',
+		];
+	}
+
 	public function __construct() {
 		add_action( 'init', [ $this, 'register_taxonomies' ], 9 );
 		add_action( 'init', [ $this, 'register_post_types' ] );
 		add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
 		add_action( 'save_post', [ $this, 'save_meta' ], 10, 2 );
+		add_action( 'admin_enqueue_scripts', [ $this, 'admin_assets' ] );
+	}
+
+	/**
+	 * Carga la fuente flaticon en la pantalla de edición de amenidades para que
+	 * el selector de ícono muestre el glifo, y actualiza la vista previa en vivo.
+	 */
+	public function admin_assets( string $hook ): void {
+		if ( ! in_array( $hook, [ 'post.php', 'post-new.php' ], true ) ) {
+			return;
+		}
+		$screen = get_current_screen();
+		if ( ! $screen || 'amenidades' !== $screen->post_type ) {
+			return;
+		}
+		wp_enqueue_style(
+			'respira-flaticon',
+			get_template_directory_uri() . '/assets/css/flaticon-set-realestate.css',
+			[],
+			'1.0.0'
+		);
+		wp_add_inline_script(
+			'jquery',
+			"document.addEventListener('change',function(e){if(e.target&&e.target.id==='respira_icon'){var p=document.querySelector('.respira-icon-preview i');if(p){p.className=e.target.value;}}});"
+		);
 	}
 
 	/**
@@ -72,7 +139,7 @@ class Content {
 				'rating'      => [ 'label' => __( 'Estrellas (1-5)', 'respira' ), 'type' => 'number' ],
 			],
 			'amenidades' => [
-				'icon' => [ 'label' => __( 'Ícono (clase flaticon/FontAwesome)', 'respira' ), 'type' => 'text' ],
+				'icon' => [ 'label' => __( 'Ícono', 'respira' ), 'type' => 'icon' ],
 			],
 		];
 	}
@@ -178,6 +245,27 @@ class Content {
 					'<input type="number" min="0" max="5" step="1" id="%s" name="%s" value="%s" class="small-text">',
 					esc_attr( $id ),
 					esc_attr( self::PREFIX . $key ),
+					esc_attr( $value )
+				);
+			} elseif ( 'icon' === $cfg['type'] ) {
+				printf(
+					'<select id="%s" name="%s" class="widefat" style="max-width:320px;">',
+					esc_attr( $id ),
+					esc_attr( self::PREFIX . $key )
+				);
+				printf( '<option value="">%s</option>', esc_html__( '— Sin ícono —', 'respira' ) );
+				foreach ( $this->icon_options() as $opt ) {
+					printf(
+						'<option value="%1$s"%2$s>%3$s</option>',
+						esc_attr( $opt ),
+						selected( $value, $opt, false ),
+						esc_html( str_replace( 'flaticon-set-', '', $opt ) )
+					);
+				}
+				echo '</select>';
+				// Vista previa del glifo (requiere la fuente flaticon en el admin).
+				printf(
+					'<span class="respira-icon-preview" style="margin-left:10px;font-size:26px;vertical-align:middle;"><i class="%s"></i></span>',
 					esc_attr( $value )
 				);
 			} else {

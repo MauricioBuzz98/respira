@@ -236,3 +236,31 @@ hr.proyecto-separador {
 .respira-services-slider .service-block-two .inner-block:hover .content .icon-box .count {
   color: rgba(241, 240, 234, 0.55);
 }
+/* Botón flecha (.btn-icon-style): en reposo es café sobre la tarjeta café (sin
+   contraste). Se invierte a círculo claro con la flecha café, igual que el
+   badge del ícono superior. */
+.respira-services-slider .service-block-two .inner-block .images-box .btn-icon-style {
+  background-color: var(--theme-color-white);
+  color: var(--theme-color1);
+}
+
+/* -------------------------------------------------------------------------
+   Listado de amenidades (archivo del CPT amenidades, .service-block).
+   En hover la tarjeta toma el fondo café (--theme-color1); título (#222) y
+   botón "Ver más" (#666) quedan ilegibles. Se aclaran y se da una pastilla
+   clara legible al botón. Acotado al body del archivo.
+   ------------------------------------------------------------------------- */
+.post-type-archive-amenidades .service-block .inner-block:hover .content .title,
+.post-type-archive-amenidades .service-block .inner-block:hover .content .title a {
+  color: var(--theme-color1-text-color);
+}
+/* Tarjeta en hover: pastilla blanca con texto café (buen contraste). */
+.post-type-archive-amenidades .service-block .inner-block:hover .content .btn-service-style {
+  background-color: var(--theme-color-white);
+  border-color: var(--theme-color-white);
+  color: var(--theme-color1);
+}
+/* Hover directo del botón: el ::before café rellena la pastilla -> texto claro. */
+.post-type-archive-amenidades .service-block .inner-block:hover .content .btn-service-style:hover {
+  color: var(--theme-color2-text-color);
+}
