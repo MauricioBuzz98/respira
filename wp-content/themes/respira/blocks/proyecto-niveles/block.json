@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "respira/proyecto-niveles",
+  "version": "1.0.0",
+  "title": "Proyecto – niveles",
+  "category": "respira",
+  "icon": "building",
+  "description": "Niveles de un proyecto (imagen + descripción) con amenidades por nivel (icono + texto). Se renderiza con el layout product-details (galería + lista de amenidades).",
+  "keywords": ["proyecto", "niveles", "amenidades", "galeria"],
+  "textdomain": "respira",
+  "attributes": {
+    "intro": { "type": "string", "default": "" },
+    "items": {
+      "type": "array",
+      "default": [
+        {
+          "imageId": 0,
+          "imageUrl": "",
+          "imageAlt": "",
+          "description": "",
+          "amenities": [
+            { "icon": "flaticon-set-property", "text": "" }
+          ]
+        }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:render.php"
+}

@@ -23,7 +23,10 @@
       "Bash(curl -s -o /dev/null -w \"Aboreto/Montserrat CSS HTTP %{http_code}\\\\n\" \"https://fonts.googleapis.com/css2?family=Aboreto&family=Montserrat:wght@300;400;500;600;700&display=swap\")",
       "Bash(curl -s \"https://fonts.googleapis.com/css2?family=Aboreto&family=Montserrat:wght@300;400;500;600;700&display=swap\" -A \"Mozilla/5.0\")",
       "Bash(grep -nE \"preloader|fadeOut|window.*load|\\\\\\\\\\\\$\\\\\\\\\\(window\\\\\\\\\\)\" script.js)",
-      "Bash(grep -nE \"\\\\\\\\\\\\$\\\\\\\\\\(document\\\\\\\\\\)\\\\\\\\.ready|\\\\\\\\\\\\$\\\\\\\\\\(function|\\\\\\\\\\(function\\\\\\\\s*\\\\\\\\\\(\\\\\\\\\\\\$\\\\\\\\\\)|jQuery\\\\\\\\\\(function\" script.js)"
+      "Bash(grep -nE \"\\\\\\\\\\\\$\\\\\\\\\\(document\\\\\\\\\\)\\\\\\\\.ready|\\\\\\\\\\\\$\\\\\\\\\\(function|\\\\\\\\\\(function\\\\\\\\s*\\\\\\\\\\(\\\\\\\\\\\\$\\\\\\\\\\)|jQuery\\\\\\\\\\(function\" script.js)",
+      "Bash(npm -v)",
+      "Bash(curl -k -s -L --max-time 20 \"http://respira.test\")",
+      "Read(//tmp/**)"
     ]
   }
 }

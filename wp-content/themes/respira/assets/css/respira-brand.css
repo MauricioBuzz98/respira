@@ -106,3 +106,105 @@ body {
   width: 240px;
   margin-left: -120px;
 }
+
+/* -------------------------------------------------------------------------
+   Proyectos: listado por categoría (bloque respira/proyecto-niveles).
+   Cuerpo product-details: galería (imagen activa + miniaturas) a la izquierda,
+   información a la derecha. La descripción de cada nivel es dinámica.
+   ------------------------------------------------------------------------- */
+.proyecto-listado-item {
+  padding: 40px 0;
+}
+hr.proyecto-separador {
+  border: 0;
+  border-top: 1px solid var(--theme-color-lighter2, #d8d4cb);
+  margin: 0;
+  opacity: 1;
+}
+
+/* Galería: imagen activa (réplica de .product-details .bxslider .image-box). */
+.proyecto-galeria .proyecto-galeria__stage {
+  position: relative;
+  margin-right: 30px;
+  margin-bottom: 20px;
+}
+.proyecto-galeria .proyecto-galeria__stage .image-box {
+  position: relative;
+  display: none;
+  margin: 0;
+}
+.proyecto-galeria .proyecto-galeria__stage .image-box.is-active {
+  display: block;
+}
+.proyecto-galeria .proyecto-galeria__stage .image-box img {
+  width: 100%;
+  height: auto;
+}
+
+/* Galería: tira de miniaturas (100x100, igual que la plantilla). */
+.proyecto-galeria .thumb-box {
+  margin: 0;
+  padding: 0;
+}
+.proyecto-galeria .thumb-box li {
+  position: relative;
+  display: inline-block;
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  width: 100px;
+  height: 100px;
+}
+.proyecto-galeria .thumb-box li:last-child {
+  margin-right: 0;
+}
+.proyecto-galeria .thumb-box li a {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+.proyecto-galeria .thumb-box li a img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.proyecto-galeria .thumb-box li a.active {
+  border-color: var(--theme-color1);
+}
+
+/* Descripción dinámica: solo se ve la del nivel seleccionado. */
+.proyecto-descripcion {
+  display: none;
+}
+.proyecto-descripcion.is-active {
+  display: block;
+}
+
+/* Amenidades (lista combinada) con icono del set flaticon. */
+.proyecto-amenidades {
+  margin-top: 20px;
+}
+.proyecto-amenidades li p {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.proyecto-amenidades li i {
+  color: var(--theme-color1);
+  font-size: 20px;
+  margin-right: 10px;
+  line-height: 1;
+}
+
+/* Editor: caja de descripción enriquecida del nivel. */
+.respira-proyecto-niveles-editor .respira-nivel-desc {
+  min-height: 60px;
+  border: 1px dashed #e0e0e0;
+  border-radius: 6px;
+  padding: 8px;
+}

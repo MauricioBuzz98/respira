@@ -131,6 +131,12 @@ add_action( 'wp_enqueue_scripts', function (): void {
 	}
 	wp_enqueue_script( 'jquery' ); // asegurar que el jQuery de la plantilla se encola.
 
+	// Galerías de proyectos (bloque respira/proyecto-niveles): init por instancia.
+	// Solo en el single de proyecto y en el listado por categoría.
+	if ( is_singular( 'proyecto' ) || is_tax( 'proyecto_categoria' ) ) {
+		wp_enqueue_script( 'respira-proyectos', $uri . '/assets/js/respira-proyectos.js', [ 'respira-script' ], $ver( '/assets/js/respira-proyectos.js' ), true );
+	}
+
 	// Red de seguridad para el preloader: aunque algún script de la plantilla
 	// lance un error y aborte (script.js es un único IIFE), este script inline
 	// corre en su propia etiqueta y oculta el preloader al cargar (o a los 5s),

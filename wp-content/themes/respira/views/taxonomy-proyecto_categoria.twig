@@ -1,0 +1,40 @@
+{% extends 'base.twig' %}
+
+{#
+  Listado de proyectos de una categoría (taxonomía proyecto_categoria).
+  Cada proyecto se renderiza con su contenido (que incluye el bloque
+  respira/proyecto-niveles = cuerpo product-details), separados por <hr>.
+#}
+{% block content %}
+
+  <section class="page-title" style="background-image: url({{ theme.link }}/assets/images/resource/page-title.jpg);">
+    <div class="auto-container">
+      <div class="title-outer text-center">
+        <div class="h1 title">{{ term.name }}</div>
+        <ul class="page-breadcrumb">
+          <li><a href="{{ site.url }}">{{ __('Inicio', 'respira') }}</a></li>
+          <li>{{ term.name }}</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="product-details pt-120">
+    <div class="container pb-70">
+      {% if posts %}
+        {% for project in posts %}
+          <div class="proyecto-listado-item">
+            <div class="product-details__top">
+              <div class="h3 product-details__title"><a href="{{ project.link }}">{{ project.title }}</a></div>
+            </div>
+            {{ project.content }}
+          </div>
+          {% if not loop.last %}<hr class="proyecto-separador">{% endif %}
+        {% endfor %}
+      {% else %}
+        <p>{{ __('No hay proyectos en esta categoría todavía.', 'respira') }}</p>
+      {% endif %}
+    </div>
+  </section>
+
+{% endblock %}

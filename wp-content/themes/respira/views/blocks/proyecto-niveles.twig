@@ -1,0 +1,60 @@
+{#
+  Bloque: respira/proyecto-niveles — cuerpo "product-details" de Realest
+  (galería de niveles + información), SIN estrellas ni precio.
+
+  Galería propia (no bxSlider): una imagen activa + tira de miniaturas.
+  La descripción de cada nivel se muestra al activar su miniatura; el
+  comportamiento dinámico lo maneja assets/js/respira-proyectos.js.
+#}
+<div {{ wrapper_attributes|raw }}>
+  <div class="product-details proyecto-niveles">
+    <div class="row">
+
+      <div class="col-lg-6 col-xl-6">
+        {% if gallery %}
+          <div class="proyecto-galeria">
+            <div class="proyecto-galeria__stage">
+              {% for g in gallery %}
+                <figure class="image-box proyecto-slide{{ loop.first ? ' is-active' : '' }}" data-index="{{ loop.index0 }}">
+                  <a href="{{ g.image }}" class="lightbox-image" data-fancybox="{{ uid }}"><img src="{{ g.image }}" alt="{{ g.alt }}"></a>
+                </figure>
+              {% endfor %}
+            </div>
+            {% if gallery|length > 1 %}
+              <ul class="thumb-box list-unstyled clearfix">
+                {% for g in gallery %}
+                  <li><a class="{{ loop.first ? 'active' : '' }}" data-index="{{ loop.index0 }}" href="#"><img src="{{ g.image }}" alt="{{ g.alt }}"></a></li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="col-lg-6 col-xl-6 product-info">
+        {% if intro %}
+          <div class="product-details__content proyecto-intro">{{ intro|raw }}</div>
+        {% endif %}
+
+        {% if gallery %}
+          <div class="proyecto-descripciones">
+            {% for g in gallery %}
+              <div class="proyecto-descripcion product-details__content{{ loop.first ? ' is-active' : '' }}" data-index="{{ loop.index0 }}">{{ g.description|raw }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% if amenities_combined %}
+          <div class="product-description__list proyecto-amenidades-box">
+            <ul class="list-unstyled proyecto-amenidades">
+              {% for a in amenities_combined %}
+                <li><p>{% if a.icon %}<i class="{{ a.icon }}"></i> {% endif %}{{ a.text }}</p></li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</div>
