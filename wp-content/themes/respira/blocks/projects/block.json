@@ -6,13 +6,13 @@
   "title": "Proyectos (galería)",
   "category": "respira",
   "icon": "format-gallery",
-  "description": "Cuadrícula de proyectos con subtítulo, título, enlace e imagen. Items repetibles.",
+  "description": "Galería de proyectos. Puede listar todos los proyectos, los de una categoría, la lista de categorías, o ítems manuales.",
   "keywords": ["proyectos", "projects", "galeria", "gallery"],
   "textdomain": "respira",
   "attributes": {
     "subtitle": { "type": "string", "default": "Our Gallery" },
     "title":    { "type": "string", "default": "Displaying Your Creations" },
-    "source":   { "type": "string", "default": "dynamic" },
+    "source":   { "type": "string", "default": "all" },
     "count":    { "type": "number", "default": 6 },
     "category": { "type": "string", "default": "" },
     "items": {

@@ -47,6 +47,11 @@ if ( class_exists( \Respira\Content::class ) ) {
 	new \Respira\Content();
 }
 
+// Personalizador: controles para el botón del header y datos del header/footer.
+if ( class_exists( \Respira\Customizer::class ) ) {
+	new \Respira\Customizer();
+}
+
 // ---------------------------------------------------------------------------
 // 3. Soporte del tema, menus y tamanos de imagen
 // ---------------------------------------------------------------------------

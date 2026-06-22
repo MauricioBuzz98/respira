@@ -14,7 +14,12 @@ const EMPTY_ITEM = { subtitle: '', title: '', link: '', imageId: 0, imageUrl: ''
 export default function Edit( { attributes, setAttributes } ) {
 	const { subtitle, title, source, count, category, items } = attributes;
 	const blockProps = useBlockProps( { className: 'respira-projects-editor' } );
-	const isDynamic = source === 'dynamic';
+
+	// Compatibilidad: el valor antiguo "dynamic" se interpreta según haya o no categoría.
+	const effectiveSource = source === 'dynamic' ? ( category ? 'category' : 'all' ) : source;
+	const isManual = effectiveSource === 'manual';
+	const isCategory = effectiveSource === 'category';
+	const isCategories = effectiveSource === 'categories';
 
 	// Categorías del CPT proyecto para el selector de filtro.
 	const terms = useSelect(
@@ -32,33 +37,45 @@ export default function Edit( { attributes, setAttributes } ) {
 	const addItem = () => setAttributes( { items: [ ...items, { ...EMPTY_ITEM } ] } );
 	const removeItem = ( index ) => setAttributes( { items: items.filter( ( _, i ) => i !== index ) } );
 
+	const categoryLabel = () => {
+		const found = ( terms || [] ).find( ( t ) => t.slug === category );
+		return found ? found.name : __( 'todas', 'respira' );
+	};
+
 	return (
 		<>
 			<InspectorControls>
 				<PanelBody title={ __( 'Encabezado', 'respira' ) }>
 					<TextControl label={ __( 'Subtítulo', 'respira' ) } value={ subtitle } onChange={ ( v ) => setAttributes( { subtitle: v } ) } />
 					<TextControl label={ __( 'Título', 'respira' ) } value={ title } onChange={ ( v ) => setAttributes( { title: v } ) } />
+				</PanelBody>
+
+				<PanelBody title={ __( 'Qué mostrar', 'respira' ) }>
 					<SelectControl
-						label={ __( 'Origen del contenido', 'respira' ) }
-						value={ source }
+						label={ __( 'Listado', 'respira' ) }
+						value={ effectiveSource }
 						options={ [
-							{ label: __( 'Dinámico (CPT Proyectos)', 'respira' ), value: 'dynamic' },
+							{ label: __( 'Todos los proyectos', 'respira' ), value: 'all' },
+							{ label: __( 'Proyectos de una categoría', 'respira' ), value: 'category' },
+							{ label: __( 'Lista de categorías', 'respira' ), value: 'categories' },
 							{ label: __( 'Manual', 'respira' ), value: 'manual' },
 						] }
 						onChange={ ( v ) => setAttributes( { source: v } ) }
 					/>
-					{ isDynamic && (
+
+					{ ! isManual && (
 						<TextControl
 							type="number"
-							label={ __( 'Cantidad a mostrar', 'respira' ) }
+							label={ isCategories ? __( 'Cantidad de categorías', 'respira' ) : __( 'Cantidad de proyectos', 'respira' ) }
 							value={ count }
 							min={ 1 }
 							onChange={ ( v ) => setAttributes( { count: parseInt( v, 10 ) || 1 } ) }
 						/>
 					) }
-					{ isDynamic && (
+
+					{ isCategory && (
 						<SelectControl
-							label={ __( 'Filtrar por categoría', 'respira' ) }
+							label={ __( 'Categoría', 'respira' ) }
 							value={ category }
 							options={ termOptions }
 							onChange={ ( v ) => setAttributes( { category: v } ) }
@@ -66,7 +83,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					) }
 				</PanelBody>
 
-				{ ! isDynamic && (
+				{ isManual && (
 					<PanelBody title={ __( 'Proyectos', 'respira' ) }>
 						{ items.map( ( item, index ) => (
 							<div key={ index } style={ { borderBottom: '1px solid #e0e0e0', paddingBottom: 12, marginBottom: 12 } }>
@@ -104,11 +121,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							{ title && <div style={ { fontSize: 22, fontWeight: 700 } }>{ title }</div> }
 						</div>
 					) }
-					{ isDynamic ? (
-						<p style={ { fontSize: 13, background: '#f1f0ea', color: '#5A514B', padding: 10, borderRadius: 4, margin: 0 } }>
-							{ __( 'Modo dinámico: en el front se mostrarán hasta', 'respira' ) } <strong>{ count }</strong> { __( 'proyectos del CPT «Proyectos». Crea/edita entradas en el menú Proyectos.', 'respira' ) }
-						</p>
-					) : (
+					{ isManual ? (
 						<div style={ { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 12 } }>
 							{ items.map( ( item, index ) => (
 								<div key={ index } style={ { border: '1px solid #eee', borderRadius: 8, overflow: 'hidden' } }>
@@ -120,6 +133,15 @@ export default function Edit( { attributes, setAttributes } ) {
 								</div>
 							) ) }
 						</div>
+					) : (
+						<p style={ { fontSize: 13, background: '#f1f0ea', color: '#5A514B', padding: 10, borderRadius: 4, margin: 0 } }>
+							{ isCategories
+								? <>{ __( 'Modo: lista de categorías. Se mostrarán hasta', 'respira' ) } <strong>{ count }</strong> { __( 'categorías de proyecto (cada tarjeta enlaza a su listado).', 'respira' ) }</>
+								: isCategory
+									? <>{ __( 'Modo: proyectos de la categoría', 'respira' ) } <strong>«{ categoryLabel() }»</strong> ({ __( 'hasta', 'respira' ) } <strong>{ count }</strong>).</>
+									: <>{ __( 'Modo: todos los proyectos del CPT «Proyectos» (hasta', 'respira' ) } <strong>{ count }</strong>).</>
+							}
+						</p>
 					) }
 				</div>
 			</div>
