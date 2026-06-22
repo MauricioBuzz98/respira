@@ -5478,6 +5478,11 @@ Section Title
 ====================================================================
 
 ***/
+
+.page-title{
+  border-radius: 30px !important;
+  overflow: hidden;
+}
 .sec-title {
   position: relative;
 }
@@ -5485,7 +5490,7 @@ Section Title
   color: rgba(var(--theme-color-white-rgb), 0.698);
 }
 .sec-title.light .sub-title:before {
-  background-image: url(../images/icons/sub-title2.png);
+  /*background-image: url(../images/icons/sub-title2.png);*/
 }
 .sec-title.light .title {
   color: var(--theme-color-white);

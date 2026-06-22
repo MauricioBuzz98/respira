@@ -208,3 +208,31 @@ hr.proyecto-separador {
   border-radius: 6px;
   padding: 8px;
 }
+
+/* -------------------------------------------------------------------------
+   Hero (bloque respira/hero): se quita la animación de zoom in/out
+   (keyframe growInfinite). La imagen queda fija y cubre toda el área del hero
+   (ya usa object-fit: cover al 100%).
+   ------------------------------------------------------------------------- */
+.respira-hero .banner-section .outer-box .banner-block .inner-block .bg-image img {
+  -webkit-animation: none;
+  animation: none;
+  -webkit-transform: none;
+  transform: none;
+}
+
+/* -------------------------------------------------------------------------
+   Servicios (slider) — bloque respira/services-slider.
+   En hover la tarjeta toma el fondo café (--theme-color1); el CSS base deja el
+   texto en --headings-color (#222), ilegible sobre el café. Se aclaran texto,
+   título, ícono y número para tener buen contraste (almendra).
+   ------------------------------------------------------------------------- */
+.respira-services-slider .service-block-two .inner-block:hover .content .title,
+.respira-services-slider .service-block-two .inner-block:hover .content .title a,
+.respira-services-slider .service-block-two .inner-block:hover .content .text,
+.respira-services-slider .service-block-two .inner-block:hover .content .icon-box .icon {
+  color: var(--theme-color1-text-color);
+}
+.respira-services-slider .service-block-two .inner-block:hover .content .icon-box .count {
+  color: rgba(241, 240, 234, 0.55);
+}
