@@ -8,17 +8,19 @@
 {% block content %}
   {% set web = post.meta('_respira_website') %}
 
-  <section class="page-title" style="background-image: url({{ theme.link }}/assets/images/resource/page-title.jpg);">
-    <div class="auto-container">
-      <div class="title-outer text-center">
-        <div class="h1 title">{{ post.title }}</div>
-        <ul class="page-breadcrumb">
-          <li><a href="{{ site.url }}">{{ __('Inicio', 'respira') }}</a></li>
-          <li>{{ post.title }}</li>
-        </ul>
+  <div style="padding: 0 15px;">
+    <section class="page-title" style="background-image: url({{ theme.link }}/assets/images/resource/page-title.jpg);">
+      <div class="auto-container">
+        <div class="title-outer text-center">
+          <div class="h1 title">{{ post.title }}</div>
+          <ul class="page-breadcrumb">
+            <li><a href="{{ site.url }}">{{ __('Inicio', 'respira') }}</a></li>
+            <li>{{ post.title }}</li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
   <section class="project-details pt-120">
     <div class="container">

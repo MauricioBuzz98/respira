@@ -7,17 +7,19 @@
 #}
 {% block content %}
 
-  <section class="page-title" style="background-image: url({{ theme.link }}/assets/images/resource/page-title.jpg);">
-    <div class="auto-container">
-      <div class="title-outer text-center">
-        <div class="h1 title">{{ term.name }}</div>
-        <ul class="page-breadcrumb">
-          <li><a href="{{ site.url }}">{{ __('Inicio', 'respira') }}</a></li>
-          <li>{{ term.name }}</li>
-        </ul>
+  <div style="padding: 0 15px;">
+    <section class="page-title" style="background-image: url({{ theme.link }}/assets/images/resource/page-title.jpg);">
+      <div class="auto-container">
+        <div class="title-outer text-center">
+          <div class="h1 title">{{ term.name }}</div>
+          <ul class="page-breadcrumb">
+            <li><a href="{{ site.url }}">{{ __('Inicio', 'respira') }}</a></li>
+            <li>{{ term.name }}</li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
   <section class="product-details pt-120">
     <div class="container pb-70">
