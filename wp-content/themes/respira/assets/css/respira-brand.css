@@ -787,3 +787,19 @@ hr.proyecto-separador {
     padding-top: 50px;
   }
 }
+
+/* -------------------------------------------------------------------------
+   Breadcrumb del hero (page-title) en páginas de detalle: el enlace usaba el
+   café de marca y se confundía con el overlay oscuro del hero. Se pasa a tonos
+   claros (almendra el enlace, blanco el ítem actual) para que contraste.
+   ------------------------------------------------------------------------- */
+.page-title .page-breadcrumb li,
+.page-title .page-breadcrumb li:after {
+  color: var(--theme-color-white);
+}
+.page-title .page-breadcrumb li a {
+  color: var(--theme-color-light); /* almendra */
+}
+.page-title .page-breadcrumb li a:hover {
+  color: var(--theme-color-white);
+}
