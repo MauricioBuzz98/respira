@@ -557,6 +557,22 @@ hr.proyecto-separador {
 .faq-section .accordion-box .block .acc-btn.active .icon {
   color: var(--theme-color1-text-color);
 }
+/* Respuestas del FAQ con viñetas (líneas que empiezan con "-"). */
+.respira-faq .acc-content .text p {
+  margin-bottom: 10px;
+}
+.respira-faq .acc-content .text ul.faq-answer-list {
+  list-style: disc;
+  margin: 6px 0 10px;
+  padding-left: 22px;
+}
+.respira-faq .acc-content .text ul.faq-answer-list li {
+  margin-bottom: 6px;
+}
+.respira-faq .acc-content .text p:last-child,
+.respira-faq .acc-content .text ul.faq-answer-list:last-child {
+  margin-bottom: 0;
+}
 
 /* -------------------------------------------------------------------------
    Botón "back to top": el CSS base coloreaba la flecha con una variable

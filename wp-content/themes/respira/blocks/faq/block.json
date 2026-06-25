@@ -20,11 +20,17 @@
     "items": {
       "type": "array",
       "default": [
-        { "question": "¿Qué incluye el servicio de respiración?", "answer": "Cada plan incluye una evaluación inicial, un programa personalizado de ejercicios y seguimiento continuo por parte de nuestro equipo." },
-        { "question": "¿Cuánto tiempo dura cada sesión?", "answer": "Las sesiones tienen una duración aproximada de 45 a 60 minutos, dependiendo del programa que elijas y tus objetivos." },
-        { "question": "¿Necesito experiencia previa?", "answer": "No es necesaria ninguna experiencia previa. Adaptamos cada práctica a tu nivel y condición física actual." },
-        { "question": "¿Cómo agendo una sesión?", "answer": "Puedes agendar directamente desde nuestra web o escribirnos por mensaje. Te confirmamos disponibilidad en menos de 24 horas." },
-        { "question": "¿Ofrecen sesiones en línea?", "answer": "Sí, contamos con sesiones presenciales y en línea para que practiques desde donde te resulte más cómodo." }
+        { "question": "¿Quién desarrolla el proyecto?", "answer": "Civitar Desarrolladores, una empresa con amplia trayectoria en la industria, 7 proyectos exitosamente concluidos y 3 en etapa de preventa. La Constructora Volio & Trejos es su aliado estratégico; juntos suman más de 50 años de experiencia e innovación inmobiliaria en Costa Rica." },
+        { "question": "¿Cuál empresa estará a cargo de la construcción?", "answer": "La construcción de Respira Escazú está a cargo de Constructora Volio & Trejos, una empresa con más de 40 años de trayectoria en Costa Rica. Su experiencia y reconocimiento en el sector respaldan la calidad y solidez del proyecto, brindando confianza a quienes buscan una inversión segura y un hogar construido con altos estándares." },
+        { "question": "¿Cuándo iniciará la construcción de Respira Escazú?", "answer": "Inició en junio de 2026 y está a cargo de la Constructora Volio & Trejos." },
+        { "question": "¿Cuándo está prevista la entrega del proyecto?", "answer": "La entrega del proyecto está prevista para marzo de 2027." },
+        { "question": "¿Dónde está ubicado Respira Escazú exactamente?", "answer": "- Respira Escazú se ubica en el Alto de las Palomas, Calle Mirador, en San Rafael. Del Restaurante Taj Mahal 200m oeste, 50m sur, 200m suroeste.\n- Puede ubicar el proyecto en la aplicación Waze como: Respira Escazú." },
+        { "question": "¿Qué amenidades ofrecerá Respira Escazú?", "answer": "Las amenidades son espacios creados para desconectar de la rutina y respirar a un ritmo diferente.\n\n- La Cancha | Cancha de Fútbol\n- La Energía | Gimnasio\n- El Recreo | Juegos Infantiles\n- La Huella | Parque para Mascotas\n- El Oasis | Piscina y Rancho" },
+        { "question": "¿Respira Escazú es pet friendly?", "answer": "Sí. Sabemos que las mascotas son parte fundamental de muchas familias, por eso el proyecto tiene un espacio destinado para ellas: La Huella, un parque ideal para su recreación y bienestar, que complementa un entorno que promueve la convivencia, la tranquilidad y la conexión con la naturaleza." },
+        { "question": "¿Cuál será la cuota de mantenimiento del condominio?", "answer": "La cuota de mantenimiento del condominio está estimada en $xxx por m² de propiedad." },
+        { "question": "¿Cuál es la reserva requerida para asegurar una unidad?", "answer": "- Puede reservar su casa con $10.000.\n- La reserva de apartamentos es de $3.000.\n- Ambas son reembolsables previo a firmar el contrato de compraventa." },
+        { "question": "¿Cuánto debo aportar de prima para adquirir una casa o apartamento en Respira Escazú?", "answer": "Para adquirir una propiedad en Respira Escazú se requiere una prima equivalente al 20% del valor del inmueble. Esta puede cancelarse de forma fraccionada hasta la entrega de la casa o apartamento, facilitando la planificación de su inversión." },
+        { "question": "¿Cómo puedo agendar una cita con un asesor?", "answer": "Puede agendar una cita con uno de nuestros asesores a través de WhatsApp al +506 8883 0330, o visitar nuestra sala de ventas ubicada en el proyecto. Atendemos lunes, martes, jueves, viernes y sábado, de 9:00am a 5:00pm." }
       ]
     }
   },

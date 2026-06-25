@@ -17,7 +17,9 @@
       "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l src/Social_Repeater_Control.php)",
       "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l src/Customizer.php)",
       "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l src/Site.php)",
-      "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l 'd:/Mi carpeta/Herd/respira/wp-content/themes/respira/blocks/respaldo/render.php')"
+      "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l 'd:/Mi carpeta/Herd/respira/wp-content/themes/respira/blocks/respaldo/render.php')",
+      "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l 'd:/Mi carpeta/Herd/respira/wp-content/themes/respira/blocks/faq/render.php')",
+      "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe C:/Users/mauri/AppData/Local/Temp/claude/d--Mi-carpeta-Herd-respira/eb9489b1-0afa-4a13-925f-db41e941211a/scratchpad/update_faq.php)"
     ]
   }
 }

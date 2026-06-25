@@ -54,7 +54,13 @@ export default function Edit( { attributes, setAttributes } ) {
 						<div key={ index } style={ { borderBottom: '1px solid #e0e0e0', paddingBottom: 12, marginBottom: 12 } }>
 							<strong>#{ index + 1 }</strong>
 							<TextControl label={ __( 'Pregunta', 'respira' ) } value={ item.question } onChange={ ( v ) => updateItem( index, { question: v } ) } />
-							<TextareaControl label={ __( 'Respuesta', 'respira' ) } value={ item.answer } onChange={ ( v ) => updateItem( index, { answer: v } ) } rows={ 3 } />
+							<TextareaControl
+								label={ __( 'Respuesta', 'respira' ) }
+								value={ item.answer }
+								onChange={ ( v ) => updateItem( index, { answer: v } ) }
+								rows={ 4 }
+								help={ __( 'Para viñetas, empezá cada línea con "- ". Separá párrafos con una línea en blanco.', 'respira' ) }
+							/>
 							<Button isDestructive variant="link" onClick={ () => removeItem( index ) } style={ { display: 'block', marginTop: 4 } }>
 								{ __( 'Eliminar', 'respira' ) }
 							</Button>
