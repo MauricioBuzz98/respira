@@ -42,7 +42,7 @@ const ICON_OPTIONS = [
 	'flaticon-set-engineer',
 ].map( ( cls ) => ( { label: cls.replace( 'flaticon-set-', '' ), value: cls } ) );
 
-const EMPTY_AMENITY = { icon: 'flaticon-set-property', text: '' };
+const EMPTY_AMENITY = { icon: 'flaticon-set-property', text: '', imageId: 0, imageUrl: '', imageAlt: '' };
 const EMPTY_LEVEL = { imageId: 0, imageUrl: '', imageAlt: '', description: '', amenities: [] };
 
 export default function Edit( { attributes, setAttributes } ) {
@@ -81,6 +81,12 @@ export default function Edit( { attributes, setAttributes } ) {
 							'respira'
 						) }
 					</p>
+					<p>
+						{ __(
+							'En cada amenidad podés elegir un icono o, si lo preferís, subir una imagen. Cuando hay imagen, esta reemplaza al icono.',
+							'respira'
+						) }
+					</p>
 				</PanelBody>
 			</InspectorControls>
 
@@ -113,20 +119,31 @@ export default function Edit( { attributes, setAttributes } ) {
 										onSelect={ ( media ) => updateLevel( li, { imageId: media.id, imageUrl: media.url, imageAlt: media.alt || '' } ) }
 										allowedTypes={ [ 'image' ] }
 										value={ level.imageId }
-										render={ ( { open } ) =>
-											level.imageUrl ? (
-												<img
-													src={ level.imageUrl }
-													alt=""
-													style={ { width: '100%', borderRadius: 6, cursor: 'pointer', display: 'block' } }
-													onClick={ open }
-												/>
-											) : (
+										render={ ( { open } ) => (
+											<div>
+												{ level.imageUrl && (
+													<img
+														src={ level.imageUrl }
+														alt=""
+														style={ { width: '100%', borderRadius: 6, cursor: 'pointer', display: 'block', marginBottom: 8 } }
+														onClick={ open }
+													/>
+												) }
 												<Button variant="secondary" onClick={ open }>
-													{ __( 'Seleccionar imagen', 'respira' ) }
+													{ level.imageUrl ? __( 'Cambiar imagen', 'respira' ) : __( 'Seleccionar imagen', 'respira' ) }
 												</Button>
-											)
-										}
+												{ level.imageUrl && (
+													<Button
+														variant="link"
+														isDestructive
+														style={ { marginLeft: 8 } }
+														onClick={ () => updateLevel( li, { imageId: 0, imageUrl: '', imageAlt: '' } ) }
+													>
+														{ __( 'Quitar', 'respira' ) }
+													</Button>
+												) }
+											</div>
+										) }
 									/>
 								</MediaUploadCheck>
 							</div>
@@ -145,13 +162,44 @@ export default function Edit( { attributes, setAttributes } ) {
 							<em>{ __( 'Amenidades', 'respira' ) }</em>
 							{ ( level.amenities || [] ).map( ( amenity, ai ) => (
 								<div key={ ai } style={ { display: 'flex', gap: 8, alignItems: 'flex-end', marginBottom: 8 } }>
-									<div style={ { flex: '0 0 200px' } }>
+									<div style={ { flex: '0 0 180px' } }>
 										<SelectControl
 											label={ __( 'Icono', 'respira' ) }
 											value={ amenity.icon }
 											options={ ICON_OPTIONS }
 											onChange={ ( v ) => updateAmenity( li, ai, { icon: v } ) }
+											disabled={ !! amenity.imageUrl }
+											help={ amenity.imageUrl ? __( 'Usando imagen', 'respira' ) : undefined }
 										/>
+									</div>
+									<div style={ { flex: '0 0 auto' } }>
+										<MediaUploadCheck>
+											<MediaUpload
+												onSelect={ ( media ) => updateAmenity( li, ai, { imageId: media.id, imageUrl: media.url, imageAlt: media.alt || '' } ) }
+												allowedTypes={ [ 'image' ] }
+												value={ amenity.imageId }
+												render={ ( { open } ) =>
+													amenity.imageUrl ? (
+														<div style={ { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 } }>
+															<img
+																src={ amenity.imageUrl }
+																alt=""
+																title={ __( 'Cambiar imagen', 'respira' ) }
+																style={ { width: 40, height: 40, objectFit: 'contain', cursor: 'pointer', border: '1px solid #ddd', borderRadius: 6 } }
+																onClick={ open }
+															/>
+															<Button variant="link" isDestructive onClick={ () => updateAmenity( li, ai, { imageId: 0, imageUrl: '', imageAlt: '' } ) }>
+																{ __( 'Quitar img', 'respira' ) }
+															</Button>
+														</div>
+													) : (
+														<Button variant="secondary" onClick={ open }>
+															{ __( 'Imagen', 'respira' ) }
+														</Button>
+													)
+												}
+											/>
+										</MediaUploadCheck>
 									</div>
 									<div style={ { flex: 1 } }>
 										<TextControl

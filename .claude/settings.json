@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l 'd:/Mi carpeta/Herd/respira/wp-content/themes/respira/src/Customizer.php')",
+      "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l 'd:/Mi carpeta/Herd/respira/wp-content/themes/respira/src/Site.php')",
+      "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l 'd:/Mi carpeta/Herd/respira/wp-content/themes/respira/blocks/projects/render.php')",
+      "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l 'd:/Mi carpeta/Herd/respira/wp-content/themes/respira/src/Content.php')",
+      "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l 'd:/Mi carpeta/Herd/respira/wp-content/themes/respira/blocks/proyecto-niveles/render.php')",
+      "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l 'd:/Mi carpeta/Herd/respira/wp-content/themes/respira/blocks/services-slider/render.php')"
+    ]
+  }
+}

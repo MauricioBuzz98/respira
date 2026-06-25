@@ -51,6 +51,8 @@ class Site extends TimberSite {
 			'cta_label'      => get_theme_mod( 'respira_cta_label', 'Get In Touch' ),
 			'cta_url'        => get_theme_mod( 'respira_cta_url', '#' ),
 			'footer_tagline' => get_theme_mod( 'respira_footer_tagline', 'Get the latest inspiration & insights' ),
+			'footer_image_1' => get_theme_mod( 'respira_footer_image_1', '' ),
+			'footer_image_2' => get_theme_mod( 'respira_footer_image_2', '' ),
 		];
 
 		return $context;

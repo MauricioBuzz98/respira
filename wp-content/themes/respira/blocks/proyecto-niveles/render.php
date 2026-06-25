@@ -42,8 +42,10 @@ foreach ( (array) ( $attributes['items'] ?? [] ) as $level ) {
 		$text = (string) ( $amenity['text'] ?? '' );
 		if ( '' !== $text ) {
 			$amenities[] = [
-				'icon' => (string) ( $amenity['icon'] ?? '' ),
-				'text' => $text,
+				'icon'     => (string) ( $amenity['icon'] ?? '' ),
+				'imageUrl' => $resolve( (string) ( $amenity['imageUrl'] ?? '' ) ),
+				'imageAlt' => (string) ( $amenity['imageAlt'] ?? '' ),
+				'text'     => $text,
 			];
 		}
 	}

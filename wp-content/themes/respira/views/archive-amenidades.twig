@@ -33,7 +33,12 @@
                     <img src="{{ post.thumbnail.src('large') }}" alt="{{ post.thumbnail.alt }}">
                   {% endif %}
                   {% set icon = post.meta('_respira_icon') %}
-                  {% if icon %}<div class="icon"><i class="{{ icon }}"></i></div>{% endif %}
+                  {% set icon_image = post.meta('_respira_icon_image') %}
+                  {% if icon_image %}
+                    <div class="icon"><img src="{{ function('wp_get_attachment_image_url', icon_image, 'medium') }}" alt="{{ post.title }}"></div>
+                  {% elseif icon %}
+                    <div class="icon"><i class="{{ icon }}"></i></div>
+                  {% endif %}
                 </div>
                 <div class="content">
                   <div class="h4 title"><a href="{{ post.link }}">{{ post.title }}</a></div>

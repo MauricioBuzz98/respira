@@ -70,6 +70,7 @@ class Content {
 	/**
 	 * Carga la fuente flaticon en la pantalla de edición de amenidades para que
 	 * el selector de ícono muestre el glifo, y actualiza la vista previa en vivo.
+	 * Habilita además el selector de medios para el campo "imagen del ícono".
 	 */
 	public function admin_assets( string $hook ): void {
 		if ( ! in_array( $hook, [ 'post.php', 'post-new.php' ], true ) ) {
@@ -85,9 +86,25 @@ class Content {
 			[],
 			'1.0.0'
 		);
+		// Necesario para wp.media (selector de la biblioteca de medios).
+		wp_enqueue_media();
 		wp_add_inline_script(
 			'jquery',
 			"document.addEventListener('change',function(e){if(e.target&&e.target.id==='respira_icon'){var p=document.querySelector('.respira-icon-preview i');if(p){p.className=e.target.value;}}});"
+		);
+		// Selector de imagen para los campos tipo 'image' (delegado por jQuery).
+		wp_add_inline_script(
+			'jquery',
+			"(function($){function fld(el){return $(el).closest('.respira-image-field');}" .
+			"$(document).on('click','.respira-image-select',function(e){e.preventDefault();var w=fld(this);" .
+			"var frame=wp.media({title:'" . esc_js( __( 'Seleccionar imagen', 'respira' ) ) . "',button:{text:'" . esc_js( __( 'Usar imagen', 'respira' ) ) . "'},library:{type:'image'},multiple:false});" .
+			"frame.on('select',function(){var a=frame.state().get('selection').first().toJSON();" .
+			"w.find('input.respira-image-id').val(a.id);" .
+			"var u=(a.sizes&&a.sizes.thumbnail)?a.sizes.thumbnail.url:a.url;" .
+			"w.find('.respira-image-preview').html('<img src=\"'+u+'\" style=\"max-width:90px;height:auto;display:block;border:1px solid #ddd;border-radius:6px;\">');" .
+			"w.find('.respira-image-remove').show();});frame.open();});" .
+			"$(document).on('click','.respira-image-remove',function(e){e.preventDefault();var w=fld(this);" .
+			"w.find('input.respira-image-id').val('');w.find('.respira-image-preview').empty();$(this).hide();});})(jQuery);"
 		);
 	}
 
@@ -139,7 +156,8 @@ class Content {
 				'rating'      => [ 'label' => __( 'Estrellas (1-5)', 'respira' ), 'type' => 'number' ],
 			],
 			'amenidades' => [
-				'icon' => [ 'label' => __( 'Ícono', 'respira' ), 'type' => 'icon' ],
+				'icon'       => [ 'label' => __( 'Ícono', 'respira' ), 'type' => 'icon' ],
+				'icon_image' => [ 'label' => __( 'Imagen (opcional, reemplaza al ícono)', 'respira' ), 'type' => 'image' ],
 			],
 		];
 	}
@@ -268,6 +286,31 @@ class Content {
 					'<span class="respira-icon-preview" style="margin-left:10px;font-size:26px;vertical-align:middle;"><i class="%s"></i></span>',
 					esc_attr( $value )
 				);
+			} elseif ( 'image' === $cfg['type'] ) {
+				$att_id  = absint( $value );
+				$img_url = $att_id ? (string) wp_get_attachment_image_url( $att_id, 'thumbnail' ) : '';
+				printf( '<span class="respira-image-field" style="display:block;">' );
+				printf(
+					'<input type="hidden" id="%s" name="%s" value="%s" class="respira-image-id">',
+					esc_attr( $id ),
+					esc_attr( self::PREFIX . $key ),
+					esc_attr( (string) $att_id )
+				);
+				echo '<span class="respira-image-preview" style="display:block;margin-bottom:6px;">';
+				if ( '' !== $img_url ) {
+					printf( '<img src="%s" style="max-width:90px;height:auto;display:block;border:1px solid #ddd;border-radius:6px;">', esc_url( $img_url ) );
+				}
+				echo '</span>';
+				printf(
+					'<button type="button" class="button respira-image-select">%s</button> ',
+					esc_html__( 'Seleccionar imagen', 'respira' )
+				);
+				printf(
+					'<button type="button" class="button-link respira-image-remove" style="%s">%s</button>',
+					$att_id ? '' : 'display:none;',
+					esc_html__( 'Quitar imagen', 'respira' )
+				);
+				echo '</span>';
 			} else {
 				printf(
 					'<input type="%s" id="%s" name="%s" value="%s" class="widefat">',
@@ -302,6 +345,8 @@ class Content {
 			$raw      = $_POST[ $meta_key ] ?? '';
 			if ( 'number' === $cfg['type'] ) {
 				$clean = (string) max( 0, min( 5, (int) $raw ) );
+			} elseif ( 'image' === $cfg['type'] ) {
+				$clean = (string) absint( $raw );
 			} elseif ( 'url' === $cfg['type'] ) {
 				$clean = esc_url_raw( wp_unslash( (string) $raw ) );
 			} else {

@@ -59,5 +59,25 @@ class Customizer {
 				'type'    => $cfg['type'],
 			] );
 		}
+
+		// Footer: dos imagenes pequenas a la derecha de los enlaces.
+		$footer_images = [
+			'respira_footer_image_1' => __( 'Footer — imagen 1 (a la derecha de los enlaces)', 'respira' ),
+			'respira_footer_image_2' => __( 'Footer — imagen 2 (a la derecha de los enlaces)', 'respira' ),
+		];
+
+		foreach ( $footer_images as $id => $label ) {
+			$wp_customize->add_setting( $id, [
+				'default'           => '',
+				'type'              => 'theme_mod',
+				'sanitize_callback' => 'esc_url_raw',
+				'transport'         => 'refresh',
+			] );
+
+			$wp_customize->add_control( new \WP_Customize_Image_Control( $wp_customize, $id, [
+				'label'   => $label,
+				'section' => 'respira_general',
+			] ) );
+		}
 	}
 }

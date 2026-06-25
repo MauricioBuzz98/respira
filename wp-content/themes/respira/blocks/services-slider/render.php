@@ -40,14 +40,16 @@ if ( 'amenidades' === $source ) {
 		'order'       => 'ASC',
 	] );
 	foreach ( $posts as $p ) {
-		$thumb_id = get_post_thumbnail_id( $p->ID );
-		$items[]  = [
-			'icon'  => (string) get_post_meta( $p->ID, '_respira_icon', true ),
-			'title' => get_the_title( $p ),
-			'link'  => $archive,
-			'text'  => get_the_excerpt( $p ),
-			'image' => $thumb_id ? (string) wp_get_attachment_image_url( $thumb_id, 'large' ) : '',
-			'alt'   => $thumb_id ? (string) get_post_meta( $thumb_id, '_wp_attachment_image_alt', true ) : '',
+		$thumb_id     = get_post_thumbnail_id( $p->ID );
+		$icon_img_id  = (int) get_post_meta( $p->ID, '_respira_icon_image', true );
+		$items[]      = [
+			'icon'      => (string) get_post_meta( $p->ID, '_respira_icon', true ),
+			'iconImage' => $icon_img_id ? (string) wp_get_attachment_image_url( $icon_img_id, 'medium' ) : '',
+			'title'     => get_the_title( $p ),
+			'link'      => $archive,
+			'text'      => get_the_excerpt( $p ),
+			'image'     => $thumb_id ? (string) wp_get_attachment_image_url( $thumb_id, 'large' ) : '',
+			'alt'       => $thumb_id ? (string) get_post_meta( $thumb_id, '_wp_attachment_image_alt', true ) : '',
 		];
 	}
 }
@@ -57,12 +59,13 @@ if ( 'manual' === $source || empty( $items ) ) {
 	$items = [];
 	foreach ( (array) ( $attributes['items'] ?? [] ) as $it ) {
 		$items[] = [
-			'icon'  => $it['icon'] ?? '',
-			'title' => $it['title'] ?? '',
-			'link'  => $it['link'] ?? '',
-			'text'  => $it['text'] ?? '',
-			'image' => $resolve( (string) ( $it['imageUrl'] ?? '' ) ),
-			'alt'   => $it['imageAlt'] ?? '',
+			'icon'      => $it['icon'] ?? '',
+			'iconImage' => $resolve( (string) ( $it['iconImageUrl'] ?? '' ) ),
+			'title'     => $it['title'] ?? '',
+			'link'      => $it['link'] ?? '',
+			'text'      => $it['text'] ?? '',
+			'image'     => $resolve( (string) ( $it['imageUrl'] ?? '' ) ),
+			'alt'       => $it['imageAlt'] ?? '',
 		];
 	}
 }

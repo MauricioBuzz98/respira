@@ -55,11 +55,12 @@ if ( 'categories' === $source ) {
 			$link     = get_term_link( $term );
 
 			$items[] = [
-				'subtitle' => sprintf( _n( '%d proyecto', '%d proyectos', (int) $term->count, 'respira' ), (int) $term->count ),
-				'title'    => $term->name,
-				'link'     => is_wp_error( $link ) ? '' : $link,
-				'imageUrl' => $thumb_id ? (string) wp_get_attachment_image_url( $thumb_id, 'large' ) : '',
-				'imageAlt' => $thumb_id ? (string) get_post_meta( $thumb_id, '_wp_attachment_image_alt', true ) : '',
+				'subtitle'    => sprintf( _n( '%d proyecto', '%d proyectos', (int) $term->count, 'respira' ), (int) $term->count ),
+				'title'       => $term->name,
+				'description' => '' !== $term->description ? wpautop( $term->description ) : '',
+				'link'        => is_wp_error( $link ) ? '' : $link,
+				'imageUrl'    => $thumb_id ? (string) wp_get_attachment_image_url( $thumb_id, 'large' ) : '',
+				'imageAlt'    => $thumb_id ? (string) get_post_meta( $thumb_id, '_wp_attachment_image_alt', true ) : '',
 			];
 		}
 	}

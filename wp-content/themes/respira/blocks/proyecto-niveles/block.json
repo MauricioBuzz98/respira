@@ -20,7 +20,7 @@
           "imageAlt": "",
           "description": "",
           "amenities": [
-            { "icon": "flaticon-set-property", "text": "" }
+            { "icon": "flaticon-set-property", "text": "", "imageId": 0, "imageUrl": "", "imageAlt": "" }
           ]
         }
       ]

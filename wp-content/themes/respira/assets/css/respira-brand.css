@@ -200,6 +200,22 @@ hr.proyecto-separador {
   margin-right: 10px;
   line-height: 1;
 }
+/* Amenidad con imagen en lugar de icono (bloque proyecto-niveles). */
+.proyecto-amenidades li p img.proyecto-amenidad-img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  margin-right: 10px;
+  flex: 0 0 auto;
+}
+
+/* Amenidades (archivo del CPT): imagen dentro del badge .icon en vez del glifo. */
+.service-block .inner-block .image .icon img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  vertical-align: middle;
+}
 
 /* Editor: caja de descripción enriquecida del nivel. */
 .respira-proyecto-niveles-editor .respira-nivel-desc {
@@ -243,6 +259,22 @@ hr.proyecto-separador {
   background-color: var(--theme-color-white);
   color: var(--theme-color1);
 }
+/* Amenidad con imagen en lugar de glifo: se ajusta al tamaño del ícono. */
+.respira-services-slider .service-block-two .inner-block .content .icon-box .icon img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  display: block;
+}
+/* Texto de la card limitado a 5 renglones con puntos suspensivos, para que las
+   cards no crezcan de más cuando la amenidad tiene mucho texto. */
+.respira-services-slider .service-block-two .inner-block .content .text {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
 /* -------------------------------------------------------------------------
    Listado de amenidades (archivo del CPT amenidades, .service-block).
@@ -263,4 +295,142 @@ hr.proyecto-separador {
 /* Hover directo del botón: el ::before café rellena la pastilla -> texto claro. */
 .post-type-archive-amenidades .service-block .inner-block:hover .content .btn-service-style:hover {
   color: var(--theme-color2-text-color);
+}
+
+/* -------------------------------------------------------------------------
+   Footer — variante clara (.footer-light)
+   Invierte la paleta del footer oscuro original: fondo claro (almendra) y
+   tipografía oscura (café). Se ocultan las imágenes decorativas grandes del
+   centro para que los enlaces queden junto al teléfono/redes, y se agrega el
+   espacio para dos imágenes pequeñas a la derecha de los enlaces.
+   ------------------------------------------------------------------------- */
+
+/* Fondo claro */
+.footer-style-one.footer-light .widgets-section {
+  background-color: var(--theme-color-light); /* almendra */
+}
+
+/* Quitar las imágenes/decoraciones grandes pensadas para el footer oscuro. */
+.footer-style-one.footer-light .widgets-section:before,
+.footer-style-one.footer-light .widgets-section:after,
+.footer-style-one.footer-light .anim-icon,
+.footer-style-one.footer-light .shape-1 {
+  display: none;
+}
+
+/* Separador */
+.footer-style-one.footer-light hr {
+  color: var(--theme-color-dark);
+  opacity: 0.2;
+}
+
+/* Tagline */
+.footer-style-one.footer-light .subscribe-widget .text {
+  color: var(--theme-color-dark);
+}
+
+/* Contacto (teléfono / email) */
+.footer-style-one.footer-light .contact-area .phone,
+.footer-style-one.footer-light .contact-area .mail {
+  color: var(--theme-color-dark);
+}
+.footer-style-one.footer-light .contact-area .phone:hover,
+.footer-style-one.footer-light .contact-area .mail:hover {
+  color: var(--theme-color1);
+}
+
+/* Redes sociales: círculo oscuro sobre fondo claro */
+.footer-style-one.footer-light .social-widget .social-icon-list1 li a {
+  background-color: var(--theme-color-dark);
+  color: var(--theme-color-white);
+}
+.footer-style-one.footer-light .social-widget .social-icon-list1 li a:hover {
+  background-color: var(--theme-color1);
+}
+
+/* Título "Enlaces" + lista de enlaces */
+.footer-style-one.footer-light .widget-title {
+  color: var(--theme-color-dark);
+}
+.footer-style-one.footer-light .links-widget .widget-content .user-links li a {
+  color: var(--theme-color-dark);
+}
+.footer-style-one.footer-light .links-widget .widget-content .user-links li a:hover {
+  color: var(--theme-color1);
+}
+
+/* Footer bottom (copyright + políticas) */
+.footer-style-one.footer-light .footer-bottom {
+  border-top-color: rgba(90, 81, 75, 0.2);
+}
+.footer-style-one.footer-light .footer-bottom .copyright-text,
+.footer-style-one.footer-light .footer-bottom ul li a {
+  color: var(--theme-color-dark);
+}
+.footer-style-one.footer-light .footer-bottom ul li a:hover {
+  color: var(--theme-color1);
+}
+
+/* Dos imágenes pequeñas a la derecha de los enlaces. */
+.footer-images-widget .footer-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: flex-end;
+}
+@media (max-width: 991.98px) {
+  .footer-images-widget .footer-images {
+    justify-content: flex-start;
+    margin-top: 30px;
+  }
+}
+.footer-images-widget .footer-image {
+  flex: 0 0 auto;
+}
+.footer-images-widget .footer-image img {
+  display: block;
+  width: auto;
+  height: 90px;
+  max-width: 100%;
+  object-fit: contain;
+}
+/* Placeholder visible mientras no se carga una imagen desde el Personalizador. */
+.footer-images-widget .footer-image.is-placeholder {
+  width: 120px;
+  height: 90px;
+  border: 1px dashed rgba(90, 81, 75, 0.35);
+  border-radius: 8px;
+}
+
+/* -------------------------------------------------------------------------
+   Bloque respira/projects (modo "categorías"): descripción de la categoría
+   debajo del nombre. Ocupa la mitad del ancho de la tarjeta en desktop y el
+   100% en mobile. El margen inferior grande del título se traslada a la
+   descripción para que el botón "Ver más" siga anclado al pie de la tarjeta.
+   ------------------------------------------------------------------------- */
+/* Cuando hay descripción, el título reduce su gran margen inferior (la regla
+   base de Realest usa 280px) para que la descripción quede pegada al nombre.
+   Se replica toda la cadena de selectores + :has() para ganar en especificidad. */
+.respira-projects .project-block .inner-block .content-box .inner-box:has(.cat-desc) .title {
+  margin-bottom: 14px;
+}
+.respira-projects .cat-desc {
+  max-width: 50%;
+  margin-bottom: 28px;
+  color: var(--text-color);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.respira-projects .cat-desc p {
+  margin-bottom: 10px;
+}
+.respira-projects .cat-desc p:last-child {
+  margin-bottom: 0;
+}
+@media (max-width: 767.98px) {
+  .respira-projects .cat-desc {
+    max-width: 100%;
+    margin-bottom: 24px;
+  }
 }

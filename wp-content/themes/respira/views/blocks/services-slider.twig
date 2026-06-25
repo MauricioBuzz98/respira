@@ -1,7 +1,7 @@
 {#
   Bloque: respira/services-slider — services-section-two de Realest.
   Reusa la clase .service-h1-slider para que script.js inicialice el Swiper.
-  El número de cada slide se autogenera (01, 02, ...).
+  Cada amenidad puede mostrar un ícono (glifo flaticon) o una imagen.
 #}
 <section {{ wrapper_attributes|raw }}>
   <div class="services-section-two">
@@ -27,8 +27,11 @@
               <div class="inner-block">
                 <div class="content">
                   <div class="icon-box">
-                    {% if item.icon %}<div class="icon"><i class="{{ item.icon }}"></i></div>{% endif %}
-                    <div class="count">{{ '%02d'|format(loop.index) }}</div>
+                    {% if item.iconImage %}
+                      <div class="icon"><img src="{{ item.iconImage }}" alt="{{ item.title }}"></div>
+                    {% elseif item.icon %}
+                      <div class="icon"><i class="{{ item.icon }}"></i></div>
+                    {% endif %}
                   </div>
                   <div class="h4 title">
                     {% if item.link %}<a href="{{ item.link }}">{{ item.title }}</a>{% else %}{{ item.title }}{% endif %}

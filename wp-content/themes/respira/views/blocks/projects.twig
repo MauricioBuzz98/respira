@@ -23,6 +23,7 @@
                 <div class="inner-box">
                   {% if item.subtitle %}<div class="sub-title">{{ item.subtitle }}</div>{% endif %}
                   <div class="h3 title">{{ item.title }}</div>
+                  {% if item.description %}<div class="cat-desc">{{ item.description|raw }}</div>{% endif %}
                   {% if item.link %}
                     <a class="theme-btn btn-style-one" href="{{ item.link }}">
                       <span class="icon">
