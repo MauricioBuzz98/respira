@@ -808,24 +808,31 @@ hr.proyecto-separador {
    Bloque respira/page-hero — hero editable de página (imagen + overlay +
    subtítulo/título/texto/botón).
    ------------------------------------------------------------------------- */
+/* Padding lateral (como las páginas de detalle) para que se vea la caja redondeada. */
 .respira-page-hero {
+  padding: 0 15px;
+}
+/* Caja del hero: imagen de fondo + overlay, con border-radius y recorte. */
+.respira-page-hero__box {
   position: relative;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 150px 0;
+  border-radius: 30px;
+  overflow: hidden;
+  padding: 130px 0;
   color: var(--theme-color-white);
 }
-.respira-page-hero .respira-page-hero__overlay {
+.respira-page-hero__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.5);
 }
 .respira-page-hero .auto-container {
   position: relative;
   z-index: 1;
 }
-.respira-page-hero .respira-page-hero__content {
+.respira-page-hero__content {
   max-width: 760px;
 }
 .respira-page-hero.align-center .respira-page-hero__content {
@@ -840,6 +847,8 @@ hr.proyecto-separador {
 }
 .respira-page-hero .title {
   color: var(--theme-color-white);
+  font-size: 60px;
+  line-height: 1.08;
   margin-bottom: 16px;
 }
 .respira-page-hero .text {
@@ -852,9 +861,31 @@ hr.proyecto-separador {
 .respira-page-hero .text p:last-child {
   margin-bottom: 0;
 }
+@media (max-width: 991.98px) {
+  .respira-page-hero__box {
+    padding: 100px 0;
+  }
+  .respira-page-hero .title {
+    font-size: 44px;
+  }
+}
 @media (max-width: 767.98px) {
   .respira-page-hero {
-    padding: 90px 0;
+    padding: 0 12px;
+  }
+  .respira-page-hero__box {
+    padding: 64px 0;
+    border-radius: 18px;
+  }
+  .respira-page-hero .title {
+    font-size: 30px;
+  }
+  .respira-page-hero .text {
+    font-size: 15px;
+  }
+  .respira-page-hero .sub-title {
+    font-size: 12px;
+    letter-spacing: 1.5px;
   }
 }
 
@@ -888,12 +919,16 @@ hr.proyecto-separador {
   color: var(--theme-color-dark);
   margin-bottom: 40px;
 }
+/* Separación vertical entre tarjetas (gutter de Bootstrap), también al apilar
+   en mobile. Se usa --bs-gutter-y en vez de margin para que no se colapse. */
+.respira-ubicacion .ubicacion-pois .row {
+  --bs-gutter-y: 24px;
+}
 .respira-ubicacion .ubicacion-cat {
   background: var(--theme-color-light);
   border-radius: 12px;
   padding: 24px;
   height: 100%;
-  margin-bottom: 24px;
 }
 .respira-ubicacion .ubicacion-cat .cat-title {
   color: var(--theme-color1);
@@ -925,4 +960,18 @@ hr.proyecto-separador {
   height: 6px;
   border-radius: 50%;
   background: var(--theme-color1);
+}
+@media (max-width: 767.98px) {
+  .respira-ubicacion .ubicacion-section {
+    padding: 60px 0;
+  }
+  .respira-ubicacion .ubicacion-pois {
+    margin-top: 40px;
+  }
+  .respira-ubicacion .ubicacion-pois .pois-title {
+    margin-bottom: 28px;
+  }
+  .respira-ubicacion .ubicacion-map iframe {
+    min-height: 320px;
+  }
 }
