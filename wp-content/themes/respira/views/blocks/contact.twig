@@ -1,22 +1,39 @@
 {#
   Bloque: respira/contact — markup contact-section de Realest.
+  Izquierda: contenido (título + redes/contacto). Derecha: formulario.
   El formulario es un marcador visual estático (action="#"); el backend no está implementado.
 #}
 <section {{ wrapper_attributes|raw }}>
   <div class="contact-section mt-4">
     <div class="outer-box">
-      {% if bgImageUrl %}
-        <div class="bg bg-image"><img src="{{ bgImageUrl }}" alt="{{ bgImageAlt }}"></div>
-      {% endif %}
-      <div class="row">
-        <div class="form-coumn col-lg-7 offset-lg-5">
-          <div class="inner-column">
-            <div class="shape-1"><img src="{{ theme.link }}/assets/images/icons/shape-10.png" alt=""></div>
-            <div class="sec-title light">
+      <div class="auto-container">
+        <div class="row align-items-center">
+
+        <div class="info-column col-12 col-lg-5">
+          <div class="contact-info-inner wow fadeInLeft">
+            <div class="sec-title">
               {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
-              {% if title %}<div class="h2 title char-animation">{{ title }}</div>{% endif %}
+              {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
               {% if text %}<div class="text">{{ text }}</div>{% endif %}
             </div>
+            {% if socials %}
+              <ul class="contact-social-list list-unstyled">
+                {% for s in socials %}
+                  <li>
+                    <a href="{{ s.link ?: '#' }}" target="_blank" rel="noopener noreferrer">
+                      <span class="icon">{% if s.icon %}<i class="{{ s.icon }}"></i>{% endif %}</span>
+                      {% if s.text %}<span class="label">{{ s.text }}</span>{% endif %}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="form-coumn col-12 col-lg-7">
+          <div class="inner-column">
+            <div class="shape-1"><img src="{{ theme.link }}/assets/images/icons/shape-10.png" alt=""></div>
             <div class="form-box">
               <div class="inner-box">
                 <form action="#">
@@ -56,6 +73,8 @@
               </div>
             </div>
           </div>
+        </div>
+
         </div>
       </div>
     </div>

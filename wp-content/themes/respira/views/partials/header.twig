@@ -109,12 +109,13 @@
           <div class="text"><a href="mailto:{{ options.email }}">{{ options.email }}</a></div>
         </li>
       </ul>
-      <ul class="social-links">
-        <li><a href="#"><i class="icon fab fa-twitter"></i></a></li>
-        <li><a href="#"><i class="icon fab fa-facebook-f"></i></a></li>
-        <li><a href="#"><i class="icon fab fa-pinterest-p"></i></a></li>
-        <li><a href="#"><i class="icon fab fa-vimeo-v"></i></a></li>
-      </ul>
+      {% if options.socials %}
+        <ul class="social-links">
+          {% for s in options.socials %}
+            <li><a href="{{ s.link ?: '#' }}" target="_blank" rel="noopener noreferrer"><i class="icon {{ s.icon }}"></i></a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
     </nav>
   </div>
 

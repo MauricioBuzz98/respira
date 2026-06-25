@@ -19,6 +19,7 @@ class Customizer {
 
 	public function __construct() {
 		add_action( 'customize_register', [ $this, 'register' ] );
+		add_action( 'customize_controls_enqueue_scripts', [ $this, 'customize_controls_assets' ] );
 	}
 
 	/**
@@ -79,5 +80,93 @@ class Customizer {
 				'section' => 'respira_general',
 			] ) );
 		}
+
+		// Redes sociales (repetidor: icono + enlace). Se muestran solo los iconos
+		// en el footer y en el header (menú móvil). Se guarda como JSON.
+		require_once __DIR__ . '/Social_Repeater_Control.php';
+
+		$socials_default = (string) wp_json_encode( [
+			[ 'icon' => 'fab fa-whatsapp', 'link' => '#' ],
+			[ 'icon' => 'fas fa-envelope', 'link' => '#' ],
+			[ 'icon' => 'fab fa-facebook-f', 'link' => '#' ],
+			[ 'icon' => 'fab fa-instagram', 'link' => '#' ],
+		] );
+
+		$wp_customize->add_setting( 'respira_socials', [
+			'default'           => $socials_default,
+			'type'              => 'theme_mod',
+			'sanitize_callback' => [ $this, 'sanitize_socials' ],
+			'transport'         => 'refresh',
+		] );
+
+		$wp_customize->add_control( new Social_Repeater_Control( $wp_customize, 'respira_socials', [
+			'label'       => __( 'Redes sociales (footer y header)', 'respira' ),
+			'description' => __( 'Cada red muestra solo su icono. Definí el icono y el enlace.', 'respira' ),
+			'section'     => 'respira_general',
+		] ) );
+	}
+
+	/**
+	 * Sanitiza el JSON del repetidor de redes: valida cada fila (icono permitido
+	 * + URL) y devuelve un JSON limpio.
+	 *
+	 * @param mixed $value
+	 * @return string
+	 */
+	public function sanitize_socials( $value ): string {
+		$decoded = json_decode( (string) $value, true );
+		if ( ! is_array( $decoded ) ) {
+			return '[]';
+		}
+		$allowed = Social_Repeater_Control::icon_options();
+		$clean   = [];
+		foreach ( $decoded as $row ) {
+			$icon = isset( $row['icon'] ) ? sanitize_text_field( (string) $row['icon'] ) : '';
+			$link = isset( $row['link'] ) ? esc_url_raw( (string) $row['link'] ) : '';
+			if ( ! isset( $allowed[ $icon ] ) || ( '' === $link ) ) {
+				continue;
+			}
+			$clean[] = [ 'icon' => $icon, 'link' => $link ];
+		}
+		return (string) wp_json_encode( $clean );
+	}
+
+	/**
+	 * Script (delegado) que maneja el repetidor de redes en el Personalizador.
+	 */
+	public function customize_controls_assets(): void {
+		$js = <<<'JS'
+( function ( $ ) {
+	function controlOf( el ) { return el.closest( '.customize-control' ); }
+	function sync( control ) {
+		var data = [];
+		control.querySelectorAll( '.respira-socials-row' ).forEach( function ( row ) {
+			var icon = row.querySelector( '.r-icon' ).value;
+			var link = row.querySelector( '.r-link' ).value;
+			if ( icon && link ) { data.push( { icon: icon, link: link } ); }
+		} );
+		var hidden = control.querySelector( '.respira-socials-value' );
+		hidden.value = JSON.stringify( data );
+		$( hidden ).trigger( 'change' );
+	}
+	$( document ).on( 'click', '.respira-socials-add', function ( e ) {
+		e.preventDefault();
+		var control = controlOf( this );
+		var tpl = control.querySelector( '.respira-socials-tpl' ).innerHTML;
+		control.querySelector( '.respira-socials-rows' ).insertAdjacentHTML( 'beforeend', tpl );
+		sync( control );
+	} );
+	$( document ).on( 'click', '.respira-socials-row .r-del', function ( e ) {
+		e.preventDefault();
+		var control = controlOf( this );
+		this.closest( '.respira-socials-row' ).remove();
+		sync( control );
+	} );
+	$( document ).on( 'change', '.respira-socials-row .r-icon, .respira-socials-row .r-link', function () {
+		sync( controlOf( this ) );
+	} );
+} )( jQuery );
+JS;
+		wp_add_inline_script( 'customize-controls', $js );
 	}
 }

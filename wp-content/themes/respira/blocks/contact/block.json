@@ -15,7 +15,16 @@
     "bgImageAlt": { "type": "string", "default": "" },
     "subtitle":   { "type": "string", "default": "Send Message" },
     "title":      { "type": "string", "default": "¿Necesitas ayuda con tu proyecto?" },
-    "text":       { "type": "string", "default": "" }
+    "text":       { "type": "string", "default": "" },
+    "socials": {
+      "type": "array",
+      "default": [
+        { "text": "WhatsApp", "link": "#", "icon": "fab fa-whatsapp" },
+        { "text": "Email", "link": "#", "icon": "fas fa-envelope" },
+        { "text": "Facebook", "link": "#", "icon": "fab fa-facebook-f" },
+        { "text": "Waze", "link": "#", "icon": "fab fa-waze" }
+      ]
+    }
   },
   "supports": {
     "html": false,

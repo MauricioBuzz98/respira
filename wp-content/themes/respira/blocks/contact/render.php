@@ -13,11 +13,13 @@ use Timber\Timber;
 
 $context = Timber::context();
 
-$context['subtitle']   = $attributes['subtitle'] ?? '';
-$context['title']      = $attributes['title'] ?? '';
-$context['text']       = $attributes['text'] ?? '';
-$context['bgImageUrl'] = $attributes['bgImageUrl'] ?? '';
-$context['bgImageAlt'] = $attributes['bgImageAlt'] ?? '';
+$context['subtitle'] = $attributes['subtitle'] ?? '';
+$context['title']    = $attributes['title'] ?? '';
+$context['text']     = $attributes['text'] ?? '';
+$context['socials']  = array_values( array_filter(
+	(array) ( $attributes['socials'] ?? [] ),
+	static fn ( $s ) => '' !== (string) ( $s['text'] ?? '' ) || '' !== (string) ( $s['link'] ?? '' )
+) );
 
 $context['wrapper_attributes'] = get_block_wrapper_attributes( [
 	'class' => 'respira-contact',

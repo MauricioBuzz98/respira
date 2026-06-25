@@ -578,3 +578,121 @@ hr.proyecto-separador {
     max-width: 75%;
   }
 }
+
+/* -------------------------------------------------------------------------
+   Bloque respira/contact: izquierda = contenido (título + redes/contacto),
+   derecha = formulario (cuadro café). Se reemplazó la imagen de fondo por
+   contenido editable.
+   ------------------------------------------------------------------------- */
+.respira-contact .contact-section .outer-box .info-column {
+  padding: 40px 50px 40px 0;
+}
+@media (max-width: 991.98px) {
+  .respira-contact .contact-section .outer-box .info-column {
+    padding: 0 15px 40px;
+    text-align: center;
+  }
+}
+/* El cuadro café del formulario ya no usa el offset/margen del layout anterior. */
+.respira-contact .contact-section .outer-box .form-coumn .inner-column {
+  margin-left: 0;
+  padding: 80px 60px;
+}
+@media (max-width: 575.98px) {
+  .respira-contact .contact-section .outer-box .form-coumn .inner-column {
+    padding: 50px 22px;
+  }
+}
+/* Encabezado del lado izquierdo (sobre fondo claro -> tonos oscuros de marca). */
+.respira-contact .info-column .sec-title .sub-title {
+  color: var(--theme-color1);
+}
+.respira-contact .info-column .sec-title .title,
+.respira-contact .info-column .sec-title .text {
+  color: var(--theme-color-dark);
+}
+/* Lista de redes/contacto: icono en círculo café + texto. */
+.respira-contact .contact-social-list {
+  margin: 36px 0 0;
+  padding: 0;
+}
+.respira-contact .contact-social-list li {
+  margin-bottom: 18px;
+}
+.respira-contact .contact-social-list li:last-child {
+  margin-bottom: 0;
+}
+.respira-contact .contact-social-list li a {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--theme-color-dark);
+  font-family: var(--heading-font-family);
+  font-size: 18px;
+  font-weight: 500;
+  transition: all 300ms ease;
+}
+.respira-contact .contact-social-list li a .icon {
+  flex: 0 0 auto;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--theme-color1);
+  color: var(--theme-color1-text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  transition: all 300ms ease;
+}
+.respira-contact .contact-social-list li a:hover {
+  color: var(--theme-color1);
+}
+.respira-contact .contact-social-list li a:hover .icon {
+  background-color: var(--theme-color-dark);
+  color: var(--theme-color-white);
+}
+@media (max-width: 991.98px) {
+  .respira-contact .contact-social-list li a {
+    justify-content: center;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Bloque respira/why-choose-us ("Por qué elegirnos"): el fondo original era
+   negro (rgb(20,20,20)) con tipografía clara. Se cambia a fondo beige
+   (almendra) y tipografía café (paleta de marca).
+   ------------------------------------------------------------------------- */
+.respira-why-choose-us .why-choose-us-section .outer-box {
+  background-color: var(--theme-color-light); /* almendra */
+}
+.respira-why-choose-us .why-choose-us-section .outer-box .sec-title.light .sub-title,
+.respira-why-choose-us .why-choose-us-section .outer-box .sec-title.light .title,
+.respira-why-choose-us .why-choose-us-section .outer-box .content-column .inner-column .text,
+.respira-why-choose-us .why-choose-us-section .outer-box .content-column .inner-column .list-style-one li {
+  color: var(--theme-color-dark); /* café */
+}
+
+/* -------------------------------------------------------------------------
+   Bloque respira/services-slider ("Amenidades" / services-section-two): el
+   fondo original era verde oliva (#323529) con tipografía clara. Se cambia a
+   fondo beige (almendra) y tipografía café. Los botones de flecha pasan de
+   círculo blanco a círculo café con flecha clara, para contrastar sobre beige.
+   ------------------------------------------------------------------------- */
+.respira-services-slider .services-section-two .outer-box {
+  background-color: var(--theme-color-light); /* almendra */
+}
+.respira-services-slider .services-section-two .outer-box .sec-title.light .sub-title,
+.respira-services-slider .services-section-two .outer-box .sec-title.light .title {
+  color: var(--theme-color-dark); /* café */
+}
+.respira-services-slider .services-section-two .outer-box .arrow-box .slider-prev,
+.respira-services-slider .services-section-two .outer-box .arrow-box .slider-next {
+  background-color: var(--theme-color1);
+  color: var(--theme-color1-text-color);
+}
+.respira-services-slider .services-section-two .outer-box .arrow-box .slider-prev:hover,
+.respira-services-slider .services-section-two .outer-box .arrow-box .slider-next:hover {
+  background-color: var(--theme-color-dark2); /* negro de marca */
+  color: var(--theme-color-white);
+}

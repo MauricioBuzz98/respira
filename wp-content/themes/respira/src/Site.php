@@ -53,8 +53,40 @@ class Site extends TimberSite {
 			'footer_tagline' => get_theme_mod( 'respira_footer_tagline', 'Get the latest inspiration & insights' ),
 			'footer_image_1' => get_theme_mod( 'respira_footer_image_1', '' ),
 			'footer_image_2' => get_theme_mod( 'respira_footer_image_2', '' ),
+			'socials'        => $this->socials(),
 		];
 
 		return $context;
+	}
+
+	/**
+	 * Redes sociales (repetidor del Personalizador) como lista de [icon, link].
+	 * Se usan en footer y header (solo icono, sin texto).
+	 *
+	 * @return array<int, array{icon:string,link:string}>
+	 */
+	private function socials(): array {
+		$raw     = get_theme_mod( 'respira_socials', '' );
+		$decoded = json_decode( (string) $raw, true );
+
+		if ( ! is_array( $decoded ) || empty( $decoded ) ) {
+			// Default: hasta que se configure desde el Personalizador.
+			return [
+				[ 'icon' => 'fab fa-whatsapp', 'link' => '#' ],
+				[ 'icon' => 'fas fa-envelope', 'link' => '#' ],
+				[ 'icon' => 'fab fa-facebook-f', 'link' => '#' ],
+				[ 'icon' => 'fab fa-instagram', 'link' => '#' ],
+			];
+		}
+
+		$out = [];
+		foreach ( $decoded as $row ) {
+			$icon = (string) ( $row['icon'] ?? '' );
+			$link = (string) ( $row['link'] ?? '' );
+			if ( '' !== $icon ) {
+				$out[] = [ 'icon' => $icon, 'link' => $link ];
+			}
+		}
+		return $out;
 	}
 }
