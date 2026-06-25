@@ -23,6 +23,14 @@
     </section>
   </div>
 
+  {% if term.description %}
+    <section class="proyecto-categoria-desc">
+      <div class="auto-container">
+        <div class="text">{{ function('wpautop', term.description)|raw }}</div>
+      </div>
+    </section>
+  {% endif %}
+
   <section class="product-details pt-120">
     <div class="container pb-70">
       {% if posts %}

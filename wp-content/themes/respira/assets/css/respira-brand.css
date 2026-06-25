@@ -759,3 +759,27 @@ hr.proyecto-separador {
 .respira-respaldo .respaldo-text p:last-child {
   margin-bottom: 0;
 }
+
+/* -------------------------------------------------------------------------
+   Descripción de la categoría en la página /tipo-proyecto/{categoria}/
+   (se muestra debajo del hero, antes del listado de proyectos).
+   ------------------------------------------------------------------------- */
+.proyecto-categoria-desc {
+  padding-top: 80px;
+}
+.proyecto-categoria-desc .text {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+  color: var(--text-color);
+  font-size: 18px;
+  line-height: 1.7;
+}
+.proyecto-categoria-desc .text p:last-child {
+  margin-bottom: 0;
+}
+@media (max-width: 767.98px) {
+  .proyecto-categoria-desc {
+    padding-top: 50px;
+  }
+}
