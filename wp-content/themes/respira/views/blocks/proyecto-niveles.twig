@@ -44,13 +44,19 @@
           </div>
         {% endif %}
 
-        {% if amenities_combined %}
-          <div class="product-description__list proyecto-amenidades-box">
-            <ul class="list-unstyled proyecto-amenidades">
-              {% for a in amenities_combined %}
-                <li><p>{% if a.imageUrl %}<img class="proyecto-amenidad-img" src="{{ a.imageUrl }}" alt="{{ a.imageAlt }}"> {% elseif a.icon %}<i class="{{ a.icon }}"></i> {% endif %}{{ a.text }}</p></li>
-              {% endfor %}
-            </ul>
+        {% if gallery %}
+          <div class="proyecto-amenidades-niveles">
+            {% for g in gallery %}
+              <div class="product-description__list proyecto-amenidades-box proyecto-amenidades-nivel{{ loop.first ? ' is-active' : '' }}" data-index="{{ loop.index0 }}">
+                {% if g.amenities %}
+                  <ul class="list-unstyled proyecto-amenidades">
+                    {% for a in g.amenities %}
+                      <li><p>{% if a.imageUrl %}<img class="proyecto-amenidad-img" src="{{ a.imageUrl }}" alt="{{ a.imageAlt }}"> {% elseif a.icon %}<i class="{{ a.icon }}"></i> {% endif %}{{ a.text }}</p></li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+            {% endfor %}
           </div>
         {% endif %}
       </div>

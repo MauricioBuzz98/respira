@@ -4,7 +4,7 @@
  *
  * Reproduce el cuerpo "product-details" de Realest (galería + información),
  * sin estrellas ni precio. La galería muestra una imagen por nivel; la
- * descripción del nivel (contenido enriquecido) se muestra dinámicamente al
+ * descripción y las amenidades del nivel se muestran dinámicamente al
  * seleccionar su miniatura (ver assets/js/respira-proyectos.js).
  *
  * Se alimenta SOLO de sus atributos (no del post global) para poder
@@ -33,15 +33,21 @@ $resolve = static function ( string $url ) use ( $tpl_uri ): string {
 	return $tpl_uri . '/assets/images/' . ltrim( $url, '/' );
 };
 
-$gallery   = [];
-$amenities = [];
+$gallery = [];
 
 foreach ( (array) ( $attributes['items'] ?? [] ) as $level ) {
-	// Amenidades del nivel -> lista combinada del proyecto.
+	// Cada nivel con imagen es una "slide" + su descripción y amenidades.
+	$image = $resolve( (string) ( $level['imageUrl'] ?? '' ) );
+	if ( '' === $image ) {
+		continue;
+	}
+
+	// Amenidades de ESTE nivel (cambian al seleccionar la miniatura).
+	$level_amenities = [];
 	foreach ( (array) ( $level['amenities'] ?? [] ) as $amenity ) {
 		$text = (string) ( $amenity['text'] ?? '' );
 		if ( '' !== $text ) {
-			$amenities[] = [
+			$level_amenities[] = [
 				'icon'     => (string) ( $amenity['icon'] ?? '' ),
 				'imageUrl' => $resolve( (string) ( $amenity['imageUrl'] ?? '' ) ),
 				'imageAlt' => (string) ( $amenity['imageAlt'] ?? '' ),
@@ -50,23 +56,17 @@ foreach ( (array) ( $attributes['items'] ?? [] ) as $level ) {
 		}
 	}
 
-	// Cada nivel con imagen es una "slide" + su descripción dinámica.
-	$image = $resolve( (string) ( $level['imageUrl'] ?? '' ) );
-	if ( '' === $image ) {
-		continue;
-	}
-
 	$gallery[] = [
 		'image'       => $image,
 		'alt'         => (string) ( $level['imageAlt'] ?? '' ),
 		'description' => wp_kses_post( (string) ( $level['description'] ?? '' ) ),
+		'amenities'   => $level_amenities,
 	];
 }
 
 $context                       = Timber::context();
 $context['intro']              = wp_kses_post( (string) ( $attributes['intro'] ?? '' ) );
 $context['gallery']            = $gallery;
-$context['amenities_combined'] = $amenities;
 $context['uid']                = uniqid( 'proy-' );
 $context['wrapper_attributes'] = get_block_wrapper_attributes( [
 	'class' => 'respira-proyecto-niveles',

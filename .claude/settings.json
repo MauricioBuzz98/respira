@@ -6,7 +6,12 @@
       "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l 'd:/Mi carpeta/Herd/respira/wp-content/themes/respira/blocks/projects/render.php')",
       "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l 'd:/Mi carpeta/Herd/respira/wp-content/themes/respira/src/Content.php')",
       "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l 'd:/Mi carpeta/Herd/respira/wp-content/themes/respira/blocks/proyecto-niveles/render.php')",
-      "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l 'd:/Mi carpeta/Herd/respira/wp-content/themes/respira/blocks/services-slider/render.php')"
+      "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l 'd:/Mi carpeta/Herd/respira/wp-content/themes/respira/blocks/services-slider/render.php')",
+      "Bash(cd \"d:/Mi carpeta/Herd/respira\")",
+      "Bash(command -v wp)",
+      "Bash(ls -la wp-cli.phar)",
+      "Bash(ls wp-config.php)",
+      "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe C:/Users/mauri/AppData/Local/Temp/claude/d--Mi-carpeta-Herd-respira/bf193c88-115b-418e-8290-022d872b3638/scratchpad/dump_niveles.php)"
     ]
   }
 }

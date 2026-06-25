@@ -16,6 +16,7 @@
 			var $slides = $g.find( '.proyecto-galeria__stage .image-box' );
 			var $thumbs = $g.find( '.thumb-box > li > a' );
 			var $descs = $proj.find( '.proyecto-descripcion' );
+			var $amens = $proj.find( '.proyecto-amenidades-nivel' );
 
 			if ( ! $slides.length ) {
 				return;
@@ -25,6 +26,7 @@
 				$slides.removeClass( 'is-active' ).eq( i ).addClass( 'is-active' );
 				$thumbs.removeClass( 'active' ).eq( i ).addClass( 'active' );
 				$descs.removeClass( 'is-active' ).eq( i ).addClass( 'is-active' );
+				$amens.removeClass( 'is-active' ).eq( i ).addClass( 'is-active' );
 			}
 
 			$thumbs.on( 'click', function ( e ) {

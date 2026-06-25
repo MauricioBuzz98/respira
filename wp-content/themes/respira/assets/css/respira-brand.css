@@ -185,6 +185,14 @@ hr.proyecto-separador {
   display: block;
 }
 
+/* Amenidades dinámicas: solo se ven las del nivel seleccionado. */
+.proyecto-amenidades-nivel {
+  display: none;
+}
+.proyecto-amenidades-nivel.is-active {
+  display: block;
+}
+
 /* Amenidades (lista combinada) con icono del set flaticon. */
 .proyecto-amenidades {
   margin-top: 20px;
@@ -274,6 +282,17 @@ hr.proyecto-separador {
   line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+/* Imagen de la card con alto fijo y recorte (cover), para que todas las cards
+   mantengan la misma altura aunque las imágenes tengan distinta proporción. */
+.respira-services-slider .service-block-two .inner-block .images-box .image img {
+  height: 150px;
+  object-fit: cover;
+}
+@media (max-width: 767.98px) {
+  .respira-services-slider .service-block-two .inner-block .images-box .image img {
+    height: 200px;
+  }
 }
 
 /* -------------------------------------------------------------------------
@@ -433,4 +452,28 @@ hr.proyecto-separador {
     max-width: 100%;
     margin-bottom: 24px;
   }
+}
+
+/* -------------------------------------------------------------------------
+   FAQ (bloque respira/faq): contraste del ícono del acordeón.
+   - Cerrado: el círculo es claro (#F3F3F3) y el CSS base ponía el ícono en
+     un tono claro (--theme-color1-text-color), quedando casi invisible.
+     Se pasa el ícono a café oscuro.
+   - Abierto: el círculo es café (--theme-color1); el ícono va claro.
+   ------------------------------------------------------------------------- */
+.faq-section .accordion-box .block .acc-btn .icon {
+  color: var(--theme-color1);
+}
+.faq-section .accordion-box .block .acc-btn.active .icon {
+  color: var(--theme-color1-text-color);
+}
+
+/* -------------------------------------------------------------------------
+   Botón "back to top": el CSS base coloreaba la flecha con una variable
+   inexistente (--text-color-theme-color1), por lo que heredaba un tono oscuro
+   sobre el círculo café (sin contraste). Se fuerza a almendra clara.
+   ------------------------------------------------------------------------- */
+.back-to-top-btn,
+.back-to-top-btn svg {
+  color: var(--theme-color1-text-color);
 }
