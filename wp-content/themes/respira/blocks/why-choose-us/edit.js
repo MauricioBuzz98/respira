@@ -11,6 +11,7 @@ import {
 	Button,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { useReorder, RepeaterRow } from '../shared/repeater';
 
 export default function Edit( { attributes, setAttributes } ) {
 	const {
@@ -33,6 +34,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	const addItem = () => setAttributes( { listItems: [ ...listItems, '' ] } );
 	const removeItem = ( index ) =>
 		setAttributes( { listItems: listItems.filter( ( _, i ) => i !== index ) } );
+	const reorder = useReorder( listItems, ( next ) => setAttributes( { listItems: next } ) );
 
 	return (
 		<>
@@ -101,8 +103,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 				<PanelBody title={ __( 'Lista de beneficios', 'respira' ) }>
 					{ listItems.map( ( item, index ) => (
-						<div key={ index } style={ { borderBottom: '1px solid #e0e0e0', paddingBottom: 12, marginBottom: 12 } }>
-							<strong>#{ index + 1 }</strong>
+						<RepeaterRow key={ index } reorder={ reorder } index={ index } count={ listItems.length }>
 							<TextControl
 								label={ __( 'Texto', 'respira' ) }
 								value={ item }
@@ -111,7 +112,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							<Button isDestructive variant="link" onClick={ () => removeItem( index ) } style={ { display: 'block', marginTop: 4 } }>
 								{ __( 'Eliminar', 'respira' ) }
 							</Button>
-						</div>
+						</RepeaterRow>
 					) ) }
 					<Button variant="primary" onClick={ addItem }>{ __( 'Agregar ítem', 'respira' ) }</Button>
 				</PanelBody>

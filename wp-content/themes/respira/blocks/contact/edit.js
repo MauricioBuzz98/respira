@@ -7,6 +7,7 @@ import {
 	Button,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { useReorder, RepeaterRow } from '../shared/repeater';
 
 // Iconos disponibles para cada red/contacto (Font Awesome cargado por el tema).
 const SOCIAL_ICONS = [
@@ -31,6 +32,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	};
 	const addSocial = () => setAttributes( { socials: [ ...socials, { ...EMPTY_SOCIAL } ] } );
 	const removeSocial = ( i ) => setAttributes( { socials: socials.filter( ( _, idx ) => idx !== i ) } );
+	const reorder = useReorder( socials, ( next ) => setAttributes( { socials: next } ) );
 
 	return (
 		<>
@@ -56,10 +58,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 				<PanelBody title={ __( 'Redes / contacto', 'respira' ) } initialOpen={ true }>
 					{ socials.map( ( s, i ) => (
-						<div
-							key={ i }
-							style={ { border: '1px solid #ddd', borderRadius: 6, padding: 12, marginBottom: 12 } }
-						>
+						<RepeaterRow key={ i } reorder={ reorder } index={ i } count={ socials.length }>
 							<SelectControl
 								label={ __( 'Icono', 'respira' ) }
 								value={ s.icon }
@@ -79,7 +78,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							<Button isDestructive variant="link" onClick={ () => removeSocial( i ) }>
 								{ __( 'Quitar', 'respira' ) }
 							</Button>
-						</div>
+						</RepeaterRow>
 					) ) }
 					<Button variant="secondary" onClick={ addSocial }>
 						{ __( 'Agregar red/contacto', 'respira' ) }

@@ -6,6 +6,7 @@ import {
 } from '@wordpress/block-editor';
 import { PanelBody, TextControl, TextareaControl, Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { useReorder, RepeaterRow } from '../shared/repeater';
 
 const EMPTY_SLIDE = {
 	bgImageId: 0, bgImageUrl: '', bgImageAlt: '',
@@ -27,14 +28,14 @@ export default function Edit( { attributes, setAttributes } ) {
 	};
 	const addItem = () => setAttributes( { items: [ ...items, { ...EMPTY_SLIDE } ] } );
 	const removeItem = ( index ) => setAttributes( { items: items.filter( ( _, i ) => i !== index ) } );
+	const reorder = useReorder( items, ( next ) => setAttributes( { items: next } ) );
 
 	return (
 		<>
 			<InspectorControls>
 				<PanelBody title={ __( 'Slides del carrusel', 'respira' ) }>
 					{ items.map( ( item, index ) => (
-						<div key={ index } style={ { borderBottom: '1px solid #e0e0e0', paddingBottom: 12, marginBottom: 12 } }>
-							<strong>{ __( 'Slide', 'respira' ) } #{ index + 1 }</strong>
+						<RepeaterRow key={ index } reorder={ reorder } index={ index } count={ items.length } label={ `${ __( 'Slide', 'respira' ) } #${ index + 1 }` }>
 
 							<MediaUploadCheck>
 								<MediaUpload
@@ -71,7 +72,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							<Button isDestructive variant="link" onClick={ () => removeItem( index ) } style={ { display: 'block', marginTop: 4 } }>
 								{ __( 'Eliminar slide', 'respira' ) }
 							</Button>
-						</div>
+						</RepeaterRow>
 					) ) }
 					<Button variant="primary" onClick={ addItem }>{ __( 'Agregar slide', 'respira' ) }</Button>
 				</PanelBody>

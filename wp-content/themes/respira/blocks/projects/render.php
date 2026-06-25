@@ -33,13 +33,30 @@ $items = [];
 
 if ( 'categories' === $source ) {
 	// Lista de categorías: una tarjeta por término, enlazando a su listado.
+	// Se traen todas y luego se aplica el orden manual antes de recortar a $count.
 	$terms = get_terms( [
 		'taxonomy'   => 'proyecto_categoria',
 		'hide_empty' => true,
-		'number'     => $count,
 	] );
 
 	if ( $terms && ! is_wp_error( $terms ) ) {
+		// Orden manual definido en el bloque (array de term IDs). Las categorías
+		// que no estén en el orden guardado se ubican al final (orden por nombre).
+		$order = array_map( 'intval', (array) ( $attributes['categoryOrder'] ?? [] ) );
+		if ( $order ) {
+			$positions = array_flip( $order );
+			usort( $terms, static function ( $a, $b ) use ( $positions ) {
+				$pa = $positions[ $a->term_id ] ?? PHP_INT_MAX;
+				$pb = $positions[ $b->term_id ] ?? PHP_INT_MAX;
+				if ( $pa === $pb ) {
+					return strcasecmp( $a->name, $b->name );
+				}
+				return $pa <=> $pb;
+			} );
+		}
+
+		$terms = array_slice( $terms, 0, $count );
+
 		foreach ( $terms as $term ) {
 			$link = get_term_link( $term );
 

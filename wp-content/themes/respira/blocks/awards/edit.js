@@ -11,6 +11,7 @@ import {
 	Button,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { useReorder, RepeaterRow } from '../shared/repeater';
 
 const EMPTY_ITEM = { year: '', title: '', status: '', link: '' };
 
@@ -24,6 +25,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	};
 	const addItem = () => setAttributes( { items: [ ...items, { ...EMPTY_ITEM } ] } );
 	const removeItem = ( index ) => setAttributes( { items: items.filter( ( _, i ) => i !== index ) } );
+	const reorder = useReorder( items, ( next ) => setAttributes( { items: next } ) );
 
 	return (
 		<>
@@ -76,8 +78,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 				<PanelBody title={ __( 'Premios', 'respira' ) }>
 					{ items.map( ( item, index ) => (
-						<div key={ index } style={ { borderBottom: '1px solid #e0e0e0', paddingBottom: 12, marginBottom: 12 } }>
-							<strong>#{ index + 1 }</strong>
+						<RepeaterRow key={ index } reorder={ reorder } index={ index } count={ items.length }>
 							<TextControl label={ __( 'Año', 'respira' ) } value={ item.year } onChange={ ( v ) => updateItem( index, { year: v } ) } />
 							<TextControl label={ __( 'Título', 'respira' ) } value={ item.title } onChange={ ( v ) => updateItem( index, { title: v } ) } />
 							<TextControl label={ __( 'Estado (ej. Winner)', 'respira' ) } value={ item.status } onChange={ ( v ) => updateItem( index, { status: v } ) } />
@@ -85,7 +86,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							<Button isDestructive variant="link" onClick={ () => removeItem( index ) } style={ { display: 'block', marginTop: 4 } }>
 								{ __( 'Eliminar', 'respira' ) }
 							</Button>
-						</div>
+						</RepeaterRow>
 					) ) }
 					<Button variant="primary" onClick={ addItem }>{ __( 'Agregar premio', 'respira' ) }</Button>
 				</PanelBody>

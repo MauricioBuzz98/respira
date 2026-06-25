@@ -7,12 +7,14 @@ import {
 import { PanelBody, TextControl, SelectControl, Button } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
+import { useState, useMemo } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { useReorder, RepeaterRow } from '../shared/repeater';
 
 const EMPTY_ITEM = { subtitle: '', title: '', link: '', imageId: 0, imageUrl: '', imageAlt: '' };
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { subtitle, title, source, count, category, items } = attributes;
+	const { subtitle, title, source, count, category, categoryOrder, items } = attributes;
 	const blockProps = useBlockProps( { className: 'respira-projects-editor' } );
 
 	// Compatibilidad: el valor antiguo "dynamic" se interpreta según haya o no categoría.
@@ -36,10 +38,49 @@ export default function Edit( { attributes, setAttributes } ) {
 	};
 	const addItem = () => setAttributes( { items: [ ...items, { ...EMPTY_ITEM } ] } );
 	const removeItem = ( index ) => setAttributes( { items: items.filter( ( _, i ) => i !== index ) } );
+	const itemsReorder = useReorder( items, ( next ) => setAttributes( { items: next } ) );
 
 	const categoryLabel = () => {
 		const found = ( terms || [] ).find( ( t ) => t.slug === category );
 		return found ? found.name : __( 'todas', 'respira' );
+	};
+
+	// Lista de categorías ordenada según categoryOrder (array de IDs). Las que no
+	// estén en el orden guardado se agregan al final (orden natural por nombre).
+	const orderedTerms = useMemo( () => {
+		const list = terms || [];
+		const order = categoryOrder || [];
+		const byId = new Map( list.map( ( t ) => [ t.id, t ] ) );
+		const ordered = [];
+		order.forEach( ( id ) => {
+			if ( byId.has( id ) ) {
+				ordered.push( byId.get( id ) );
+				byId.delete( id );
+			}
+		} );
+		byId.forEach( ( t ) => ordered.push( t ) );
+		return ordered;
+	}, [ terms, categoryOrder ] );
+
+	const [ dragIndex, setDragIndex ] = useState( null );
+
+	const persistOrder = ( arr ) => setAttributes( { categoryOrder: arr.map( ( t ) => t.id ) } );
+
+	const moveItem = ( from, to ) => {
+		if ( to < 0 || to >= orderedTerms.length || from === to ) {
+			return;
+		}
+		const arr = [ ...orderedTerms ];
+		const [ moved ] = arr.splice( from, 1 );
+		arr.splice( to, 0, moved );
+		persistOrder( arr );
+	};
+
+	const handleDrop = ( to ) => {
+		if ( dragIndex !== null ) {
+			moveItem( dragIndex, to );
+		}
+		setDragIndex( null );
 	};
 
 	return (
@@ -83,11 +124,71 @@ export default function Edit( { attributes, setAttributes } ) {
 					) }
 				</PanelBody>
 
+				{ isCategories && (
+					<PanelBody title={ __( 'Orden de las categorías', 'respira' ) }>
+						<p style={ { fontSize: 12, opacity: 0.7, marginTop: 0 } }>
+							{ __( 'Arrastrá para reordenar (o usá las flechas). Sólo se mostrarán las primeras según la cantidad configurada.', 'respira' ) }
+						</p>
+						{ ! terms ? (
+							<p style={ { fontSize: 13 } }>{ __( 'Cargando categorías…', 'respira' ) }</p>
+						) : orderedTerms.length === 0 ? (
+							<p style={ { fontSize: 13 } }>{ __( 'No hay categorías con proyectos publicados.', 'respira' ) }</p>
+						) : (
+							<ul style={ { listStyle: 'none', margin: 0, padding: 0 } }>
+								{ orderedTerms.map( ( term, index ) => (
+									<li
+										key={ term.id }
+										draggable
+										onDragStart={ () => setDragIndex( index ) }
+										onDragOver={ ( e ) => e.preventDefault() }
+										onDrop={ () => handleDrop( index ) }
+										onDragEnd={ () => setDragIndex( null ) }
+										style={ {
+											display: 'flex',
+											alignItems: 'center',
+											gap: 6,
+											padding: '6px 8px',
+											marginBottom: 4,
+											border: '1px solid #e0e0e0',
+											borderRadius: 4,
+											background: dragIndex === index ? '#f1f0ea' : '#fff',
+											cursor: 'grab',
+										} }
+									>
+										<span aria-hidden="true" style={ { opacity: 0.5, cursor: 'grab' } }>⠿</span>
+										<span style={ { flex: 1, fontSize: 13 } }>
+											<strong>{ index + 1 }.</strong> { term.name }
+										</span>
+										<Button
+											icon="arrow-up-alt2"
+											label={ __( 'Subir', 'respira' ) }
+											size="small"
+											disabled={ index === 0 }
+											onClick={ () => moveItem( index, index - 1 ) }
+										/>
+										<Button
+											icon="arrow-down-alt2"
+											label={ __( 'Bajar', 'respira' ) }
+											size="small"
+											disabled={ index === orderedTerms.length - 1 }
+											onClick={ () => moveItem( index, index + 1 ) }
+										/>
+									</li>
+								) ) }
+							</ul>
+						) }
+						{ ( categoryOrder && categoryOrder.length > 0 ) && (
+							<Button variant="link" isDestructive onClick={ () => setAttributes( { categoryOrder: [] } ) }>
+								{ __( 'Restablecer orden', 'respira' ) }
+							</Button>
+						) }
+					</PanelBody>
+				) }
+
 				{ isManual && (
 					<PanelBody title={ __( 'Proyectos', 'respira' ) }>
 						{ items.map( ( item, index ) => (
-							<div key={ index } style={ { borderBottom: '1px solid #e0e0e0', paddingBottom: 12, marginBottom: 12 } }>
-								<strong>#{ index + 1 }</strong>
+							<RepeaterRow key={ index } reorder={ itemsReorder } index={ index } count={ items.length }>
 								<TextControl label={ __( 'Subtítulo', 'respira' ) } value={ item.subtitle } onChange={ ( v ) => updateItem( index, { subtitle: v } ) } />
 								<TextControl label={ __( 'Título', 'respira' ) } value={ item.title } onChange={ ( v ) => updateItem( index, { title: v } ) } />
 								<TextControl label={ __( 'Enlace (URL)', 'respira' ) } value={ item.link } onChange={ ( v ) => updateItem( index, { link: v } ) } />
@@ -106,7 +207,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								<Button isDestructive variant="link" onClick={ () => removeItem( index ) } style={ { display: 'block', marginTop: 4 } }>
 									{ __( 'Eliminar', 'respira' ) }
 								</Button>
-							</div>
+							</RepeaterRow>
 						) ) }
 						<Button variant="primary" onClick={ addItem }>{ __( 'Agregar proyecto', 'respira' ) }</Button>
 					</PanelBody>

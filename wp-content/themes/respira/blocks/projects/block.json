@@ -15,6 +15,7 @@
     "source":   { "type": "string", "default": "all" },
     "count":    { "type": "number", "default": 6 },
     "category": { "type": "string", "default": "" },
+    "categoryOrder": { "type": "array", "default": [] },
     "items": {
       "type": "array",
       "default": [
