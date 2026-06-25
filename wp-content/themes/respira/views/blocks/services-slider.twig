@@ -11,11 +11,12 @@
         <div class="bg bg-image"><img src="{{ bg }}" alt="{{ bgAlt }}"></div>
       {% endif %}
 
-      {% if subtitle or title %}
+      {% if subtitle or title or description %}
         <div class="auto-container">
           <div class="sec-title light">
             {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
             {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
+            {% if description %}<div class="text">{{ description }}</div>{% endif %}
           </div>
         </div>
       {% endif %}

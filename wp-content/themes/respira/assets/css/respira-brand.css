@@ -705,6 +705,10 @@ hr.proyecto-separador {
 .respira-services-slider .services-section-two .outer-box .sec-title.light .title {
   color: var(--theme-color-dark); /* café */
 }
+.respira-services-slider .services-section-two .outer-box .sec-title.light .text {
+  color: var(--theme-color-dark); /* café */
+  margin-top: 12px;
+}
 .respira-services-slider .services-section-two .outer-box .arrow-box .slider-prev,
 .respira-services-slider .services-section-two .outer-box .arrow-box .slider-next {
   background-color: var(--theme-color1);

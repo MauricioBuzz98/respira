@@ -12,7 +12,7 @@ const EMPTY_ITEM = { icon: '', title: '', link: '', text: '', imageId: 0, imageU
 const isFullUrl = ( url ) => !! url && /^https?:\/\//.test( url );
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { subtitle, title, source, count, bgImageId, bgImageUrl, items } = attributes;
+	const { subtitle, title, description, source, count, bgImageId, bgImageUrl, items } = attributes;
 	const blockProps = useBlockProps( { className: 'respira-services-slider-editor' } );
 	const isManual = source === 'manual';
 
@@ -30,6 +30,7 @@ export default function Edit( { attributes, setAttributes } ) {
 				<PanelBody title={ __( 'Encabezado', 'respira' ) }>
 					<TextControl label={ __( 'Subtítulo', 'respira' ) } value={ subtitle } onChange={ ( v ) => setAttributes( { subtitle: v } ) } />
 					<TextControl label={ __( 'Título', 'respira' ) } value={ title } onChange={ ( v ) => setAttributes( { title: v } ) } />
+					<TextareaControl label={ __( 'Descripción', 'respira' ) } value={ description } onChange={ ( v ) => setAttributes( { description: v } ) } rows={ 3 } />
 					<MediaUploadCheck>
 						<MediaUpload
 							onSelect={ ( media ) => setAttributes( { bgImageId: media.id, bgImageUrl: media.url, bgImageAlt: media.alt || '' } ) }
@@ -97,10 +98,11 @@ export default function Edit( { attributes, setAttributes } ) {
 
 			<div { ...blockProps }>
 				<div style={ { border: '1px dashed #c2c1c1', borderRadius: 8, padding: 16, background: '#222', color: '#fff' } }>
-					{ ( subtitle || title ) && (
+					{ ( subtitle || title || description ) && (
 						<div style={ { marginBottom: 12 } }>
 							{ subtitle && <div style={ { textTransform: 'uppercase', letterSpacing: 1, fontSize: 12, opacity: 0.8 } }>{ subtitle }</div> }
 							{ title && <div style={ { fontSize: 22, fontWeight: 700 } }>{ title }</div> }
+							{ description && <div style={ { fontSize: 13, opacity: 0.8, marginTop: 4 } }>{ description }</div> }
 						</div>
 					) }
 					{ isManual ? (

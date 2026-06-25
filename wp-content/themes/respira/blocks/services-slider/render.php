@@ -71,9 +71,10 @@ if ( 'manual' === $source || empty( $items ) ) {
 }
 
 $context = Timber::context();
-$context['subtitle'] = $attributes['subtitle'] ?? '';
-$context['title']    = $attributes['title'] ?? '';
-$context['bg']       = $resolve( (string) ( $attributes['bgImageUrl'] ?? '' ) );
+$context['subtitle']    = $attributes['subtitle'] ?? '';
+$context['title']       = $attributes['title'] ?? '';
+$context['description'] = $attributes['description'] ?? '';
+$context['bg']          = $resolve( (string) ( $attributes['bgImageUrl'] ?? '' ) );
 $context['bgAlt']    = $attributes['bgImageAlt'] ?? '';
 $context['items']    = $items;
 $context['wrapper_attributes'] = get_block_wrapper_attributes( [
