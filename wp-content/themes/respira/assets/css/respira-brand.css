@@ -653,8 +653,14 @@ hr.proyecto-separador {
   color: var(--theme-color-white);
 }
 @media (max-width: 991.98px) {
+  /* El grupo de redes queda centrado como bloque, pero sus ítems alineados a la
+     izquierda (iconos en columna, sin escalonarse). */
+  .respira-contact .contact-social-list {
+    display: inline-block;
+    text-align: left;
+  }
   .respira-contact .contact-social-list li a {
-    justify-content: center;
+    justify-content: flex-start;
   }
 }
 
@@ -695,4 +701,48 @@ hr.proyecto-separador {
 .respira-services-slider .services-section-two .outer-box .arrow-box .slider-next:hover {
   background-color: var(--theme-color-dark2); /* negro de marca */
   color: var(--theme-color-white);
+}
+
+/* -------------------------------------------------------------------------
+   Bloque respira/respaldo: sección centrada (subtítulo + título + logo +
+   texto + logo). Tipografía/contenedor del tema; logos centrados.
+   ------------------------------------------------------------------------- */
+.respira-respaldo .respaldo-section {
+  text-align: center;
+}
+.respira-respaldo .sec-title {
+  margin-bottom: 30px;
+}
+/* Título un poco más chico que el h2 base (48px). */
+.respira-respaldo .sec-title .title {
+  font-size: 38px;
+  line-height: 1.2;
+}
+@media (max-width: 767.98px) {
+  .respira-respaldo .sec-title .title {
+    font-size: 28px;
+  }
+}
+/* Más aire entre el texto y los logos (arriba y abajo). */
+.respira-respaldo .respaldo-logo {
+  margin: 0 auto 50px;
+}
+.respira-respaldo .respaldo-logo--bottom {
+  margin: 55px auto 0;
+}
+.respira-respaldo .respaldo-logo img {
+  display: inline-block;
+  max-height: 110px;
+  width: auto;
+  max-width: 100%;
+}
+.respira-respaldo .respaldo-text {
+  max-width: 620px;
+  margin: 0 auto;
+  color: var(--text-color);
+  font-size: 18px;
+  line-height: 1.7;
+}
+.respira-respaldo .respaldo-text p:last-child {
+  margin-bottom: 0;
 }

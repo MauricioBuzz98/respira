@@ -1,0 +1,35 @@
+{#
+  Bloque: respira/respaldo — sección centrada (subtítulo + título + logo +
+  texto + logo). Reutiliza el componente de título del tema (sec-title) y el
+  contenedor auto-container para mantener la estética del sitio.
+#}
+<section {{ wrapper_attributes|raw }}>
+  <div class="respaldo-section pt-100 pb-100">
+    <div class="auto-container">
+
+      {% if subtitle or title %}
+        <div class="sec-title text-center">
+          {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
+          {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
+        </div>
+      {% endif %}
+
+      {% if logoTopUrl %}
+        <div class="respaldo-logo respaldo-logo--top wow fadeInUp">
+          <img src="{{ logoTopUrl }}" alt="{{ logoTopAlt }}">
+        </div>
+      {% endif %}
+
+      {% if text %}
+        <div class="respaldo-text text-center wow fadeInUp" data-wow-delay="200ms">{{ text|raw }}</div>
+      {% endif %}
+
+      {% if logoBottomUrl %}
+        <div class="respaldo-logo respaldo-logo--bottom wow fadeInUp" data-wow-delay="400ms">
+          <img src="{{ logoBottomUrl }}" alt="{{ logoBottomAlt }}">
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</section>

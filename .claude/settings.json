@@ -16,7 +16,8 @@
       "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l 'd:/Mi carpeta/Herd/respira/wp-content/themes/respira/blocks/contact/render.php')",
       "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l src/Social_Repeater_Control.php)",
       "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l src/Customizer.php)",
-      "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l src/Site.php)"
+      "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l src/Site.php)",
+      "Bash(C:/Users/mauri/.config/herd/bin/php84/php.exe -l 'd:/Mi carpeta/Herd/respira/wp-content/themes/respira/blocks/respaldo/render.php')"
     ]
   }
 }

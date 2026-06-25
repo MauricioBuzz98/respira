@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "respira/respaldo",
+  "version": "1.0.0",
+  "title": "Respaldo y experiencia",
+  "category": "respira",
+  "icon": "awards",
+  "description": "Sección centrada: subtítulo, título, un logo, texto y un segundo logo. Pensada para aliados / respaldo.",
+  "keywords": ["respaldo", "aliados", "experiencia", "logos", "partner"],
+  "textdomain": "respira",
+  "attributes": {
+    "subtitle":      { "type": "string", "default": "" },
+    "title":         { "type": "string", "default": "Respaldo y experiencia" },
+    "text":          { "type": "string", "default": "" },
+    "logoTopId":     { "type": "number", "default": 0 },
+    "logoTopUrl":    { "type": "string", "default": "" },
+    "logoTopAlt":    { "type": "string", "default": "" },
+    "logoBottomId":  { "type": "number", "default": 0 },
+    "logoBottomUrl": { "type": "string", "default": "" },
+    "logoBottomAlt": { "type": "string", "default": "" }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:render.php"
+}

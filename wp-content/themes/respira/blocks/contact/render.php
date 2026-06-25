@@ -21,6 +21,10 @@ $context['socials']  = array_values( array_filter(
 	static fn ( $s ) => '' !== (string) ( $s['text'] ?? '' ) || '' !== (string) ( $s['link'] ?? '' )
 ) );
 
+// Formulario: si se define un shortcode, se renderiza ese; si no, el marcador estático.
+$shortcode             = trim( (string) ( $attributes['formShortcode'] ?? '' ) );
+$context['form_html']  = '' !== $shortcode ? do_shortcode( $shortcode ) : '';
+
 $context['wrapper_attributes'] = get_block_wrapper_attributes( [
 	'class' => 'respira-contact',
 ] );

@@ -36,40 +36,44 @@
             <div class="shape-1"><img src="{{ theme.link }}/assets/images/icons/shape-10.png" alt=""></div>
             <div class="form-box">
               <div class="inner-box">
-                <form action="#">
-                  <div class="row">
-                    <div class="col-sm-6 wow fadeInUp animated" data-wow-delay=".2s">
-                      <div class="form-clt">
-                        <input type="text" name="name" id="name" placeholder="Tu nombre" required="">
+                {% if form_html %}
+                  <div class="respira-contact-shortcode">{{ form_html|raw }}</div>
+                {% else %}
+                  <form action="#">
+                    <div class="row">
+                      <div class="col-sm-6 wow fadeInUp animated" data-wow-delay=".2s">
+                        <div class="form-clt">
+                          <input type="text" name="name" id="name" placeholder="Tu nombre" required="">
+                        </div>
+                      </div>
+                      <div class="col-sm-6 wow fadeInUp animated" data-wow-delay=".4s">
+                        <div class="form-clt">
+                          <input type="email" name="form_email" id="email" placeholder="Correo electrónico">
+                        </div>
+                      </div>
+                      <div class="col-sm-6 wow fadeInUp animated" data-wow-delay=".6s">
+                        <div class="form-clt">
+                          <input name="tel" id="tel" type="text" placeholder="Teléfono">
+                        </div>
+                      </div>
+                      <div class="col-sm-6 wow fadeInUp animated" data-wow-delay=".6s">
+                        <div class="form-clt">
+                          <input name="name" id="name2" type="text" placeholder="Asunto">
+                        </div>
+                      </div>
+                      <div class="col-sm-12 wow fadeInUp animated" data-wow-delay=".2s">
+                        <div class="form-clt">
+                          <textarea name="form_message" class="required" placeholder="Mensaje"></textarea>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 wow fadeInUp animated" data-wow-delay=".2s">
+                        <button class="theme-btn btn-style-three" type="submit">
+                          <span class="btn-title">Enviar mensaje</span>
+                        </button>
                       </div>
                     </div>
-                    <div class="col-sm-6 wow fadeInUp animated" data-wow-delay=".4s">
-                      <div class="form-clt">
-                        <input type="email" name="form_email" id="email" placeholder="Correo electrónico">
-                      </div>
-                    </div>
-                    <div class="col-sm-6 wow fadeInUp animated" data-wow-delay=".6s">
-                      <div class="form-clt">
-                        <input name="tel" id="tel" type="text" placeholder="Teléfono">
-                      </div>
-                    </div>
-                    <div class="col-sm-6 wow fadeInUp animated" data-wow-delay=".6s">
-                      <div class="form-clt">
-                        <input name="name" id="name2" type="text" placeholder="Asunto">
-                      </div>
-                    </div>
-                    <div class="col-sm-12 wow fadeInUp animated" data-wow-delay=".2s">
-                      <div class="form-clt">
-                        <textarea name="form_message" class="required" placeholder="Mensaje"></textarea>
-                      </div>
-                    </div>
-                    <div class="col-sm-12 wow fadeInUp animated" data-wow-delay=".2s">
-                      <button class="theme-btn btn-style-three" type="submit">
-                        <span class="btn-title">Enviar mensaje</span>
-                      </button>
-                    </div>
-                  </div>
-                </form>
+                  </form>
+                {% endif %}
               </div>
             </div>
           </div>

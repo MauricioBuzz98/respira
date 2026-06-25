@@ -42,7 +42,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					<TextareaControl label={ __( 'Texto', 'respira' ) } value={ text } onChange={ ( v ) => setAttributes( { text: v } ) } rows={ 3 } />
 				</PanelBody>
 
-				<PanelBody title={ __( 'Caja de información', 'respira' ) } initialOpen={ false }>
+				<PanelBody title={ __( 'Caja de información (¿Aún tienes preguntas?)', 'respira' ) } initialOpen={ true }>
 					<TextControl label={ __( 'Título', 'respira' ) } value={ infoTitle } onChange={ ( v ) => setAttributes( { infoTitle: v } ) } />
 					<TextareaControl label={ __( 'Texto', 'respira' ) } value={ infoText } onChange={ ( v ) => setAttributes( { infoText: v } ) } rows={ 3 } />
 					<TextControl label={ __( 'Texto del botón', 'respira' ) } value={ ctaLabel } onChange={ ( v ) => setAttributes( { ctaLabel: v } ) } />

@@ -21,7 +21,7 @@ const SOCIAL_ICONS = [
 const EMPTY_SOCIAL = { text: '', link: '', icon: 'fab fa-whatsapp' };
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { subtitle, title, text, socials = [] } = attributes;
+	const { subtitle, title, text, socials = [], formShortcode = '' } = attributes;
 
 	const blockProps = useBlockProps( { className: 'respira-contact-editor' } );
 
@@ -85,6 +85,16 @@ export default function Edit( { attributes, setAttributes } ) {
 						{ __( 'Agregar red/contacto', 'respira' ) }
 					</Button>
 				</PanelBody>
+
+				<PanelBody title={ __( 'Formulario', 'respira' ) } initialOpen={ true }>
+					<TextareaControl
+						label={ __( 'Shortcode del formulario', 'respira' ) }
+						value={ formShortcode }
+						onChange={ ( v ) => setAttributes( { formShortcode: v } ) }
+						rows={ 3 }
+						help={ __( 'Pegá el shortcode de tu formulario (ej. Contact Form 7). Si lo dejás vacío, se muestra el formulario de marcador.', 'respira' ) }
+					/>
+				</PanelBody>
 			</InspectorControls>
 
 			<div { ...blockProps }>
@@ -129,21 +139,35 @@ export default function Edit( { attributes, setAttributes } ) {
 						</ul>
 					</div>
 
-					{ /* Derecha: marcador del formulario */ }
+					{ /* Derecha: marcador del formulario (o del shortcode) */ }
 					<div style={ { flex: '1 1 280px', minWidth: 0, background: '#5A514B', borderRadius: 8, padding: 20 } }>
-						<div style={ { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 } }>
-							<div style={ { background: 'rgba(255,255,255,0.15)', height: 32, borderRadius: 4 } } />
-							<div style={ { background: 'rgba(255,255,255,0.15)', height: 32, borderRadius: 4 } } />
-							<div style={ { background: 'rgba(255,255,255,0.15)', height: 32, borderRadius: 4 } } />
-							<div style={ { background: 'rgba(255,255,255,0.15)', height: 32, borderRadius: 4 } } />
-							<div style={ { gridColumn: '1 / -1', background: 'rgba(255,255,255,0.15)', height: 64, borderRadius: 4 } } />
-						</div>
-						<div style={ { marginTop: 12, background: '#F1F0EA', color: '#5A514B', display: 'inline-block', padding: '8px 16px', borderRadius: 4, fontWeight: 600 } }>
-							{ __( 'Enviar mensaje', 'respira' ) }
-						</div>
-						<div style={ { marginTop: 8, fontSize: 11, color: 'rgba(255,255,255,0.7)' } }>
-							{ __( 'Formulario de marcador (estático)', 'respira' ) }
-						</div>
+						{ formShortcode.trim() ? (
+							<div style={ { color: '#F1F0EA' } }>
+								<div style={ { fontWeight: 600, marginBottom: 8 } }>{ __( 'Formulario por shortcode', 'respira' ) }</div>
+								<code style={ { display: 'block', background: 'rgba(255,255,255,0.12)', padding: '10px 12px', borderRadius: 4, wordBreak: 'break-all', fontSize: 12 } }>
+									{ formShortcode }
+								</code>
+								<div style={ { marginTop: 8, fontSize: 11, color: 'rgba(255,255,255,0.7)' } }>
+									{ __( 'Se renderiza en el front.', 'respira' ) }
+								</div>
+							</div>
+						) : (
+							<>
+								<div style={ { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 } }>
+									<div style={ { background: 'rgba(255,255,255,0.15)', height: 32, borderRadius: 4 } } />
+									<div style={ { background: 'rgba(255,255,255,0.15)', height: 32, borderRadius: 4 } } />
+									<div style={ { background: 'rgba(255,255,255,0.15)', height: 32, borderRadius: 4 } } />
+									<div style={ { background: 'rgba(255,255,255,0.15)', height: 32, borderRadius: 4 } } />
+									<div style={ { gridColumn: '1 / -1', background: 'rgba(255,255,255,0.15)', height: 64, borderRadius: 4 } } />
+								</div>
+								<div style={ { marginTop: 12, background: '#F1F0EA', color: '#5A514B', display: 'inline-block', padding: '8px 16px', borderRadius: 4, fontWeight: 600 } }>
+									{ __( 'Enviar mensaje', 'respira' ) }
+								</div>
+								<div style={ { marginTop: 8, fontSize: 11, color: 'rgba(255,255,255,0.7)' } }>
+									{ __( 'Formulario de marcador (estático). Agregá un shortcode en el panel lateral para reemplazarlo.', 'respira' ) }
+								</div>
+							</>
+						) }
 					</div>
 				</div>
 			</div>
