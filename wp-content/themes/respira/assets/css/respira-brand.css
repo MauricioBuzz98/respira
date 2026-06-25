@@ -581,6 +581,59 @@ hr.proyecto-separador {
   color: var(--theme-color1-text-color);
 }
 
+/* Preloader: quitar el texto "Loading" (el CSS base lo agrega con content). */
+.preloader:before {
+  content: "";
+}
+
+/* -------------------------------------------------------------------------
+   Botón flotante de WhatsApp (abajo a la derecha). Queda anclado al fondo;
+   el back-to-top se reposiciona por encima cuando aparece para no chocar.
+   El enlace se configura en Apariencia → Personalizar → Respira.
+   ------------------------------------------------------------------------- */
+.respira-wa-float {
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  line-height: 1;
+  z-index: 98;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+.respira-wa-float:hover {
+  background: #1ebe5d;
+  color: #fff;
+  transform: translateY(-3px);
+}
+/* El back-to-top sube por encima del WhatsApp cuando se muestra. */
+.back-to-top-wrapper.back-to-top-btn-show {
+  bottom: 118px;
+}
+@media (max-width: 767.98px) {
+  .respira-wa-float {
+    right: 20px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+    font-size: 26px;
+  }
+  .back-to-top-wrapper {
+    right: 20px;
+  }
+  .back-to-top-wrapper.back-to-top-btn-show {
+    bottom: 82px;
+  }
+}
+
 /* -------------------------------------------------------------------------
    Hero (bloque respira/hero): el texto inferior tenía un ancho fijo angosto
    (max-width: 361px). Se amplía al 75% del ancho en desktop; en mobile queda

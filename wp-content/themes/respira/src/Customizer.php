@@ -36,6 +36,8 @@ class Customizer {
 			'respira_phone'          => [ 'label' => __( 'Teléfono', 'respira' ),                'default' => '+ (123) 456-7890', 'type' => 'text', 'sanitize' => 'sanitize_text_field' ],
 			'respira_hours'          => [ 'label' => __( 'Horario', 'respira' ),                 'default' => 'Mon - Fri: 09.00am - 10.00 pm', 'type' => 'text', 'sanitize' => 'sanitize_text_field' ],
 			'respira_footer_tagline' => [ 'label' => __( 'Footer — tagline', 'respira' ),        'default' => 'Get the latest inspiration & insights', 'type' => 'text', 'sanitize' => 'sanitize_text_field' ],
+			'respira_whatsapp'       => [ 'label' => __( 'WhatsApp flotante — número o enlace', 'respira' ), 'default' => '', 'type' => 'text', 'sanitize' => 'sanitize_text_field' ],
+			'respira_whatsapp_msg'   => [ 'label' => __( 'WhatsApp flotante — mensaje predeterminado (opcional)', 'respira' ), 'default' => '', 'type' => 'text', 'sanitize' => 'sanitize_text_field' ],
 		];
 	}
 

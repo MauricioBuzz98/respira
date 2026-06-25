@@ -28,6 +28,13 @@
     </button>
   </div>
 
+  {# Botón flotante de WhatsApp (configurable en Personalizar → Respira) #}
+  {% if options.whatsapp_url %}
+    <a class="respira-wa-float" href="{{ options.whatsapp_url }}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+  {% endif %}
+
   {% include 'partials/header.twig' %}
 
   <main id="main">

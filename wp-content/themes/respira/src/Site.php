@@ -54,9 +54,41 @@ class Site extends TimberSite {
 			'footer_image_1' => get_theme_mod( 'respira_footer_image_1', '' ),
 			'footer_image_2' => get_theme_mod( 'respira_footer_image_2', '' ),
 			'socials'        => $this->socials(),
+			'whatsapp_url'   => $this->whatsapp_url(),
 		];
 
 		return $context;
+	}
+
+	/**
+	 * Enlace del botón flotante de WhatsApp. El campo del Personalizador acepta
+	 * un número (se arma el enlace wa.me) o un enlace completo (se usa tal cual).
+	 * Devuelve '' si no está configurado (entonces el botón no se muestra).
+	 */
+	private function whatsapp_url(): string {
+		$raw = trim( (string) get_theme_mod( 'respira_whatsapp', '' ) );
+		if ( '' === $raw ) {
+			return '';
+		}
+
+		// Si ya es un enlace, se respeta tal cual.
+		if ( preg_match( '#^https?://#i', $raw ) ) {
+			return esc_url_raw( $raw );
+		}
+
+		// Si no, se interpreta como número: solo dígitos y se arma el enlace wa.me.
+		$digits = preg_replace( '/\D/', '', $raw );
+		if ( '' === $digits ) {
+			return '';
+		}
+
+		$url = 'https://wa.me/' . $digits;
+		$msg = trim( (string) get_theme_mod( 'respira_whatsapp_msg', '' ) );
+		if ( '' !== $msg ) {
+			$url .= '?text=' . rawurlencode( $msg );
+		}
+
+		return $url;
 	}
 
 	/**
