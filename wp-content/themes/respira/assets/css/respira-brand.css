@@ -217,11 +217,22 @@ hr.proyecto-separador {
   flex: 0 0 auto;
 }
 
-/* Amenidades (archivo del CPT): imagen dentro del badge .icon en vez del glifo. */
+/* Amenidades (archivo del CPT): imagen dentro del badge .icon en vez del glifo.
+   El <img> del ícono comparte el contenedor .image con las <img> del thumbnail,
+   cuyas reglas base de Realest (min-height:362px, width/height:100%, y opacity:0
+   + transform/blur en :nth-child, incluida la variante :hover) se filtran al
+   ícono y lo sacan de la cajita. Se neutralizan para que quede dentro del badge. */
+.service-block .inner-block .image .icon {
+  overflow: hidden;
+}
 .service-block .inner-block .image .icon img {
-  width: 38px;
-  height: 38px;
+  width: 38px !important;
+  height: 38px !important;
+  min-height: 0 !important;
   object-fit: contain;
+  opacity: 1 !important;
+  filter: none !important;
+  transform: none !important;
   vertical-align: middle;
 }
 
@@ -314,6 +325,27 @@ hr.proyecto-separador {
 /* Hover directo del botón: el ::before café rellena la pastilla -> texto claro. */
 .post-type-archive-amenidades .service-block .inner-block:hover .content .btn-service-style:hover {
   color: var(--theme-color2-text-color);
+}
+/* Cards de igual altura: las fotos tienen distinta proporción y el contenedor
+   .image crecía al alto natural de cada una. Se limita la altura de la imagen
+   (cover) y se estira cada card al alto de su fila para que queden parejas. */
+.post-type-archive-amenidades .service-block,
+.post-type-archive-amenidades .service-block .inner-block {
+  height: 100%;
+}
+.post-type-archive-amenidades .service-block .inner-block {
+  display: flex;
+  flex-direction: column;
+}
+.post-type-archive-amenidades .service-block .inner-block .image {
+  min-height: 0;
+  height: 340px;
+  flex-shrink: 0;
+}
+.post-type-archive-amenidades .service-block .inner-block .image img {
+  height: 340px;
+  min-height: 0;
+  object-fit: cover;
 }
 
 /* -------------------------------------------------------------------------
