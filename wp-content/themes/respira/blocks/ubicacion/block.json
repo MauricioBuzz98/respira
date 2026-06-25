@@ -1,0 +1,36 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "respira/ubicacion",
+  "version": "1.0.0",
+  "title": "Ubicación",
+  "category": "respira",
+  "icon": "location",
+  "description": "Sección de ubicación: texto, mapa de Google Maps y comercios/puntos de interés agrupados por categoría.",
+  "keywords": ["ubicacion", "ubicación", "mapa", "location", "map"],
+  "textdomain": "respira",
+  "attributes": {
+    "subtitle": { "type": "string", "default": "" },
+    "title":    { "type": "string", "default": "Ubicación" },
+    "text":     { "type": "string", "default": "Respira se ubica en Escazú, Alto de las Palomas, Calle Mirador, en San Rafael. Del Restaurante Taj Mahal 200m oeste, 50m sur, 200 suroeste." },
+    "mapEmbed": { "type": "string", "default": "https://maps.google.com/maps?q=Alto%20de%20las%20Palomas%2C%20Escaz%C3%BA%2C%20San%20Jos%C3%A9%2C%20Costa%20Rica&t=&z=15&ie=UTF8&iwloc=B&output=embed" },
+    "poisTitle": { "type": "string", "default": "Comercios y puntos de interés" },
+    "categories": {
+      "type": "array",
+      "default": [
+        { "title": "Restaurantes", "places": "Taj Mahal\nLa Cava Alta Fiori\nTierra del Café\nAvogarden\nLa Luz\nJaguar Negro\nLa Alacena\nLa Querencia\nAntika Pizzería\nThe Market" },
+        { "title": "Cafeterías", "places": "Bread House\nChez Christophe\nTierra del Café\nMocapan\nLa Alacena\nLa Querencia" },
+        { "title": "Conveniencia / Salud", "places": "Automercado\nMásxMenos\nFresh Market\nHospital Cima\nClínica Bíblica\nBlue Medical" },
+        { "title": "Centros comerciales", "places": "La Paco\nPlaza Laureles\nPlaza Atlantis\nSiente Bancas\nMultiplaza Escazú\nAvenida Escazú\nEscazú Village\nPlaza Escazú\nMetro Plaza" }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:render.php"
+}

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "respira/page-hero",
+  "version": "1.0.0",
+  "title": "Hero de página",
+  "category": "respira",
+  "icon": "cover-image",
+  "description": "Hero editable para encabezar una página: imagen de fondo con subtítulo, título, texto y botón opcional.",
+  "keywords": ["hero", "banner", "portada", "encabezado"],
+  "textdomain": "respira",
+  "attributes": {
+    "imageId":   { "type": "number", "default": 0 },
+    "imageUrl":  { "type": "string", "default": "" },
+    "imageAlt":  { "type": "string", "default": "" },
+    "subtitle":  { "type": "string", "default": "" },
+    "title":     { "type": "string", "default": "Título de la página" },
+    "text":      { "type": "string", "default": "" },
+    "ctaLabel":  { "type": "string", "default": "" },
+    "ctaUrl":    { "type": "string", "default": "" },
+    "align":     { "type": "string", "default": "center" }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:render.php"
+}

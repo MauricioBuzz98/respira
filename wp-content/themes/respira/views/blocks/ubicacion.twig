@@ -1,0 +1,43 @@
+{#
+  Bloque: respira/ubicacion — texto + mapa de Google Maps + puntos de interés
+  agrupados por categoría. Usa clases de Realest (auto-container, sec-title, row).
+#}
+<section {{ wrapper_attributes|raw }}>
+  <div class="ubicacion-section">
+    <div class="auto-container">
+
+      {% if subtitle or title or text %}
+        <div class="sec-title text-center">
+          {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
+          {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
+          {% if text %}<div class="text">{{ text|raw }}</div>{% endif %}
+        </div>
+      {% endif %}
+
+      {% if mapHtml %}
+        <div class="ubicacion-map">{{ mapHtml|raw }}</div>
+      {% endif %}
+
+      {% if categories %}
+        <div class="ubicacion-pois">
+          {% if poisTitle %}<div class="h4 pois-title text-center">{{ poisTitle }}</div>{% endif %}
+          <div class="row">
+            {% for cat in categories %}
+              <div class="col-lg-3 col-sm-6">
+                <div class="ubicacion-cat">
+                  {% if cat.title %}<div class="h5 cat-title">{{ cat.title }}</div>{% endif %}
+                  {% if cat.places %}
+                    <ul class="cat-list">
+                      {% for place in cat.places %}<li>{{ place }}</li>{% endfor %}
+                    </ul>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</section>
