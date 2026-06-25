@@ -1,0 +1,34 @@
+{#
+  Bloque: respira/galeria — galería artística tipo masonry (CSS columns) con
+  lightbox (Fancybox, clase .lightbox-image + data-fancybox, ya inicializado
+  por script.js). El número de columnas se controla con --galeria-cols.
+#}
+<section {{ wrapper_attributes|raw }}>
+  <div class="galeria-section">
+    <div class="auto-container">
+
+      {% if subtitle or title or text %}
+        <div class="sec-title text-center">
+          {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
+          {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
+          {% if text %}<div class="text galeria-lead">{{ text|raw }}</div>{% endif %}
+        </div>
+      {% endif %}
+
+      {% if images %}
+        <div class="galeria-grid" style="--galeria-cols: {{ columns }};">
+          {% for img in images %}
+            <figure class="galeria-item">
+              <a class="lightbox-image" href="{{ img.full }}" data-fancybox="respira-galeria" {% if img.caption %}data-caption="{{ img.caption }}"{% endif %}>
+                <img src="{{ img.display }}" alt="{{ img.alt }}" loading="lazy">
+                <span class="galeria-item__zoom"><i class="fa-solid fa-plus"></i></span>
+              </a>
+              {% if img.caption %}<figcaption>{{ img.caption }}</figcaption>{% endif %}
+            </figure>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</section>

@@ -975,3 +975,97 @@ hr.proyecto-separador {
     min-height: 320px;
   }
 }
+
+/* -------------------------------------------------------------------------
+   Bloque respira/galeria — galería artística tipo masonry (CSS columns) con
+   lightbox (Fancybox) y zoom al pasar el cursor.
+   ------------------------------------------------------------------------- */
+.respira-galeria .galeria-section {
+  padding: 100px 0;
+}
+.respira-galeria .galeria-lead {
+  max-width: 640px;
+  margin: 0 auto;
+  font-style: italic;
+  color: var(--theme-color-dark);
+  font-size: 20px;
+  line-height: 1.6;
+}
+.respira-galeria .galeria-grid {
+  margin-top: 50px;
+  column-count: var(--galeria-cols, 3);
+  column-gap: 16px;
+}
+.respira-galeria .galeria-item {
+  margin: 0 0 16px;
+  break-inside: avoid;
+}
+.respira-galeria .galeria-item > a {
+  position: relative;
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.respira-galeria .galeria-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.6s ease;
+}
+.respira-galeria .galeria-item > a:hover img {
+  transform: scale(1.06);
+}
+.respira-galeria .galeria-item > a:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(90, 81, 75, 0);
+  transition: background 0.4s ease;
+  z-index: 1;
+}
+.respira-galeria .galeria-item > a:hover:before {
+  background: rgba(90, 81, 75, 0.35);
+}
+.respira-galeria .galeria-item__zoom {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--theme-color-light);
+  color: var(--theme-color1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 2;
+}
+.respira-galeria .galeria-item > a:hover .galeria-item__zoom {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+.respira-galeria .galeria-item figcaption {
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--text-color);
+  text-align: center;
+}
+@media (max-width: 991.98px) {
+  .respira-galeria .galeria-grid {
+    column-count: 2;
+  }
+}
+@media (max-width: 575.98px) {
+  .respira-galeria .galeria-section {
+    padding: 60px 0;
+  }
+  .respira-galeria .galeria-grid {
+    column-count: 1;
+  }
+  .respira-galeria .galeria-lead {
+    font-size: 17px;
+  }
+}

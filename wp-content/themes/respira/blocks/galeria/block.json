@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "respira/galeria",
+  "version": "1.0.0",
+  "title": "Galería",
+  "category": "respira",
+  "icon": "format-gallery",
+  "description": "Galería de fotos estilo artístico (masonry) con lightbox al hacer clic.",
+  "keywords": ["galeria", "galería", "gallery", "fotos", "masonry"],
+  "textdomain": "respira",
+  "attributes": {
+    "subtitle": { "type": "string", "default": "" },
+    "title":    { "type": "string", "default": "Galería" },
+    "text":     { "type": "string", "default": "Respira no es solamente un lugar para vivir. Es un lugar para volver a sentir." },
+    "columns":  { "type": "number", "default": 3 },
+    "images": {
+      "type": "array",
+      "default": []
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:render.php"
+}
