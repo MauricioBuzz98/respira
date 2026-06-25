@@ -41,26 +41,33 @@ if ( 'categories' === $source ) {
 
 	if ( $terms && ! is_wp_error( $terms ) ) {
 		foreach ( $terms as $term ) {
-			// Imagen representativa: thumbnail del proyecto más reciente del término.
-			$rep      = get_posts( [
-				'post_type'      => 'proyecto',
-				'posts_per_page' => 1,
-				'tax_query'      => [ [
-					'taxonomy' => 'proyecto_categoria',
-					'field'    => 'term_id',
-					'terms'    => $term->term_id,
-				] ],
-			] );
-			$thumb_id = $rep ? get_post_thumbnail_id( $rep[0]->ID ) : 0;
-			$link     = get_term_link( $term );
+			$link = get_term_link( $term );
+
+			// Imagen de la card: imagen propia de la categoría (term meta) y, si no
+			// hay, el thumbnail del proyecto más reciente del término (fallback).
+			$cat_img_id = (int) get_term_meta( $term->term_id, '_respira_image', true );
+			if ( $cat_img_id ) {
+				$image_id = $cat_img_id;
+			} else {
+				$rep      = get_posts( [
+					'post_type'      => 'proyecto',
+					'posts_per_page' => 1,
+					'tax_query'      => [ [
+						'taxonomy' => 'proyecto_categoria',
+						'field'    => 'term_id',
+						'terms'    => $term->term_id,
+					] ],
+				] );
+				$image_id = $rep ? get_post_thumbnail_id( $rep[0]->ID ) : 0;
+			}
 
 			$items[] = [
 				'subtitle'    => sprintf( _n( '%d proyecto', '%d proyectos', (int) $term->count, 'respira' ), (int) $term->count ),
 				'title'       => $term->name,
 				'description' => '' !== $term->description ? wpautop( $term->description ) : '',
 				'link'        => is_wp_error( $link ) ? '' : $link,
-				'imageUrl'    => $thumb_id ? (string) wp_get_attachment_image_url( $thumb_id, 'large' ) : '',
-				'imageAlt'    => $thumb_id ? (string) get_post_meta( $thumb_id, '_wp_attachment_image_alt', true ) : '',
+				'imageUrl'    => $image_id ? (string) wp_get_attachment_image_url( $image_id, 'large' ) : '',
+				'imageAlt'    => $image_id ? (string) get_post_meta( $image_id, '_wp_attachment_image_alt', true ) : '',
 			];
 		}
 	}

@@ -7,8 +7,10 @@
 #}
 {% block content %}
 
+  {% set cat_image_id = term.meta('_respira_image') %}
+  {% set cat_image = cat_image_id ? function('wp_get_attachment_image_url', cat_image_id, 'full') : (theme.link ~ '/assets/images/resource/page-title.jpg') %}
   <div style="padding: 0 15px;">
-    <section class="page-title" style="background-image: url({{ theme.link }}/assets/images/resource/page-title.jpg);">
+    <section class="page-title" style="background-image: url({{ cat_image }});">
       <div class="auto-container">
         <div class="title-outer text-center">
           <div class="h1 title">{{ term.name }}</div>

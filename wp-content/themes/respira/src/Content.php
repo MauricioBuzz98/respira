@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Respira;
 
 use WP_Post;
+use WP_Term;
 
 class Content {
 
@@ -65,47 +66,126 @@ class Content {
 		add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
 		add_action( 'save_post', [ $this, 'save_meta' ], 10, 2 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_assets' ] );
+
+		// Imagen de la categoría de proyecto (term meta).
+		add_action( 'proyecto_categoria_add_form_fields', [ $this, 'term_add_image_field' ] );
+		add_action( 'proyecto_categoria_edit_form_fields', [ $this, 'term_edit_image_field' ] );
+		add_action( 'created_proyecto_categoria', [ $this, 'save_term_image' ] );
+		add_action( 'edited_proyecto_categoria', [ $this, 'save_term_image' ] );
 	}
 
 	/**
-	 * Carga la fuente flaticon en la pantalla de edición de amenidades para que
-	 * el selector de ícono muestre el glifo, y actualiza la vista previa en vivo.
-	 * Habilita además el selector de medios para el campo "imagen del ícono".
+	 * Encola los assets del admin:
+	 *  - Amenidades (post.php/post-new.php): fuente flaticon + preview del ícono.
+	 *  - Amenidades y Categorías de proyecto: selector de medios (wp.media) para
+	 *    los campos tipo imagen.
 	 */
 	public function admin_assets( string $hook ): void {
-		if ( ! in_array( $hook, [ 'post.php', 'post-new.php' ], true ) ) {
-			return;
-		}
 		$screen = get_current_screen();
-		if ( ! $screen || 'amenidades' !== $screen->post_type ) {
+		if ( ! $screen ) {
 			return;
 		}
-		wp_enqueue_style(
-			'respira-flaticon',
-			get_template_directory_uri() . '/assets/css/flaticon-set-realestate.css',
-			[],
-			'1.0.0'
-		);
-		// Necesario para wp.media (selector de la biblioteca de medios).
+
+		$is_amenidad_edit = in_array( $hook, [ 'post.php', 'post-new.php' ], true ) && 'amenidades' === $screen->post_type;
+		$is_term_edit     = in_array( $hook, [ 'edit-tags.php', 'term.php' ], true ) && 'proyecto_categoria' === ( $screen->taxonomy ?? '' );
+
+		if ( ! $is_amenidad_edit && ! $is_term_edit ) {
+			return;
+		}
+
+		// Selector de imagen (campos tipo 'image'): amenidades y categorías.
 		wp_enqueue_media();
-		wp_add_inline_script(
-			'jquery',
-			"document.addEventListener('change',function(e){if(e.target&&e.target.id==='respira_icon'){var p=document.querySelector('.respira-icon-preview i');if(p){p.className=e.target.value;}}});"
-		);
-		// Selector de imagen para los campos tipo 'image' (delegado por jQuery).
-		wp_add_inline_script(
-			'jquery',
-			"(function($){function fld(el){return $(el).closest('.respira-image-field');}" .
+		wp_add_inline_script( 'jquery', $this->image_picker_js() );
+
+		// Solo amenidades: fuente flaticon + preview en vivo del selector de ícono.
+		if ( $is_amenidad_edit ) {
+			wp_enqueue_style(
+				'respira-flaticon',
+				get_template_directory_uri() . '/assets/css/flaticon-set-realestate.css',
+				[],
+				'1.0.0'
+			);
+			wp_add_inline_script(
+				'jquery',
+				"document.addEventListener('change',function(e){if(e.target&&e.target.id==='respira_icon'){var p=document.querySelector('.respira-icon-preview i');if(p){p.className=e.target.value;}}});"
+			);
+		}
+	}
+
+	/**
+	 * JS (delegado por jQuery) del selector de imagen para los campos
+	 * `.respira-image-field` (meta box de amenidades y formularios de categoría).
+	 */
+	private function image_picker_js(): string {
+		return "(function($){function fld(el){return $(el).closest('.respira-image-field');}" .
 			"$(document).on('click','.respira-image-select',function(e){e.preventDefault();var w=fld(this);" .
 			"var frame=wp.media({title:'" . esc_js( __( 'Seleccionar imagen', 'respira' ) ) . "',button:{text:'" . esc_js( __( 'Usar imagen', 'respira' ) ) . "'},library:{type:'image'},multiple:false});" .
 			"frame.on('select',function(){var a=frame.state().get('selection').first().toJSON();" .
 			"w.find('input.respira-image-id').val(a.id);" .
 			"var u=(a.sizes&&a.sizes.thumbnail)?a.sizes.thumbnail.url:a.url;" .
-			"w.find('.respira-image-preview').html('<img src=\"'+u+'\" style=\"max-width:90px;height:auto;display:block;border:1px solid #ddd;border-radius:6px;\">');" .
+			"w.find('.respira-image-preview').html('<img src=\"'+u+'\" style=\"max-width:120px;height:auto;display:block;border:1px solid #ddd;border-radius:6px;\">');" .
 			"w.find('.respira-image-remove').show();});frame.open();});" .
 			"$(document).on('click','.respira-image-remove',function(e){e.preventDefault();var w=fld(this);" .
-			"w.find('input.respira-image-id').val('');w.find('.respira-image-preview').empty();$(this).hide();});})(jQuery);"
-		);
+			"w.find('input.respira-image-id').val('');w.find('.respira-image-preview').empty();$(this).hide();});})(jQuery);";
+	}
+
+	/** Campo "Imagen" en el formulario de ALTA de categoría de proyecto. */
+	public function term_add_image_field(): void {
+		?>
+		<div class="form-field respira-term-image">
+			<label><?php esc_html_e( 'Imagen de la categoría', 'respira' ); ?></label>
+			<span class="respira-image-field" style="display:block;">
+				<input type="hidden" name="respira_term_image" class="respira-image-id" value="">
+				<span class="respira-image-preview" style="display:block;margin-bottom:6px;"></span>
+				<button type="button" class="button respira-image-select"><?php esc_html_e( 'Seleccionar imagen', 'respira' ); ?></button>
+				<button type="button" class="button-link respira-image-remove" style="display:none;"><?php esc_html_e( 'Quitar imagen', 'respira' ); ?></button>
+			</span>
+			<p class="description"><?php esc_html_e( 'Se muestra en las cards del bloque Proyectos y como fondo del encabezado del listado de la categoría.', 'respira' ); ?></p>
+		</div>
+		<?php
+	}
+
+	/** Campo "Imagen" en el formulario de EDICIÓN de categoría de proyecto. */
+	public function term_edit_image_field( WP_Term $term ): void {
+		$att_id  = (int) get_term_meta( $term->term_id, self::PREFIX . 'image', true );
+		$img_url = $att_id ? (string) wp_get_attachment_image_url( $att_id, 'medium' ) : '';
+		?>
+		<tr class="form-field respira-term-image">
+			<th scope="row"><label><?php esc_html_e( 'Imagen de la categoría', 'respira' ); ?></label></th>
+			<td>
+				<span class="respira-image-field" style="display:block;">
+					<input type="hidden" name="respira_term_image" class="respira-image-id" value="<?php echo esc_attr( (string) $att_id ); ?>">
+					<span class="respira-image-preview" style="display:block;margin-bottom:6px;">
+						<?php if ( '' !== $img_url ) : ?>
+							<img src="<?php echo esc_url( $img_url ); ?>" style="max-width:200px;height:auto;display:block;border:1px solid #ddd;border-radius:6px;">
+						<?php endif; ?>
+					</span>
+					<button type="button" class="button respira-image-select"><?php esc_html_e( 'Seleccionar imagen', 'respira' ); ?></button>
+					<button type="button" class="button-link respira-image-remove" style="<?php echo $att_id ? '' : 'display:none;'; ?>"><?php esc_html_e( 'Quitar imagen', 'respira' ); ?></button>
+				</span>
+				<p class="description"><?php esc_html_e( 'Se muestra en las cards del bloque Proyectos y como fondo del encabezado del listado de la categoría.', 'respira' ); ?></p>
+			</td>
+		</tr>
+		<?php
+	}
+
+	/**
+	 * Guarda la imagen de la categoría (term meta). Los hooks created_/edited_
+	 * de WP se disparan tras validar el nonce del formulario del término.
+	 */
+	public function save_term_image( int $term_id ): void {
+		if ( ! current_user_can( 'manage_categories' ) ) {
+			return;
+		}
+		if ( ! isset( $_POST['respira_term_image'] ) ) {
+			return;
+		}
+		$att_id = absint( wp_unslash( $_POST['respira_term_image'] ) );
+		if ( $att_id ) {
+			update_term_meta( $term_id, self::PREFIX . 'image', $att_id );
+		} else {
+			delete_term_meta( $term_id, self::PREFIX . 'image' );
+		}
 	}
 
 	/**

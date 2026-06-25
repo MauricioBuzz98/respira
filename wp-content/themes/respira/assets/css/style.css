@@ -5650,9 +5650,9 @@ Section Title
 .banner-section .outer-box .banner-block .inner-block .banner-title {
   position: relative;
   z-index: 2;
-  font-size: 120px;
+  font-size: 40px;
   font-weight: 700;
-  line-height: 130px;
+  line-height: 1.5em;
   font-family: var(--sec-title-font-family);
   color: var(--theme-color-white);
   max-width: 1115px;
@@ -5660,26 +5660,26 @@ Section Title
 }
 @media (max-width: 1366px) {
   .banner-section .outer-box .banner-block .inner-block .banner-title {
-    font-size: 110px;
-    line-height: 120px;
+    font-size: 40px;
+    line-height: 1.5em;
   }
 }
 @media (max-width: 1199.98px) {
   .banner-section .outer-box .banner-block .inner-block .banner-title {
-    font-size: 90px;
-    line-height: 110px;
+    font-size: 40px;
+    line-height: 1.5em;
   }
 }
 @media (max-width: 1024px) {
   .banner-section .outer-box .banner-block .inner-block .banner-title {
-    font-size: 80px;
-    line-height: 90px;
+    font-size: 40px;
+    line-height: 1.5em;
   }
 }
 @media (max-width: 880px) {
   .banner-section .outer-box .banner-block .inner-block .banner-title {
-    font-size: 68px;
-    line-height: 88px;
+    font-size: 40px;
+    line-height: 1.5em;
     text-align: center;
   }
 }

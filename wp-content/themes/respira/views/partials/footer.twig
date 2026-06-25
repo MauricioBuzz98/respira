@@ -1,6 +1,8 @@
 {#
   Footer (portado de Realest, footer-style-one).
   Variante clara (footer-light): fondo claro y tipografia oscura.
+  - Fila superior: logo + tagline (Propiedades) + logos extra, en una linea.
+  - Debajo: contacto + menu, centrados. En mobile todo se apila.
   Los "Quick Link" usan la ubicacion de menu "footer" si esta asignada.
 #}
 <footer class="main-footer footer-style-one footer-light">
@@ -9,8 +11,10 @@
   <div class="widgets-section">
     <div class="anim-icon"><img src="{{ theme.link }}/assets/images/icons/footer-h1-2.png" alt=""></div>
     <div class="auto-container">
-      <div class="row align-items-center">
-        <div class="footer-column col-lg-5">
+
+      {# Fila superior: logo | tagline (Propiedades) | logos extra (misma linea) #}
+      <div class="row align-items-center footer-top-row">
+        <div class="footer-column col-12 col-lg-4">
           <div class="footer-widget about-widget wow fadeInLeft">
             <div class="footer-logo">
               {% if site_logo %}
@@ -21,26 +25,42 @@
             </div>
           </div>
         </div>
-        <div class="footer-column col-lg-2"></div>
-        <div class="footer-column style-two col-lg-5">
-          <div class="footer-widget subscribe-widget wow fadeInLeft" data-wow-delay="200ms">
+        <div class="footer-column style-two col-12 col-lg-4">
+          <div class="footer-widget subscribe-widget wow fadeInUp" data-wow-delay="200ms">
             <div class="h5 text">{{ options.footer_tagline }}</div>
+          </div>
+        </div>
+        <div class="footer-column col-12 col-lg-4">
+          <div class="footer-widget footer-images-widget wow fadeInRight" data-wow-delay="400ms">
+            <div class="footer-images">
+              {% if options.footer_image_1 %}
+                <div class="footer-image"><img src="{{ options.footer_image_1 }}" alt=""></div>
+              {% else %}
+                <div class="footer-image is-placeholder"></div>
+              {% endif %}
+              {% if options.footer_image_2 %}
+                <div class="footer-image"><img src="{{ options.footer_image_2 }}" alt=""></div>
+              {% else %}
+                <div class="footer-image is-placeholder"></div>
+              {% endif %}
+            </div>
           </div>
         </div>
       </div>
 
       <hr class="mb-40">
 
-      <div class="row">
-        <div class="footer-column border-0 col-lg-4 col-md-6">
-          <div class="footer-widget about-widget wow fadeInLeft">
+      {# Contacto + menu, centrados (apilados en mobile) #}
+      <div class="row justify-content-center text-center footer-center-row">
+        <div class="footer-column border-0 col-12 col-lg-auto">
+          <div class="footer-widget about-widget wow fadeInUp">
             <div class="widget-content">
               <div class="contact-area">
                 <a class="phone" href="tel:{{ options.phone_tel }}">{{ options.phone }}</a>
                 <a class="mail" href="mailto:{{ options.email }}">{{ options.email }}</a>
               </div>
               <div class="social-widget mt-30">
-                <ul class="social-icon-list1 mb-5 mb-lg-0">
+                <ul class="social-icon-list1 mb-0">
                   <li><a href="#"><i class="fab fa-twitter"></i></a></li>
                   <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                   <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
@@ -51,10 +71,10 @@
           </div>
         </div>
 
-        <div class="footer-column style-two border-0 col-lg-3 col-md-6">
-          <div class="footer-widget links-widget wow fadeInLeft" data-wow-delay="400ms">
+        <div class="footer-column style-two border-0 col-12 col-lg-auto">
+          <div class="footer-widget links-widget wow fadeInUp" data-wow-delay="200ms">
             <div class="h5 widget-title">{{ __('Enlaces', 'respira') }}</div>
-            <div class="widget-content mb-5 mb-sm-0">
+            <div class="widget-content">
               <ul class="user-links">
                 {% if menu_footer %}
                   {% for item in menu_footer.items %}
@@ -68,23 +88,6 @@
                   <li><a href="#">Contact Us</a></li>
                 {% endif %}
               </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="footer-column border-0 col-lg-5">
-          <div class="footer-widget footer-images-widget wow fadeInRight" data-wow-delay="600ms">
-            <div class="footer-images">
-              {% if options.footer_image_1 %}
-                <div class="footer-image"><img src="{{ options.footer_image_1 }}" alt=""></div>
-              {% else %}
-                <div class="footer-image is-placeholder"></div>
-              {% endif %}
-              {% if options.footer_image_2 %}
-                <div class="footer-image"><img src="{{ options.footer_image_2 }}" alt=""></div>
-              {% else %}
-                <div class="footer-image is-placeholder"></div>
-              {% endif %}
             </div>
           </div>
         </div>
