@@ -422,7 +422,7 @@ hr.proyecto-separador {
   color: var(--theme-color1);
 }
 
-/* Dos logos extra: en la misma línea que el tagline (alineados a la derecha). */
+/* Dos logos extra: en línea, alineados a la derecha del bloque en desktop. */
 .footer-images-widget .footer-images {
   display: flex;
   flex-wrap: nowrap;
@@ -430,43 +430,40 @@ hr.proyecto-separador {
   align-items: center;
   justify-content: flex-end;
 }
-@media (max-width: 991.98px) {
-  .footer-images-widget .footer-images {
-    justify-content: center;
-    margin-top: 30px;
-  }
-}
 
-/* Footer claro: fila inferior (contacto + menú) centrada. En mobile, al apilarse
-   en columnas col-12, ya quedan uno debajo del otro y centrados por text-center. */
-.footer-light .footer-center-row .footer-column {
-  padding-left: 30px;
-  padding-right: 30px;
+/* Footer claro: una sola fila (logo | contacto | menú | logos extra).
+   El contacto y el menú quedan alineados a la izquierda (textos y elementos).
+   En mobile las 4 columnas son col-12 y se apilan una debajo de la otra. */
+.footer-light .footer-main-row .footer-widget {
+  margin-bottom: 0;
 }
-.footer-light .footer-center-row .contact-area {
-  align-items: center;
+.footer-light .footer-main-row .footer-logo {
+  margin-bottom: 0;
 }
-.footer-light .footer-center-row .social-widget .social-icon-list1 {
-  justify-content: center;
+.footer-light .footer-main-row .contact-area {
+  align-items: flex-start;
 }
-.footer-light .footer-center-row .links-widget .widget-content {
-  display: block;
+.footer-light .footer-main-row .social-widget .social-icon-list1 {
+  justify-content: flex-start;
 }
-.footer-light .footer-center-row .links-widget .widget-content .user-links {
+.footer-light .footer-main-row .links-widget .widget-content .user-links {
   padding-right: 0;
 }
 @media (max-width: 991.98px) {
-  .footer-light .footer-top-row {
-    text-align: center;
+  .footer-light .footer-main-row .footer-column {
+    margin-bottom: 36px;
+    text-align: center; /* centra cada bloque al apilarse */
   }
-  .footer-light .footer-top-row .footer-column {
-    margin-bottom: 24px;
-  }
-  .footer-light .footer-center-row .footer-column {
-    margin-bottom: 30px;
-  }
-  .footer-light .footer-center-row .footer-column:last-child {
+  .footer-light .footer-main-row .footer-column:last-child {
     margin-bottom: 0;
+  }
+  /* El contenido se centra como bloque, pero su texto queda a la izquierda. */
+  .footer-light .footer-main-row .footer-widget {
+    display: inline-block;
+    text-align: left;
+  }
+  .footer-light .footer-main-row .footer-images {
+    justify-content: flex-start;
   }
 }
 .footer-images-widget .footer-image {
