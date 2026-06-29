@@ -28,7 +28,8 @@
       "Bash(\"C:/Users/mauri/.config/herd/bin/php84/php.exe\" \"C:/Users/mauri/AppData/Local/Temp/claude/d--Mi-carpeta-Herd-respira/0170b5f9-cbc4-4cb3-80cb-eabe603ea5ef/scratchpad/inspeccionar_pagina.php\")",
       "Bash(\"C:/Users/mauri/.config/herd/bin/php84/php.exe\" \"C:/Users/mauri/AppData/Local/Temp/claude/d--Mi-carpeta-Herd-respira/0170b5f9-cbc4-4cb3-80cb-eabe603ea5ef/scratchpad/poblar_pagina.php\")",
       "Bash(\"C:/Users/mauri/.config/herd/bin/php84/php.exe\" -l blocks/galeria/render.php)",
-      "Bash(\"C:/Users/mauri/.config/herd/bin/php84/php.exe\" \"C:/Users/mauri/AppData/Local/Temp/claude/d--Mi-carpeta-Herd-respira/0170b5f9-cbc4-4cb3-80cb-eabe603ea5ef/scratchpad/crear_pagina_galeria.php\")"
+      "Bash(\"C:/Users/mauri/.config/herd/bin/php84/php.exe\" \"C:/Users/mauri/AppData/Local/Temp/claude/d--Mi-carpeta-Herd-respira/0170b5f9-cbc4-4cb3-80cb-eabe603ea5ef/scratchpad/crear_pagina_galeria.php\")",
+      "Edit(/.claude/skills/wordpress-timber-blocks/**)"
     ]
   }
 }
