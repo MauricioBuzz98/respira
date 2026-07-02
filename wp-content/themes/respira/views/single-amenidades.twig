@@ -8,8 +8,9 @@
   La lista del sidebar (amenidades) la inyecta single-amenidades.php.
 #}
 {% block content %}
+  {% set banner_bg = post.thumbnail ? post.thumbnail.src('full') : theme.link ~ '/assets/images/resource/page-title.jpg' %}
   <div style="padding: 0 15px;">
-    <section class="page-title" style="background-image: url({{ theme.link }}/assets/images/resource/page-title.jpg);">
+    <section class="page-title" style="background-image: url({{ banner_bg }});">
       <div class="auto-container">
         <div class="title-outer text-center">
           <div class="h1 title">{{ post.title }}</div>
