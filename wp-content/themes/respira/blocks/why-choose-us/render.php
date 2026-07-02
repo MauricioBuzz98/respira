@@ -15,6 +15,8 @@ $context = Timber::context();
 
 $context['imageUrl']  = $attributes['imageUrl'] ?? '';
 $context['imageAlt']  = $attributes['imageAlt'] ?? '';
+$context['mobileImageUrl'] = $attributes['mobileImageUrl'] ?? '';
+$context['mobileImageAlt'] = $attributes['mobileImageAlt'] ?? '';
 $context['subtitle']  = $attributes['subtitle'] ?? '';
 $context['title']     = $attributes['title'] ?? '';
 $context['text']      = $attributes['text'] ?? '';

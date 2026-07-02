@@ -17,6 +17,8 @@ export default function Edit( { attributes, setAttributes } ) {
 	const {
 		imageId,
 		imageUrl,
+		mobileImageId,
+		mobileImageUrl,
 		subtitle,
 		title,
 		text,
@@ -79,6 +81,52 @@ export default function Edit( { attributes, setAttributes } ) {
 							) }
 						/>
 					</MediaUploadCheck>
+
+					<p style={ { fontSize: 11, textTransform: 'uppercase', letterSpacing: 0.4, opacity: 0.7, margin: '16px 0 6px' } }>
+						{ __( 'Imagen para mobile (opcional)', 'respira' ) }
+					</p>
+					<MediaUploadCheck>
+						<MediaUpload
+							onSelect={ ( media ) =>
+								setAttributes( {
+									mobileImageId: media.id,
+									mobileImageUrl: media.url,
+									mobileImageAlt: media.alt || '',
+								} )
+							}
+							allowedTypes={ [ 'image' ] }
+							value={ mobileImageId }
+							render={ ( { open } ) => (
+								<div>
+									{ mobileImageUrl && (
+										<img
+											src={ mobileImageUrl }
+											alt=""
+											style={ { width: '100%', borderRadius: '4px', marginBottom: '8px' } }
+										/>
+									) }
+									<Button variant={ mobileImageUrl ? 'secondary' : 'primary' } onClick={ open }>
+										{ mobileImageUrl ? __( 'Cambiar imagen mobile', 'respira' ) : __( 'Seleccionar imagen mobile', 'respira' ) }
+									</Button>
+									{ mobileImageUrl && (
+										<Button
+											isDestructive
+											variant="link"
+											onClick={ () =>
+												setAttributes( { mobileImageId: 0, mobileImageUrl: '', mobileImageAlt: '' } )
+											}
+											style={ { display: 'block', marginTop: '4px' } }
+										>
+											{ __( 'Quitar imagen mobile', 'respira' ) }
+										</Button>
+									) }
+								</div>
+							) }
+						/>
+					</MediaUploadCheck>
+					<p style={ { fontSize: 11, opacity: 0.7, marginTop: 6 } }>
+						{ __( 'Si la dejás vacía, en mobile se usa la imagen principal.', 'respira' ) }
+					</p>
 				</PanelBody>
 
 				<PanelBody title={ __( 'Encabezado', 'respira' ) }>

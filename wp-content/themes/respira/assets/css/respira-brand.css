@@ -368,6 +368,22 @@ hr.proyecto-separador {
 }
 
 /* -------------------------------------------------------------------------
+   Header — barra superior (.header-upper). La plantilla la trae en negro; la
+   marca no usa negro, así que se pinta en café oscuro (variante más oscura del
+   café #5A514B). El texto queda blanco y los iconos en almendra claro para que
+   contrasten con el fondo (antes eran del mismo café y se perdían).
+   ------------------------------------------------------------------------- */
+.header-style-one .header-upper .inner-box {
+  background-color: #3e3833;
+}
+.header-style-one .header-upper .inner-box .info-box .info {
+  color: var(--theme-color-white);
+}
+.header-style-one .header-upper .inner-box .info-box .info i {
+  color: var(--theme-color1-text-color);
+}
+
+/* -------------------------------------------------------------------------
    Footer — variante clara (.footer-light)
    Invierte la paleta del footer oscuro original: fondo claro (almendra) y
    tipografía oscura (café). Se ocultan las imágenes decorativas grandes del
@@ -802,6 +818,53 @@ hr.proyecto-separador {
 .respira-why-choose-us .why-choose-us-section .outer-box .content-column .inner-column .text,
 .respira-why-choose-us .why-choose-us-section .outer-box .content-column .inner-column .list-style-one li {
   color: var(--theme-color-dark); /* café */
+}
+/* Textura decorativa de fondo (.shape-1): el layout base la ancla abajo-derecha
+   en su tamaño natural, y su borde recto se ve como una "banda"/corte. Se hace
+   cubrir todo el contenedor (ancho y alto) con object-fit cover. */
+.respira-why-choose-us .why-choose-us-section .outer-box .shape-1 {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+.respira-why-choose-us .why-choose-us-section .outer-box .shape-1 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Imagen sin efecto de scroll (parallax/reveal): ocupa todo el ancho del
+   contenedor y usa un alto definido con object-fit cover para no deformar el
+   bloque. Se neutralizan los max-width/min-height del layout base de Realest. */
+.respira-why-choose-us .why-choose-us-section .outer-box .image-column .image {
+  max-width: 100%;
+  width: 100%;
+  min-height: 0;
+  height: 600px;
+}
+.respira-why-choose-us .why-choose-us-section .outer-box .image-column .image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.respira-why-choose-us .why-choose-us-section .outer-box .image-column .image img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+}
+@media (max-width: 1024px) {
+  .respira-why-choose-us .why-choose-us-section .outer-box .image-column .image {
+    height: 420px;
+  }
+}
+@media (max-width: 575.98px) {
+  .respira-why-choose-us .why-choose-us-section .outer-box .image-column .image {
+    height: 480px;
+  }
 }
 
 /* -------------------------------------------------------------------------
