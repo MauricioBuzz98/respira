@@ -451,6 +451,11 @@ hr.proyecto-separador {
 .footer-light .footer-main-row .footer-logo {
   margin-bottom: 0;
 }
+/* Logo principal del footer más grande que el máximo base de Realest (180px). */
+.footer-light .footer-main-row .footer-logo,
+.footer-light .footer-main-row .footer-logo img {
+  max-width: 240px;
+}
 .footer-light .footer-main-row .contact-area {
   align-items: flex-start;
 }
@@ -483,9 +488,15 @@ hr.proyecto-separador {
 .footer-images-widget .footer-image img {
   display: block;
   width: auto;
-  height: 60px;
+  height: 90px;
   max-width: 100%;
   object-fit: contain;
+}
+/* En mobile los dos logos secundarios se reducen. */
+@media (max-width: 767.98px) {
+  .footer-images-widget .footer-image img {
+    height: 55px;
+  }
 }
 /* Placeholder visible mientras no se carga una imagen desde el Personalizador. */
 .footer-images-widget .footer-image.is-placeholder {
@@ -837,6 +848,13 @@ hr.proyecto-separador {
   max-height: 110px;
   width: auto;
   max-width: 100%;
+}
+/* Logo superior (CIVITAR) más grande; logo inferior (Volio & Trejos) más pequeño. */
+.respira-respaldo .respaldo-logo--top img {
+  max-height: 150px;
+}
+.respira-respaldo .respaldo-logo--bottom img {
+  max-height: 80px;
 }
 .respira-respaldo .respaldo-text {
   max-width: 620px;

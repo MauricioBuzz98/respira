@@ -10,7 +10,7 @@
         <div class="sec-title text-center">
           {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
           {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
-          {% if text %}<div class="text">{{ text|nl2br }}</div>{% endif %}
+          {% if text %}<div class="text">{{ text|raw }}</div>{% endif %}
         </div>
       {% endif %}
 
