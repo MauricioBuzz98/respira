@@ -53,7 +53,9 @@
       "Bash(php -l wp-config.php)",
       "Bash(cat views/blocks/proyecto-niveles.twig)",
       "Bash(cat blocks/proyecto-niveles/render.php)",
-      "Bash(php -l src/Customizer.php)"
+      "Bash(php -l src/Customizer.php)",
+      "Bash(php -l src/Migration.php)",
+      "Bash(composer dump-autoload *)"
     ]
   }
 }

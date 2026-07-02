@@ -52,6 +52,11 @@ if ( class_exists( \Respira\Customizer::class ) ) {
 	new \Respira\Customizer();
 }
 
+// Migración de configuración (Herramientas → Respira Migración). Solo admin.
+if ( is_admin() && class_exists( \Respira\Migration::class ) ) {
+	new \Respira\Migration();
+}
+
 // ---------------------------------------------------------------------------
 // 3. Soporte del tema, menus y tamanos de imagen
 // ---------------------------------------------------------------------------
