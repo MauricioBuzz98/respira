@@ -43,11 +43,7 @@
                 {%- if g.name -%}
                   <h4 class="proyecto-nivel-titulo">{{ g.name }}</h4>
                 {%- endif -%}
-                {%- if g.descType in ['ul', 'ol'] -%}
-                  <{{ g.descType }} class="proyecto-descripcion-lista">{{ g.description|raw }}</{{ g.descType }}>
-                {%- else -%}
-                  {{ g.description|raw }}
-                {%- endif -%}
+                {{ g.description|raw }}
               </div>
             {% endfor %}
           </div>

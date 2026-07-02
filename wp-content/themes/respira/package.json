@@ -4,6 +4,7 @@
   "description": "Bloques nativos de Gutenberg renderizados con Timber/Twig para el tema Respira.",
   "private": true,
   "scripts": {
+    "postinstall": "chmod -R +x node_modules/.bin node_modules/webpack/bin/webpack.js 2>/dev/null || true",
     "build": "wp-scripts build",
     "start": "wp-scripts start",
     "lint:js": "wp-scripts lint-js",

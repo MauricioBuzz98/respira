@@ -56,16 +56,21 @@ foreach ( (array) ( $attributes['items'] ?? [] ) as $level ) {
 		}
 	}
 
-	// Formato de la descripción: 'ul'/'ol' la envuelven como lista; cualquier otro valor = texto.
-	$desc_type = (string) ( $level['descType'] ?? 'text' );
-	$desc_type = in_array( $desc_type, [ 'ul', 'ol' ], true ) ? $desc_type : 'text';
+	// La descripción es texto plano y se respetan los saltos de línea. El
+	// contenido antiguo pudo guardarse como HTML (<br>, listas): se normaliza
+	// a texto plano antes de escapar y convertir los \n en <br>.
+	$description = (string) ( $level['description'] ?? '' );
+	$description = preg_replace( '#<br\s*/?>#i', "\n", $description );
+	$description = preg_replace( '#</(li|p)>#i', "\n", $description );
+	$description = wp_strip_all_tags( $description );
+	$description = trim( html_entity_decode( $description, ENT_QUOTES ) );
+	$description = nl2br( esc_html( $description ) );
 
 	$gallery[] = [
 		'image'       => $image,
 		'alt'         => (string) ( $level['imageAlt'] ?? '' ),
 		'name'        => (string) ( $level['name'] ?? '' ),
-		'descType'    => $desc_type,
-		'description' => wp_kses_post( (string) ( $level['description'] ?? '' ) ),
+		'description' => $description,
 		'amenities'   => $level_amenities,
 	];
 }

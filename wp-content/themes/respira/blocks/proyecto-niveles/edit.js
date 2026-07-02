@@ -5,7 +5,7 @@ import {
 	MediaUploadCheck,
 	RichText,
 } from '@wordpress/block-editor';
-import { PanelBody, TextControl, SelectControl, Button } from '@wordpress/components';
+import { PanelBody, TextControl, TextareaControl, SelectControl, Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useReorder, RepeaterRow, DragHandle, ReorderArrows } from '../shared/repeater';
 
@@ -44,20 +44,26 @@ const ICON_OPTIONS = [
 ].map( ( cls ) => ( { label: cls.replace( 'flaticon-set-', '' ), value: cls } ) );
 
 const EMPTY_AMENITY = { icon: 'flaticon-set-property', text: '', imageId: 0, imageUrl: '', imageAlt: '' };
-const EMPTY_LEVEL = { name: '', imageId: 0, imageUrl: '', imageAlt: '', descType: 'text', description: '', amenities: [] };
+const EMPTY_LEVEL = { name: '', imageId: 0, imageUrl: '', imageAlt: '', description: '', amenities: [] };
 
-// La descripción se guarda como HTML. En modo lista (ul/ol) `description` guarda
-// solo los <li>…</li> (el <ul>/<ol> lo pone el tagName en el editor y el Twig en
-// el front). Estos helpers convierten el contenido al cambiar de modo sin perderlo.
-const splitDescLines = ( html ) =>
-	( html || '' )
+// La descripción es texto plano (se respetan los saltos de línea). El contenido
+// antiguo pudo guardarse como HTML (<br>, listas); esto lo normaliza a texto
+// plano para mostrarlo en el textarea sin etiquetas visibles.
+const toPlainText = ( value ) => {
+	const str = value || '';
+	if ( ! /<[a-z][\s\S]*>/i.test( str ) ) {
+		return str; // ya es texto plano: se respeta tal cual (incluidas líneas en blanco).
+	}
+	return str
 		.replace( /<li[^>]*>/gi, '' )
-		.split( /<\/li>|<br\s*\/?>|<\/p>\s*<p[^>]*>/i )
-		.map( ( s ) => s.replace( /<\/?p[^>]*>/gi, '' ).trim() )
-		.filter( ( s ) => s !== '' );
-
-const toListValue = ( html ) => splitDescLines( html ).map( ( l ) => `<li>${ l }</li>` ).join( '' );
-const toTextValue = ( html ) => splitDescLines( html ).join( '<br>' );
+		.replace( /<\/li>|<br\s*\/?>|<\/p>\s*<p[^>]*>/gi, '\n' )
+		.replace( /<\/?[^>]+>/g, '' )
+		.replace( /&amp;/g, '&' )
+		.replace( /&lt;/g, '<' )
+		.replace( /&gt;/g, '>' )
+		.replace( /&nbsp;/g, ' ' )
+		.trim();
+};
 
 /**
  * Editor de un nivel (imagen + descripción + repetidor de amenidades).
@@ -74,16 +80,6 @@ function LevelEditor( { level, li, count, levelReorder, updateLevel, removeLevel
 	};
 	const addAmenity = () => updateLevel( li, { amenities: [ ...amenities, { ...EMPTY_AMENITY } ] } );
 	const removeAmenity = ( ai ) => updateLevel( li, { amenities: amenities.filter( ( _, i ) => i !== ai ) } );
-
-	// Formato de la descripción: 'text' (párrafo libre) | 'ul' (viñetas) | 'ol' (numerada).
-	const descType = level.descType || 'text';
-	const changeDescType = ( type ) => {
-		if ( type === descType ) {
-			return;
-		}
-		const description = type === 'text' ? toTextValue( level.description ) : toListValue( level.description );
-		updateLevel( li, { descType: type, description } );
-	};
 
 	return (
 		<div
@@ -155,35 +151,15 @@ function LevelEditor( { level, li, count, levelReorder, updateLevel, removeLevel
 					</MediaUploadCheck>
 				</div>
 				<div style={ { flex: '1 1 260px' } }>
-					<div style={ { display: 'flex', gap: 4, marginBottom: 6 } }>
-						<Button size="small" variant={ descType === 'text' ? 'primary' : 'secondary' } onClick={ () => changeDescType( 'text' ) }>
-							{ __( 'Texto', 'respira' ) }
-						</Button>
-						<Button size="small" variant={ descType === 'ul' ? 'primary' : 'secondary' } onClick={ () => changeDescType( 'ul' ) }>
-							{ __( 'Viñetas', 'respira' ) }
-						</Button>
-						<Button size="small" variant={ descType === 'ol' ? 'primary' : 'secondary' } onClick={ () => changeDescType( 'ol' ) }>
-							{ __( 'Numerada', 'respira' ) }
-						</Button>
-					</div>
-					{ descType === 'text' ? (
-						<RichText
-							tagName="div"
-							className="respira-nivel-desc"
-							value={ level.description }
-							onChange={ ( v ) => updateLevel( li, { description: v } ) }
-							placeholder={ __( 'Descripción del nivel…', 'respira' ) }
-						/>
-					) : (
-						<RichText
-							tagName={ descType }
-							multiline="li"
-							className="respira-nivel-desc"
-							value={ level.description }
-							onChange={ ( v ) => updateLevel( li, { description: v } ) }
-							placeholder={ __( 'Un ítem por línea (Enter para agregar)…', 'respira' ) }
-						/>
-					) }
+					<TextareaControl
+						label={ __( 'Descripción del nivel', 'respira' ) }
+						hideLabelFromVision
+						className="respira-nivel-desc"
+						value={ toPlainText( level.description ) }
+						onChange={ ( v ) => updateLevel( li, { description: v } ) }
+						placeholder={ __( 'Descripción del nivel (se respetan los saltos de línea)…', 'respira' ) }
+						rows={ 8 }
+					/>
 				</div>
 			</div>
 
@@ -272,7 +248,7 @@ export default function Edit( { attributes, setAttributes } ) {
 				<PanelBody title={ __( 'Ayuda', 'respira' ) } initialOpen={ true }>
 					<p>
 						{ __(
-							'Agregá un nivel por cada imagen. La descripción admite formato (negrita, cursiva, enlaces) y podés mostrarla como texto, lista con viñetas o lista numerada con los botones que aparecen sobre ella. Se muestra al seleccionar la miniatura del nivel en el front.',
+							'Agregá un nivel por cada imagen. La descripción es texto plano y se respetan los saltos de línea. Se muestra al seleccionar la miniatura del nivel en el front.',
 							'respira'
 						) }
 					</p>

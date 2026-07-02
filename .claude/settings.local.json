@@ -33,7 +33,16 @@
       "Bash(node -e \"try{require\\('./webpack.config.js'\\);console.log\\('config OK'\\)}catch\\(e\\){console.log\\('CONFIG ERR:',e.message\\)}\")",
       "Bash(php -l blocks/proyecto-niveles/render.php)",
       "Bash(php -l build/blocks/proyecto-niveles/render.php)",
-      "Bash(NODE_ENV=production node node_modules/webpack-cli/bin/cli.js --config webpack.config.js)"
+      "Bash(NODE_ENV=production node node_modules/webpack-cli/bin/cli.js --config webpack.config.js)",
+      "Bash(mount)",
+      "Bash(node_modules/.bin/wp-scripts --version)",
+      "Bash(./node_modules/.bin/wp-scripts --version)",
+      "Bash(./node_modules/.bin/wp-scripts build *)",
+      "Bash(echo \"EXIT $?\")",
+      "Bash(node -e \"console.log\\(require\\('resolve-bin'\\).sync\\('webpack'\\)\\)\")",
+      "Bash(chmod +x node_modules/webpack/bin/webpack.js)",
+      "Read(//private/tmp/**)",
+      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('package.json','utf8'\\)\\); console.log\\('ok'\\)\")"
     ]
   }
 }
