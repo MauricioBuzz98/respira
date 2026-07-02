@@ -83,6 +83,26 @@ class Customizer {
 			] ) );
 		}
 
+		// Amenidades (listado): imagen del banner superior (page-title).
+		$wp_customize->add_section( 'respira_amenidades', [
+			'title'       => __( 'Respira — Amenidades (listado)', 'respira' ),
+			'description' => __( 'Imagen del banner superior en la página que lista las amenidades.', 'respira' ),
+			'priority'    => 31,
+		] );
+
+		$wp_customize->add_setting( 'respira_amenidades_banner', [
+			'default'           => '',
+			'type'              => 'theme_mod',
+			'sanitize_callback' => 'esc_url_raw',
+			'transport'         => 'refresh',
+		] );
+
+		$wp_customize->add_control( new \WP_Customize_Image_Control( $wp_customize, 'respira_amenidades_banner', [
+			'label'       => __( 'Banner del listado de amenidades', 'respira' ),
+			'description' => __( 'Si se deja vacío se usa la imagen por defecto de la plantilla.', 'respira' ),
+			'section'     => 'respira_amenidades',
+		] ) );
+
 		// Redes sociales (repetidor: icono + enlace). Se muestran solo los iconos
 		// en el footer y en el header (menú móvil). Se guarda como JSON.
 		require_once __DIR__ . '/Social_Repeater_Control.php';
