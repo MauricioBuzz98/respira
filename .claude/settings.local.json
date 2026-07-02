@@ -26,7 +26,14 @@
       "Bash(grep -nE \"\\\\\\\\\\\\$\\\\\\\\\\(document\\\\\\\\\\)\\\\\\\\.ready|\\\\\\\\\\\\$\\\\\\\\\\(function|\\\\\\\\\\(function\\\\\\\\s*\\\\\\\\\\(\\\\\\\\\\\\$\\\\\\\\\\)|jQuery\\\\\\\\\\(function\" script.js)",
       "Bash(npm -v)",
       "Bash(curl -k -s -L --max-time 20 \"http://respira.test\")",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(node node_modules/@wordpress/scripts/bin/wp-scripts.js build)",
+      "Bash(echo \"EXIT=$?\")",
+      "Bash(node node_modules/@wordpress/scripts/bin/wp-scripts.js --help)",
+      "Bash(node -e \"try{require\\('./webpack.config.js'\\);console.log\\('config OK'\\)}catch\\(e\\){console.log\\('CONFIG ERR:',e.message\\)}\")",
+      "Bash(php -l blocks/proyecto-niveles/render.php)",
+      "Bash(php -l build/blocks/proyecto-niveles/render.php)",
+      "Bash(NODE_ENV=production node node_modules/webpack-cli/bin/cli.js --config webpack.config.js)"
     ]
   }
 }

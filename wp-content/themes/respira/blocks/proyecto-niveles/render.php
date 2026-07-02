@@ -56,9 +56,15 @@ foreach ( (array) ( $attributes['items'] ?? [] ) as $level ) {
 		}
 	}
 
+	// Formato de la descripción: 'ul'/'ol' la envuelven como lista; cualquier otro valor = texto.
+	$desc_type = (string) ( $level['descType'] ?? 'text' );
+	$desc_type = in_array( $desc_type, [ 'ul', 'ol' ], true ) ? $desc_type : 'text';
+
 	$gallery[] = [
 		'image'       => $image,
 		'alt'         => (string) ( $level['imageAlt'] ?? '' ),
+		'name'        => (string) ( $level['name'] ?? '' ),
+		'descType'    => $desc_type,
 		'description' => wp_kses_post( (string) ( $level['description'] ?? '' ) ),
 		'amenities'   => $level_amenities,
 	];

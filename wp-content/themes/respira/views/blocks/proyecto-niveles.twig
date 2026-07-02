@@ -23,7 +23,7 @@
             {% if gallery|length > 1 %}
               <ul class="thumb-box list-unstyled clearfix">
                 {% for g in gallery %}
-                  <li><a class="{{ loop.first ? 'active' : '' }}" data-index="{{ loop.index0 }}" href="#"><img src="{{ g.image }}" alt="{{ g.alt }}"></a></li>
+                  <li><a class="{{ loop.first ? 'active' : '' }}" data-index="{{ loop.index0 }}" href="#"{% if g.name %} title="{{ g.name }}"{% endif %}><img src="{{ g.image }}" alt="{{ g.alt ?: g.name }}"></a></li>
                 {% endfor %}
               </ul>
             {% endif %}
@@ -39,7 +39,16 @@
         {% if gallery %}
           <div class="proyecto-descripciones">
             {% for g in gallery %}
-              <div class="proyecto-descripcion product-details__content{{ loop.first ? ' is-active' : '' }}" data-index="{{ loop.index0 }}">{{ g.description|raw }}</div>
+              <div class="proyecto-descripcion product-details__content{{ loop.first ? ' is-active' : '' }}" data-index="{{ loop.index0 }}">
+                {%- if g.name -%}
+                  <h4 class="proyecto-nivel-titulo">{{ g.name }}</h4>
+                {%- endif -%}
+                {%- if g.descType in ['ul', 'ol'] -%}
+                  <{{ g.descType }} class="proyecto-descripcion-lista">{{ g.description|raw }}</{{ g.descType }}>
+                {%- else -%}
+                  {{ g.description|raw }}
+                {%- endif -%}
+              </div>
             {% endfor %}
           </div>
         {% endif %}

@@ -44,7 +44,20 @@ const ICON_OPTIONS = [
 ].map( ( cls ) => ( { label: cls.replace( 'flaticon-set-', '' ), value: cls } ) );
 
 const EMPTY_AMENITY = { icon: 'flaticon-set-property', text: '', imageId: 0, imageUrl: '', imageAlt: '' };
-const EMPTY_LEVEL = { imageId: 0, imageUrl: '', imageAlt: '', description: '', amenities: [] };
+const EMPTY_LEVEL = { name: '', imageId: 0, imageUrl: '', imageAlt: '', descType: 'text', description: '', amenities: [] };
+
+// La descripción se guarda como HTML. En modo lista (ul/ol) `description` guarda
+// solo los <li>…</li> (el <ul>/<ol> lo pone el tagName en el editor y el Twig en
+// el front). Estos helpers convierten el contenido al cambiar de modo sin perderlo.
+const splitDescLines = ( html ) =>
+	( html || '' )
+		.replace( /<li[^>]*>/gi, '' )
+		.split( /<\/li>|<br\s*\/?>|<\/p>\s*<p[^>]*>/i )
+		.map( ( s ) => s.replace( /<\/?p[^>]*>/gi, '' ).trim() )
+		.filter( ( s ) => s !== '' );
+
+const toListValue = ( html ) => splitDescLines( html ).map( ( l ) => `<li>${ l }</li>` ).join( '' );
+const toTextValue = ( html ) => splitDescLines( html ).join( '<br>' );
 
 /**
  * Editor de un nivel (imagen + descripción + repetidor de amenidades).
@@ -62,6 +75,16 @@ function LevelEditor( { level, li, count, levelReorder, updateLevel, removeLevel
 	const addAmenity = () => updateLevel( li, { amenities: [ ...amenities, { ...EMPTY_AMENITY } ] } );
 	const removeAmenity = ( ai ) => updateLevel( li, { amenities: amenities.filter( ( _, i ) => i !== ai ) } );
 
+	// Formato de la descripción: 'text' (párrafo libre) | 'ul' (viñetas) | 'ol' (numerada).
+	const descType = level.descType || 'text';
+	const changeDescType = ( type ) => {
+		if ( type === descType ) {
+			return;
+		}
+		const description = type === 'text' ? toTextValue( level.description ) : toListValue( level.description );
+		updateLevel( li, { descType: type, description } );
+	};
+
 	return (
 		<div
 			{ ...levelReorder.dropProps( li ) }
@@ -77,7 +100,7 @@ function LevelEditor( { level, li, count, levelReorder, updateLevel, removeLevel
 			<div style={ { display: 'flex', justifyContent: 'space-between', alignItems: 'center' } }>
 				<span style={ { display: 'flex', alignItems: 'center', gap: 4 } }>
 					<DragHandle reorder={ levelReorder } index={ li } />
-					<strong>{ __( 'Nivel', 'respira' ) } #{ li + 1 }</strong>
+					<strong>{ level.name ? level.name : `${ __( 'Nivel', 'respira' ) } #${ li + 1 }` }</strong>
 				</span>
 				<span style={ { display: 'flex', alignItems: 'center', gap: 4 } }>
 					<ReorderArrows index={ li } count={ count } move={ levelReorder.move } />
@@ -85,6 +108,15 @@ function LevelEditor( { level, li, count, levelReorder, updateLevel, removeLevel
 						{ __( 'Eliminar nivel', 'respira' ) }
 					</Button>
 				</span>
+			</div>
+
+			<div style={ { marginTop: 12 } }>
+				<TextControl
+					label={ __( 'Nombre del nivel', 'respira' ) }
+					value={ level.name || '' }
+					onChange={ ( v ) => updateLevel( li, { name: v } ) }
+					placeholder={ __( 'Ej. Planta baja, Segundo piso, Terraza…', 'respira' ) }
+				/>
 			</div>
 
 			<div style={ { display: 'flex', gap: 16, marginTop: 12, flexWrap: 'wrap' } }>
@@ -123,13 +155,35 @@ function LevelEditor( { level, li, count, levelReorder, updateLevel, removeLevel
 					</MediaUploadCheck>
 				</div>
 				<div style={ { flex: '1 1 260px' } }>
-					<RichText
-						tagName="div"
-						className="respira-nivel-desc"
-						value={ level.description }
-						onChange={ ( v ) => updateLevel( li, { description: v } ) }
-						placeholder={ __( 'Descripción del nivel…', 'respira' ) }
-					/>
+					<div style={ { display: 'flex', gap: 4, marginBottom: 6 } }>
+						<Button size="small" variant={ descType === 'text' ? 'primary' : 'secondary' } onClick={ () => changeDescType( 'text' ) }>
+							{ __( 'Texto', 'respira' ) }
+						</Button>
+						<Button size="small" variant={ descType === 'ul' ? 'primary' : 'secondary' } onClick={ () => changeDescType( 'ul' ) }>
+							{ __( 'Viñetas', 'respira' ) }
+						</Button>
+						<Button size="small" variant={ descType === 'ol' ? 'primary' : 'secondary' } onClick={ () => changeDescType( 'ol' ) }>
+							{ __( 'Numerada', 'respira' ) }
+						</Button>
+					</div>
+					{ descType === 'text' ? (
+						<RichText
+							tagName="div"
+							className="respira-nivel-desc"
+							value={ level.description }
+							onChange={ ( v ) => updateLevel( li, { description: v } ) }
+							placeholder={ __( 'Descripción del nivel…', 'respira' ) }
+						/>
+					) : (
+						<RichText
+							tagName={ descType }
+							multiline="li"
+							className="respira-nivel-desc"
+							value={ level.description }
+							onChange={ ( v ) => updateLevel( li, { description: v } ) }
+							placeholder={ __( 'Un ítem por línea (Enter para agregar)…', 'respira' ) }
+						/>
+					) }
 				</div>
 			</div>
 
@@ -218,7 +272,7 @@ export default function Edit( { attributes, setAttributes } ) {
 				<PanelBody title={ __( 'Ayuda', 'respira' ) } initialOpen={ true }>
 					<p>
 						{ __(
-							'Agregá un nivel por cada imagen. La descripción admite formato (negrita, cursiva, enlaces) y se muestra al seleccionar la miniatura del nivel en el front.',
+							'Agregá un nivel por cada imagen. La descripción admite formato (negrita, cursiva, enlaces) y podés mostrarla como texto, lista con viñetas o lista numerada con los botones que aparecen sobre ella. Se muestra al seleccionar la miniatura del nivel en el front.',
 							'respira'
 						) }
 					</p>

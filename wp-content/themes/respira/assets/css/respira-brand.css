@@ -138,7 +138,18 @@ hr.proyecto-separador {
 }
 .proyecto-galeria .proyecto-galeria__stage .image-box img {
   width: 100%;
-  height: auto;
+  /* Altura fija para que la galería no cambie de tamaño al pasar de nivel
+     (las imágenes pueden tener dimensiones distintas) y las miniaturas +
+     el texto de la derecha queden siempre visibles. object-fit: contain
+     muestra la imagen completa sin recortarla dentro del alto disponible. */
+  height: 500px;
+  object-fit: contain;
+  object-position: center;
+}
+@media (max-width: 991px) {
+  .proyecto-galeria .proyecto-galeria__stage .image-box img {
+    height: 380px;
+  }
 }
 
 /* Galería: tira de miniaturas (100x100, igual que la plantilla). */
@@ -1121,4 +1132,37 @@ hr.proyecto-separador {
   .respira-galeria .galeria-lead {
     font-size: 17px;
   }
+}
+
+/* -------------------------------------------------------------------------
+   Bloque proyecto-niveles: listas dentro de la descripción del nivel.
+   Realest resetea list-style en varios contenedores; forzamos viñetas/números
+   tanto en el front (.proyecto-descripcion) como en el editor (.respira-nivel-desc,
+   que ES el <ul>/<ol> cuando la descripción está en modo lista).
+   ------------------------------------------------------------------------- */
+.proyecto-descripcion .proyecto-descripcion-lista,
+ul.respira-nivel-desc,
+ol.respira-nivel-desc {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+}
+.proyecto-descripcion ul.proyecto-descripcion-lista,
+ul.respira-nivel-desc {
+  list-style: disc;
+}
+.proyecto-descripcion ol.proyecto-descripcion-lista,
+ol.respira-nivel-desc {
+  list-style: decimal;
+}
+.proyecto-descripcion .proyecto-descripcion-lista li,
+ul.respira-nivel-desc li,
+ol.respira-nivel-desc li {
+  margin-bottom: 0.35rem;
+}
+
+/* Título editable de cada nivel (bloque proyecto-niveles) */
+.proyecto-descripcion .proyecto-nivel-titulo {
+  margin: 0 0 0.75rem;
+  font-size: 22px;
+  line-height: 1.25;
 }
