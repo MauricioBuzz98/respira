@@ -163,6 +163,16 @@ add_action( 'after_setup_theme', function (): void {
 	add_editor_style( 'assets/css/respira-brand.css' );
 } );
 
+// Font Awesome dentro del panel del editor: los InspectorControls se renderizan
+// FUERA del canvas (iframe), por lo que add_editor_style no los alcanza. Encolar
+// la hoja permite previsualizar los iconos en los controles de los bloques.
+add_action( 'enqueue_block_editor_assets', function (): void {
+	$rel = '/assets/css/fontawesome.css';
+	$dir = get_template_directory();
+	$ver = file_exists( $dir . $rel ) ? (string) filemtime( $dir . $rel ) : '1.0.0';
+	wp_enqueue_style( 'respira-fontawesome-editor', get_template_directory_uri() . $rel, [], $ver );
+} );
+
 // ---------------------------------------------------------------------------
 // 6. Registro automatico de bloques compilados (build/blocks/*/block.json)
 // ---------------------------------------------------------------------------

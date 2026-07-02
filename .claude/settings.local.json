@@ -42,7 +42,8 @@
       "Bash(node -e \"console.log\\(require\\('resolve-bin'\\).sync\\('webpack'\\)\\)\")",
       "Bash(chmod +x node_modules/webpack/bin/webpack.js)",
       "Read(//private/tmp/**)",
-      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('package.json','utf8'\\)\\); console.log\\('ok'\\)\")"
+      "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('package.json','utf8'\\)\\); console.log\\('ok'\\)\")",
+      "Bash(grep -nE \"\\\\.fa-[a-z-]+:{1,2}before\" assets/css/fontawesome.css)"
     ]
   }
 }

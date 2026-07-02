@@ -18,10 +18,10 @@
     "categories": {
       "type": "array",
       "default": [
-        { "title": "Restaurantes", "places": "Taj Mahal\nLa Cava Alta Fiori\nTierra del Café\nAvogarden\nLa Luz\nJaguar Negro\nLa Alacena\nLa Querencia\nAntika Pizzería\nThe Market" },
-        { "title": "Cafeterías", "places": "Bread House\nChez Christophe\nTierra del Café\nMocapan\nLa Alacena\nLa Querencia" },
-        { "title": "Conveniencia / Salud", "places": "Automercado\nMásxMenos\nFresh Market\nHospital Cima\nClínica Bíblica\nBlue Medical" },
-        { "title": "Centros comerciales", "places": "La Paco\nPlaza Laureles\nPlaza Atlantis\nSiente Bancas\nMultiplaza Escazú\nAvenida Escazú\nEscazú Village\nPlaza Escazú\nMetro Plaza" }
+        { "title": "Restaurantes", "icon": "fa-solid fa-utensils", "places": "Taj Mahal\nLa Cava Alta Fiori\nTierra del Café\nAvogarden\nLa Luz\nJaguar Negro\nLa Alacena\nLa Querencia\nAntika Pizzería\nThe Market" },
+        { "title": "Cafeterías", "icon": "fa-solid fa-mug-hot", "places": "Bread House\nChez Christophe\nTierra del Café\nMocapan\nLa Alacena\nLa Querencia" },
+        { "title": "Conveniencia / Salud", "icon": "fa-solid fa-briefcase-medical", "places": "Automercado\nMásxMenos\nFresh Market\nHospital Cima\nClínica Bíblica\nBlue Medical" },
+        { "title": "Centros comerciales", "icon": "fa-solid fa-bag-shopping", "places": "La Paco\nPlaza Laureles\nPlaza Atlantis\nSiente Bancas\nMultiplaza Escazú\nAvenida Escazú\nEscazú Village\nPlaza Escazú\nMetro Plaza" }
       ]
     }
   },

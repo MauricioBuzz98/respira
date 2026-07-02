@@ -702,23 +702,31 @@ hr.proyecto-separador {
     text-align: center;
   }
 }
-/* El cuadro café del formulario ya no usa el offset/margen del layout anterior. */
+/* El cuadro café del formulario ya no usa el offset/margen del layout anterior.
+   Se redondean también las esquinas derechas (el layout base dejaba la superior
+   derecha en recta: 30px 0 30px 30px). */
 .respira-contact .contact-section .outer-box .form-coumn .inner-column {
   margin-left: 0;
   padding: 80px 60px;
+  border-radius: 30px;
 }
 @media (max-width: 575.98px) {
   .respira-contact .contact-section .outer-box .form-coumn .inner-column {
     padding: 50px 22px;
   }
 }
-/* Encabezado del lado izquierdo (sobre fondo claro -> tonos oscuros de marca). */
-.respira-contact .info-column .sec-title .sub-title {
-  color: var(--theme-color1);
+/* Encabezado sobre el cuadro café (arriba del formulario) -> tonos claros. */
+.respira-contact .form-coumn .inner-column .sec-title {
+  margin-bottom: 30px;
 }
-.respira-contact .info-column .sec-title .title,
-.respira-contact .info-column .sec-title .text {
-  color: var(--theme-color-dark);
+.respira-contact .form-coumn .inner-column .sec-title .sub-title {
+  color: var(--theme-color1-text-color);
+}
+.respira-contact .form-coumn .inner-column .sec-title .title {
+  color: var(--theme-color-white);
+}
+.respira-contact .form-coumn .inner-column .sec-title .text {
+  color: rgba(var(--theme-color-white-rgb), 0.75);
 }
 /* Lista de redes/contacto: icono en círculo café + texto. */
 .respira-contact .contact-social-list {
@@ -1034,10 +1042,26 @@ hr.proyecto-separador {
   height: 100%;
 }
 .respira-ubicacion .ubicacion-cat .cat-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   color: var(--theme-color1);
   margin-bottom: 14px;
   padding-bottom: 12px;
   border-bottom: 1px solid rgba(90, 81, 75, 0.2);
+}
+/* Ícono de la categoría: círculo café con el glifo en tono claro. */
+.respira-ubicacion .ubicacion-cat .cat-title .cat-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--theme-color1);
+  color: var(--theme-color1-text-color);
+  font-size: 16px;
 }
 .respira-ubicacion .ubicacion-cat .cat-list {
   list-style: none;

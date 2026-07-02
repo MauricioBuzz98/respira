@@ -25,7 +25,12 @@
             {% for cat in categories %}
               <div class="col-lg-3 col-sm-6">
                 <div class="ubicacion-cat">
-                  {% if cat.title %}<div class="h5 cat-title">{{ cat.title }}</div>{% endif %}
+                  {% if cat.title %}
+                    <div class="h5 cat-title">
+                      {% if cat.icon %}<span class="cat-icon"><i class="{{ cat.icon }}"></i></span>{% endif %}
+                      <span class="cat-title-text">{{ cat.title }}</span>
+                    </div>
+                  {% endif %}
                   {% if cat.places %}
                     <ul class="cat-list">
                       {% for place in cat.places %}<li>{{ place }}</li>{% endfor %}

@@ -8,7 +8,26 @@ import {
 import { __ } from '@wordpress/i18n';
 import { useReorder, RepeaterRow } from '../shared/repeater';
 
-const EMPTY_CATEGORY = { title: '', places: '' };
+const EMPTY_CATEGORY = { title: '', icon: 'fa-solid fa-location-dot', places: '' };
+
+// Íconos sugeridos para el previsualizador (clase Font Awesome + etiqueta guía).
+const ICON_SUGGESTIONS = [
+	{ icon: 'fa-solid fa-utensils', label: __( 'Restaurantes', 'respira' ) },
+	{ icon: 'fa-solid fa-mug-hot', label: __( 'Cafeterías', 'respira' ) },
+	{ icon: 'fa-solid fa-martini-glass', label: __( 'Bares', 'respira' ) },
+	{ icon: 'fa-solid fa-briefcase-medical', label: __( 'Salud', 'respira' ) },
+	{ icon: 'fa-solid fa-bag-shopping', label: __( 'Centros comerciales', 'respira' ) },
+	{ icon: 'fa-solid fa-cart-shopping', label: __( 'Supermercados', 'respira' ) },
+	{ icon: 'fa-solid fa-store', label: __( 'Tiendas', 'respira' ) },
+	{ icon: 'fa-solid fa-graduation-cap', label: __( 'Educación', 'respira' ) },
+	{ icon: 'fa-solid fa-school', label: __( 'Colegios', 'respira' ) },
+	{ icon: 'fa-solid fa-dumbbell', label: __( 'Gimnasios', 'respira' ) },
+	{ icon: 'fa-solid fa-spa', label: __( 'Bienestar', 'respira' ) },
+	{ icon: 'fa-solid fa-tree', label: __( 'Parques', 'respira' ) },
+	{ icon: 'fa-solid fa-building', label: __( 'Oficinas', 'respira' ) },
+	{ icon: 'fa-solid fa-plane', label: __( 'Aeropuerto', 'respira' ) },
+	{ icon: 'fa-solid fa-location-dot', label: __( 'General', 'respira' ) },
+];
 
 export default function Edit( { attributes, setAttributes } ) {
 	const { subtitle, title, text, mapEmbed, poisTitle, categories } = attributes;
@@ -46,6 +65,65 @@ export default function Edit( { attributes, setAttributes } ) {
 					{ categories.map( ( cat, index ) => (
 						<RepeaterRow key={ index } reorder={ reorder } index={ index } count={ categories.length }>
 							<TextControl label={ __( 'Categoría', 'respira' ) } value={ cat.title } onChange={ ( v ) => updateCategory( index, { title: v } ) } />
+							<div style={ { marginBottom: 8 } }>
+								<div style={ { fontSize: 11, textTransform: 'uppercase', letterSpacing: 0.4, opacity: 0.7, marginBottom: 6 } }>
+									{ __( 'Ícono — elegí uno o escribí la clase', 'respira' ) }
+								</div>
+								<div style={ { display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 8 } }>
+									{ ICON_SUGGESTIONS.map( ( opt ) => {
+										const active = cat.icon === opt.icon;
+										return (
+											<button
+												type="button"
+												key={ opt.icon }
+												onClick={ () => updateCategory( index, { icon: opt.icon } ) }
+												title={ `${ opt.label } — ${ opt.icon }` }
+												aria-label={ opt.label }
+												aria-pressed={ active }
+												style={ {
+													width: 34,
+													height: 34,
+													display: 'inline-flex',
+													alignItems: 'center',
+													justifyContent: 'center',
+													borderRadius: 6,
+													cursor: 'pointer',
+													fontSize: 15,
+													color: '#5A514B',
+													border: active ? '2px solid #5A514B' : '1px solid #d0cdc6',
+													background: active ? '#efece6' : '#fff',
+												} }
+											>
+												<i className={ opt.icon } aria-hidden="true" />
+											</button>
+										);
+									} ) }
+								</div>
+							</div>
+							<TextControl
+								label={ __( 'Clase Font Awesome del ícono', 'respira' ) }
+								value={ cat.icon }
+								onChange={ ( v ) => updateCategory( index, { icon: v } ) }
+								help={ __( 'Se llena al elegir arriba. Podés escribir cualquier clase, p. ej. fa-solid fa-tree. Más iconos en fontawesome.com/icons.', 'respira' ) }
+							/>
+							{ cat.icon && (
+								<div style={ { display: 'flex', alignItems: 'center', gap: 8, margin: '-4px 0 10px', fontSize: 12, color: '#5A514B' } }>
+									<span style={ {
+										width: 30,
+										height: 30,
+										display: 'inline-flex',
+										alignItems: 'center',
+										justifyContent: 'center',
+										borderRadius: '50%',
+										background: '#5A514B',
+										color: '#F1F0EA',
+										fontSize: 14,
+									} }>
+										<i className={ cat.icon } aria-hidden="true" />
+									</span>
+									<span>{ __( 'Vista previa', 'respira' ) }</span>
+								</div>
+							) }
 							<TextareaControl
 								label={ __( 'Lugares (uno por línea)', 'respira' ) }
 								value={ cat.places }
@@ -77,7 +155,10 @@ export default function Edit( { attributes, setAttributes } ) {
 					<div style={ { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 12 } }>
 						{ categories.map( ( cat, index ) => (
 							<div key={ index } style={ { border: '1px solid #eee', borderRadius: 8, padding: 12 } }>
-								<div style={ { fontWeight: 600, marginBottom: 6, color: '#5A514B' } }>{ cat.title || '—' }</div>
+								<div style={ { display: 'flex', alignItems: 'center', gap: 8, fontWeight: 600, marginBottom: 6, color: '#5A514B' } }>
+										{ cat.icon && <i className={ cat.icon } aria-hidden="true" style={ { width: 18, textAlign: 'center' } } /> }
+										<span>{ cat.title || '—' }</span>
+									</div>
 								<ul style={ { margin: 0, paddingLeft: 16, fontSize: 13, color: '#555' } }>
 									{ ( cat.places || '' ).split( '\n' ).map( ( p ) => p.trim() ).filter( Boolean ).map( ( p, i ) => (
 										<li key={ i }>{ p }</li>

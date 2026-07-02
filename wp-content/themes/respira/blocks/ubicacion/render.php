@@ -24,6 +24,36 @@ if ( '' === $map ) {
 	);
 }
 
+/**
+ * Ícono por defecto según el nombre de la categoría. Sólo se usa como fallback
+ * cuando el bloque no trae un ícono definido (p. ej. contenido guardado antes de
+ * agregar el campo). Si el editor define un ícono, ese tiene prioridad.
+ */
+$guess_icon = static function ( string $title ): string {
+	$t = function_exists( 'mb_strtolower' ) ? mb_strtolower( $title ) : strtolower( $title );
+	$map = [
+		'restaurante'  => 'fa-solid fa-utensils',
+		'café'         => 'fa-solid fa-mug-hot',
+		'cafe'         => 'fa-solid fa-mug-hot',
+		'cafetería'    => 'fa-solid fa-mug-hot',
+		'cafeteria'    => 'fa-solid fa-mug-hot',
+		'salud'        => 'fa-solid fa-briefcase-medical',
+		'conveniencia' => 'fa-solid fa-briefcase-medical',
+		'hospital'     => 'fa-solid fa-briefcase-medical',
+		'clínica'      => 'fa-solid fa-briefcase-medical',
+		'comercial'    => 'fa-solid fa-bag-shopping',
+		'comercio'     => 'fa-solid fa-bag-shopping',
+		'plaza'        => 'fa-solid fa-bag-shopping',
+		'mall'         => 'fa-solid fa-bag-shopping',
+	];
+	foreach ( $map as $needle => $icon ) {
+		if ( false !== strpos( $t, $needle ) ) {
+			return $icon;
+		}
+	}
+	return 'fa-solid fa-location-dot';
+};
+
 // Categorías: cada "places" (texto multilínea) se convierte en array de lugares.
 $categories = [];
 foreach ( (array) ( $attributes['categories'] ?? [] ) as $c ) {
@@ -35,8 +65,14 @@ foreach ( (array) ( $attributes['categories'] ?? [] ) as $c ) {
 			$places[] = $line;
 		}
 	}
+	$title = (string) ( $c['title'] ?? '' );
+	$icon  = trim( (string) ( $c['icon'] ?? '' ) );
+	if ( '' === $icon ) {
+		$icon = $guess_icon( $title );
+	}
 	$categories[] = [
-		'title'  => (string) ( $c['title'] ?? '' ),
+		'title'  => $title,
+		'icon'   => $icon,
 		'places' => $places,
 	];
 }

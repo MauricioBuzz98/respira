@@ -11,11 +11,6 @@
 
         <div class="info-column col-12 col-lg-5">
           <div class="contact-info-inner wow fadeInLeft">
-            <div class="sec-title">
-              {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
-              {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
-              {% if text %}<div class="text">{{ text|nl2br }}</div>{% endif %}
-            </div>
             {% if socials %}
               <ul class="contact-social-list list-unstyled">
                 {% for s in socials %}
@@ -34,6 +29,13 @@
         <div class="form-coumn col-12 col-lg-7">
           <div class="inner-column">
             <div class="shape-1"><img src="{{ theme.link }}/assets/images/icons/shape-10.png" alt=""></div>
+            {% if subtitle or title or text %}
+              <div class="sec-title">
+                {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
+                {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
+                {% if text %}<div class="text">{{ text|nl2br }}</div>{% endif %}
+              </div>
+            {% endif %}
             <div class="form-box">
               <div class="inner-box">
                 {% if form_html %}
