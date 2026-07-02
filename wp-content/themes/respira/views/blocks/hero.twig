@@ -37,7 +37,7 @@
 
                 <div class="content-box wow fadeInUp" data-wow-delay="600ms">
                   {% if slide.text %}
-                    <div class="text">{{ slide.text }}</div>
+                    <div class="text">{{ slide.text|nl2br }}</div>
                   {% endif %}
                   {# <div class="content">
                     {% if slide.ratingValue or slide.ratingText %}

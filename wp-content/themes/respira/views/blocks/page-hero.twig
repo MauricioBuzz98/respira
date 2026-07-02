@@ -10,7 +10,7 @@
       <div class="respira-page-hero__content">
         {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
         {% if title %}<h1 class="title">{{ title }}</h1>{% endif %}
-        {% if text %}<div class="text">{{ text|raw }}</div>{% endif %}
+        {% if text %}<div class="text">{{ text|nl2br }}</div>{% endif %}
         {% if ctaLabel %}
           <a class="theme-btn btn-style-one" href="{{ ctaUrl ?: '#' }}">
             <span class="btn-title">{{ ctaLabel }}</span>

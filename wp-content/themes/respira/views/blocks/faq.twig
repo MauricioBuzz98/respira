@@ -16,7 +16,7 @@
               <div class="sec-title">
                 {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
                 {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
-                {% if text %}<div class="text">{{ text }}</div>{% endif %}
+                {% if text %}<div class="text">{{ text|nl2br }}</div>{% endif %}
               </div>
             {% endif %}
 
@@ -27,7 +27,7 @@
                   <div class="icon"><i class="fa-solid fa-circle-question"></i></div>
                   <div class="content">
                     {% if infoTitle %}<div class="h4 title">{{ infoTitle }}</div>{% endif %}
-                    {% if infoText %}<div class="text">{{ infoText }}</div>{% endif %}
+                    {% if infoText %}<div class="text">{{ infoText|nl2br }}</div>{% endif %}
                   </div>
                 </div>
                 {% if ctaLabel %}

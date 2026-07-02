@@ -16,7 +16,7 @@
           <div class="sec-title light">
             {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
             {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
-            {% if description %}<div class="text">{{ description }}</div>{% endif %}
+            {% if description %}<div class="text">{{ description|nl2br }}</div>{% endif %}
           </div>
         </div>
       {% endif %}
@@ -37,7 +37,7 @@
                   <div class="h4 title">
                     {% if item.link %}<a href="{{ item.link }}">{{ item.title }}</a>{% else %}{{ item.title }}{% endif %}
                   </div>
-                  {% if item.text %}<div class="text">{{ item.text }}</div>{% endif %}
+                  {% if item.text %}<div class="text">{{ item.text|nl2br }}</div>{% endif %}
                 </div>
                 <div class="images-box">
                   {% if item.link %}<a class="btn-icon-style" href="{{ item.link }}"><i class="fa-solid fa-arrow-right"></i></a>{% endif %}

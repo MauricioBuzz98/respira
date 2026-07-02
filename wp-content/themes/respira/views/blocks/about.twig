@@ -31,7 +31,7 @@
             <div class="sec-title">
               {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
               {% if title %}<div class="h2 title char-animation">{{ title }}</div>{% endif %}
-              {% if text %}<div class="text">{{ text }}</div>{% endif %}
+              {% if text %}<div class="text">{{ text|nl2br }}</div>{% endif %}
             </div>
 
             {% if feature1Title or feature1Text %}
@@ -44,7 +44,7 @@
                   {% endif %}
                   <div class="content">
                     {% if feature1Title %}<div class="h5 title">{{ feature1Title }}</div>{% endif %}
-                    {% if feature1Text %}<div class="text">{{ feature1Text }}</div>{% endif %}
+                    {% if feature1Text %}<div class="text">{{ feature1Text|nl2br }}</div>{% endif %}
                   </div>
                 </div>
               </div>
@@ -60,7 +60,7 @@
                   {% endif %}
                   <div class="content">
                     {% if feature2Title %}<div class="h5 title">{{ feature2Title }}</div>{% endif %}
-                    {% if feature2Text %}<div class="text">{{ feature2Text }}</div>{% endif %}
+                    {% if feature2Text %}<div class="text">{{ feature2Text|nl2br }}</div>{% endif %}
                   </div>
                 </div>
               </div>

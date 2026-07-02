@@ -14,7 +14,7 @@
             <div class="sec-title">
               {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
               {% if title %}<div class="h2 title">{{ title }}</div>{% endif %}
-              {% if text %}<div class="text">{{ text }}</div>{% endif %}
+              {% if text %}<div class="text">{{ text|nl2br }}</div>{% endif %}
             </div>
             {% if socials %}
               <ul class="contact-social-list list-unstyled">
