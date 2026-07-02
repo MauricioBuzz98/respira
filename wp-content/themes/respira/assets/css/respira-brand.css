@@ -214,9 +214,17 @@ hr.proyecto-separador {
   margin-bottom: 8px;
 }
 .proyecto-amenidades li i {
-  color: var(--theme-color1);
-  font-size: 20px;
-  margin-right: 10px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--theme-color1);
+  color: var(--theme-color1-text-color);
+  font-size: 15px;
+  margin-right: 12px;
   line-height: 1;
 }
 /* Amenidad con imagen en lugar de icono (bloque proyecto-niveles). */

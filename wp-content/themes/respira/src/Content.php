@@ -19,44 +19,99 @@ class Content {
 	public const PREFIX = '_respira_';
 
 	/**
-	 * Iconos disponibles del set flaticon-set-realestate
-	 * (assets/css/flaticon-set-realestate.css). Mismo set que el selector del
-	 * bloque proyecto-niveles, para que ícono de amenidades y niveles coincidan.
+	 * Iconos disponibles (Font Awesome 6, presente en assets/css/fontawesome.css).
+	 * ESPEJO de la lista JS en blocks/shared/icons.js (ICON_CHOICES): mantener
+	 * ambas sincronizadas para que amenidades (CPT), niveles y puntos de interés
+	 * (ubicación) ofrezcan exactamente los mismos iconos.
 	 *
-	 * @return string[]
+	 * @return array<int, array{icon:string,label:string}>
 	 */
-	public function icon_options(): array {
+	public function icon_choices(): array {
 		return [
-			'flaticon-set-agreement',
-			'flaticon-set-property',
-			'flaticon-set-residential',
-			'flaticon-set-contract',
-			'flaticon-set-construction',
-			'flaticon-set-investment',
-			'flaticon-set-building',
-			'flaticon-set-investment-1',
-			'flaticon-set-building-1',
-			'flaticon-set-development',
-			'flaticon-set-investment-2',
-			'flaticon-set-property-1',
-			'flaticon-set-building-2',
-			'flaticon-set-hook',
-			'flaticon-set-consulting',
-			'flaticon-set-location',
-			'flaticon-set-building-plan',
-			'flaticon-set-accomodation',
-			'flaticon-set-management',
-			'flaticon-set-house-design',
-			'flaticon-set-blueprint',
-			'flaticon-set-urban-planning',
-			'flaticon-set-technical-drawing',
-			'flaticon-set-architect',
-			'flaticon-set-3d',
-			'flaticon-set-architecture',
-			'flaticon-set-construction-1',
-			'flaticon-set-pencil-and-ruler',
-			'flaticon-set-tripod',
-			'flaticon-set-engineer',
+			// Vivienda / interiores
+			[ 'icon' => 'fa-solid fa-bed', 'label' => __( 'Dormitorio / Cama', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-bed-front', 'label' => __( 'Habitación', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-house-user', 'label' => __( 'Suite principal', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-person-dress', 'label' => __( 'Vestidor / Clóset', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-toilet', 'label' => __( 'Baño', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-bath', 'label' => __( 'Bañera / Tina', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-faucet', 'label' => __( 'Grifería', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-oven', 'label' => __( 'Cocina', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-sink', 'label' => __( 'Fregadero', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-blender', 'label' => __( 'Electrodomésticos', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-chair', 'label' => __( 'Comedor', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-tv', 'label' => __( 'Sala de TV', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-stairs', 'label' => __( 'Escaleras', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-door-closed', 'label' => __( 'Cuarto', 'respira' ) ],
+			// Amenidades / áreas comunes
+			[ 'icon' => 'fa-solid fa-person-swimming', 'label' => __( 'Piscina', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-hot-tub-person', 'label' => __( 'Jacuzzi', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-dumbbell', 'label' => __( 'Gimnasio', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-spa', 'label' => __( 'Spa / Bienestar', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-shower', 'label' => __( 'Duchas / Sauna', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-fire-flame-curved', 'label' => __( 'BBQ / Parrilla', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-baby-carriage', 'label' => __( 'Zona infantil', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-paw', 'label' => __( 'Pet friendly', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-user-shield', 'label' => __( 'Seguridad', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-video', 'label' => __( 'Cámaras / CCTV', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-square-parking', 'label' => __( 'Parqueo', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-charging-station', 'label' => __( 'Cargador EV', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-elevator', 'label' => __( 'Ascensor', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-wifi', 'label' => __( 'WiFi', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-laptop', 'label' => __( 'Coworking', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-couch', 'label' => __( 'Lounge / Sala', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-film', 'label' => __( 'Cine', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-gamepad', 'label' => __( 'Sala de juegos', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-bell-concierge', 'label' => __( 'Concierge', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-soap', 'label' => __( 'Lavandería', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-snowflake', 'label' => __( 'Aire acondicionado', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-solar-panel', 'label' => __( 'Panel solar', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-plug', 'label' => __( 'Energía', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-lightbulb', 'label' => __( 'Iluminación', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-warehouse', 'label' => __( 'Bodega', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-key', 'label' => __( 'Acceso / Llave', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-house', 'label' => __( 'Casa', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-door-open', 'label' => __( 'Entrada', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-wheelchair-move', 'label' => __( 'Accesible', 'respira' ) ],
+			// Deporte / recreación
+			[ 'icon' => 'fa-solid fa-bicycle', 'label' => __( 'Bici / Ciclovía', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-person-running', 'label' => __( 'Running', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-person-hiking', 'label' => __( 'Senderos', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-table-tennis-paddle-ball', 'label' => __( 'Tenis / Ping pong', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-futbol', 'label' => __( 'Fútbol', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-golf-ball-tee', 'label' => __( 'Golf', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-campground', 'label' => __( 'Fogata / Camping', 'respira' ) ],
+			// Naturaleza / entorno
+			[ 'icon' => 'fa-solid fa-tree', 'label' => __( 'Áreas verdes', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-leaf', 'label' => __( 'Naturaleza', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-seedling', 'label' => __( 'Jardín', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-sun', 'label' => __( 'Terraza / Sol', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-mountain', 'label' => __( 'Vista / Montaña', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-umbrella-beach', 'label' => __( 'Playa', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-droplet', 'label' => __( 'Agua', 'respira' ) ],
+			// Puntos de interés (comercios y servicios)
+			[ 'icon' => 'fa-solid fa-utensils', 'label' => __( 'Restaurantes', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-mug-hot', 'label' => __( 'Cafeterías', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-martini-glass', 'label' => __( 'Bares', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-wine-glass', 'label' => __( 'Vinos', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-bag-shopping', 'label' => __( 'Centros comerciales', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-cart-shopping', 'label' => __( 'Supermercados', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-store', 'label' => __( 'Tiendas', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-briefcase-medical', 'label' => __( 'Salud / Conveniencia', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-hospital', 'label' => __( 'Hospital', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-heart-pulse', 'label' => __( 'Clínica', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-stethoscope', 'label' => __( 'Consultorio', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-graduation-cap', 'label' => __( 'Educación', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-school', 'label' => __( 'Colegios', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-book', 'label' => __( 'Biblioteca', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-landmark', 'label' => __( 'Banco / Institución', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-church', 'label' => __( 'Iglesia', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-plane', 'label' => __( 'Aeropuerto', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-bus', 'label' => __( 'Transporte', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-car', 'label' => __( 'Auto / Vías', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-city', 'label' => __( 'Ciudad', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-location-dot', 'label' => __( 'General', 'respira' ) ],
+			[ 'icon' => 'fa-solid fa-map-location-dot', 'label' => __( 'Mapa', 'respira' ) ],
 		];
 	}
 
@@ -97,19 +152,36 @@ class Content {
 		wp_enqueue_media();
 		wp_add_inline_script( 'jquery', $this->image_picker_js() );
 
-		// Solo amenidades: fuente flaticon + preview en vivo del selector de ícono.
+		// Solo amenidades: Font Awesome + selector visual (grilla) con preview.
 		if ( $is_amenidad_edit ) {
 			wp_enqueue_style(
-				'respira-flaticon',
-				get_template_directory_uri() . '/assets/css/flaticon-set-realestate.css',
+				'respira-fontawesome-admin',
+				get_template_directory_uri() . '/assets/css/fontawesome.css',
 				[],
 				'1.0.0'
 			);
-			wp_add_inline_script(
-				'jquery',
-				"document.addEventListener('change',function(e){if(e.target&&e.target.id==='respira_icon'){var p=document.querySelector('.respira-icon-preview i');if(p){p.className=e.target.value;}}});"
-			);
+			wp_add_inline_style( 'respira-fontawesome-admin', $this->icon_picker_css() );
+			wp_add_inline_script( 'jquery', $this->icon_picker_js() );
 		}
+	}
+
+	/** CSS del selector visual de iconos (grilla) del metabox de amenidades. */
+	private function icon_picker_css(): string {
+		return '.respira-icon-picker .respira-icon-grid{display:flex;flex-wrap:wrap;gap:6px;max-height:180px;overflow-y:auto;padding:2px;margin-bottom:8px;border:1px solid #e0ded8;border-radius:6px;background:#fff;}' .
+			'.respira-icon-picker .respira-icon-btn{width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;cursor:pointer;font-size:15px;color:#5A514B;border:1px solid #d0cdc6;background:#fff;}' .
+			'.respira-icon-picker .respira-icon-btn.is-active{border:2px solid #5A514B;background:#efece6;}' .
+			'.respira-icon-picker .respira-icon-input{max-width:320px;margin-bottom:6px;}' .
+			'.respira-icon-picker .respira-icon-preview-chip{width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:#5A514B;color:#F1F0EA;font-size:14px;}';
+	}
+
+	/** JS (delegado) del selector visual de iconos: clic en grilla + preview en vivo. */
+	private function icon_picker_js(): string {
+		return "(function(){function sync(p){var box=p.closest('.respira-icon-picker');if(!box)return;var v=p.value.trim();" .
+			"var chip=box.querySelector('.respira-icon-preview-chip i');if(chip){chip.className=v;}" .
+			"box.querySelectorAll('.respira-icon-btn').forEach(function(b){b.classList.toggle('is-active',b.getAttribute('data-icon')===v);});}" .
+			"document.addEventListener('click',function(e){var b=e.target.closest('.respira-icon-btn');if(!b)return;e.preventDefault();" .
+			"var box=b.closest('.respira-icon-picker');var inp=box&&box.querySelector('.respira-icon-input');if(inp){inp.value=b.getAttribute('data-icon');sync(inp);}});" .
+			"document.addEventListener('input',function(e){if(e.target&&e.target.classList.contains('respira-icon-input')){sync(e.target);}});})();";
 	}
 
 	/**
@@ -346,26 +418,31 @@ class Content {
 					esc_attr( $value )
 				);
 			} elseif ( 'icon' === $cfg['type'] ) {
-				printf(
-					'<select id="%s" name="%s" class="widefat" style="max-width:320px;">',
-					esc_attr( $id ),
-					esc_attr( self::PREFIX . $key )
-				);
-				printf( '<option value="">%s</option>', esc_html__( '— Sin ícono —', 'respira' ) );
-				foreach ( $this->icon_options() as $opt ) {
+				echo '<span class="respira-icon-picker" style="display:block;">';
+				// Grilla de iconos (glifos reales) para elegir con un clic.
+				echo '<span class="respira-icon-grid">';
+				foreach ( $this->icon_choices() as $ch ) {
 					printf(
-						'<option value="%1$s"%2$s>%3$s</option>',
-						esc_attr( $opt ),
-						selected( $value, $opt, false ),
-						esc_html( str_replace( 'flaticon-set-', '', $opt ) )
+						'<button type="button" class="respira-icon-btn%1$s" data-icon="%2$s" title="%3$s" aria-label="%3$s"><i class="%2$s"></i></button>',
+						$value === $ch['icon'] ? ' is-active' : '',
+						esc_attr( $ch['icon'] ),
+						esc_attr( $ch['label'] )
 					);
 				}
-				echo '</select>';
-				// Vista previa del glifo (requiere la fuente flaticon en el admin).
+				echo '</span>';
+				// Campo de texto (permite cualquier clase Font Awesome) + preview.
 				printf(
-					'<span class="respira-icon-preview" style="margin-left:10px;font-size:26px;vertical-align:middle;"><i class="%s"></i></span>',
+					'<input type="text" id="%1$s" name="%2$s" value="%3$s" class="widefat respira-icon-input" placeholder="fa-solid fa-...">',
+					esc_attr( $id ),
+					esc_attr( self::PREFIX . $key ),
 					esc_attr( $value )
 				);
+				printf(
+					'<span class="respira-icon-preview" style="display:inline-flex;align-items:center;gap:8px;"><span class="respira-icon-preview-chip"><i class="%s"></i></span><span class="description">%s</span></span>',
+					esc_attr( $value ),
+					esc_html__( 'Vista previa. Dejá el campo vacío para no mostrar ícono.', 'respira' )
+				);
+				echo '</span>';
 			} elseif ( 'image' === $cfg['type'] ) {
 				$att_id  = absint( $value );
 				$img_url = $att_id ? (string) wp_get_attachment_image_url( $att_id, 'thumbnail' ) : '';

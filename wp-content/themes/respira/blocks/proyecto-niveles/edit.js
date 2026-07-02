@@ -5,45 +5,12 @@ import {
 	MediaUploadCheck,
 	RichText,
 } from '@wordpress/block-editor';
-import { PanelBody, TextControl, TextareaControl, SelectControl, Button } from '@wordpress/components';
+import { PanelBody, TextControl, TextareaControl, Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useReorder, RepeaterRow, DragHandle, ReorderArrows } from '../shared/repeater';
+import { IconPicker } from '../shared/icons';
 
-// Iconos disponibles del set flaticon-set-realestate (assets/css/flaticon-set-realestate.css).
-const ICON_OPTIONS = [
-	'flaticon-set-agreement',
-	'flaticon-set-property',
-	'flaticon-set-residential',
-	'flaticon-set-contract',
-	'flaticon-set-construction',
-	'flaticon-set-investment',
-	'flaticon-set-building',
-	'flaticon-set-investment-1',
-	'flaticon-set-building-1',
-	'flaticon-set-development',
-	'flaticon-set-investment-2',
-	'flaticon-set-property-1',
-	'flaticon-set-building-2',
-	'flaticon-set-hook',
-	'flaticon-set-consulting',
-	'flaticon-set-location',
-	'flaticon-set-building-plan',
-	'flaticon-set-accomodation',
-	'flaticon-set-management',
-	'flaticon-set-house-design',
-	'flaticon-set-blueprint',
-	'flaticon-set-urban-planning',
-	'flaticon-set-technical-drawing',
-	'flaticon-set-architect',
-	'flaticon-set-3d',
-	'flaticon-set-architecture',
-	'flaticon-set-construction-1',
-	'flaticon-set-pencil-and-ruler',
-	'flaticon-set-tripod',
-	'flaticon-set-engineer',
-].map( ( cls ) => ( { label: cls.replace( 'flaticon-set-', '' ), value: cls } ) );
-
-const EMPTY_AMENITY = { icon: 'flaticon-set-property', text: '', imageId: 0, imageUrl: '', imageAlt: '' };
+const EMPTY_AMENITY = { icon: 'fa-solid fa-location-dot', text: '', imageId: 0, imageUrl: '', imageAlt: '' };
 const EMPTY_LEVEL = { name: '', imageId: 0, imageUrl: '', imageAlt: '', description: '', amenities: [] };
 
 // La descripción es texto plano (se respetan los saltos de línea). El contenido
@@ -167,17 +134,13 @@ function LevelEditor( { level, li, count, levelReorder, updateLevel, removeLevel
 				<em>{ __( 'Amenidades', 'respira' ) }</em>
 				{ amenities.map( ( amenity, ai ) => (
 					<RepeaterRow key={ ai } reorder={ amenityReorder } index={ ai } count={ amenities.length }>
+						<IconPicker
+							value={ amenity.icon }
+							onChange={ ( v ) => updateAmenity( ai, { icon: v } ) }
+							disabled={ !! amenity.imageUrl }
+							help={ amenity.imageUrl ? __( 'Usando imagen (reemplaza al ícono). Quitá la imagen para volver a elegir un ícono.', 'respira' ) : undefined }
+						/>
 						<div style={ { display: 'flex', gap: 8, alignItems: 'flex-end' } }>
-							<div style={ { flex: '0 0 180px' } }>
-								<SelectControl
-									label={ __( 'Icono', 'respira' ) }
-									value={ amenity.icon }
-									options={ ICON_OPTIONS }
-									onChange={ ( v ) => updateAmenity( ai, { icon: v } ) }
-									disabled={ !! amenity.imageUrl }
-									help={ amenity.imageUrl ? __( 'Usando imagen', 'respira' ) : undefined }
-								/>
-							</div>
 							<div style={ { flex: '0 0 auto' } }>
 								<MediaUploadCheck>
 									<MediaUpload

@@ -159,6 +159,11 @@ add_action( 'after_setup_theme', function (): void {
 	add_theme_support( 'editor-styles' );
 	add_editor_style( 'assets/css/bootstrap.min.css' );
 	add_editor_style( 'assets/css/style.css' );
+	// Font Awesome como editor-style propio: el @import de fontawesome.css dentro
+	// de style.css lo descarta el procesador de editor-styles, así que la fuente
+	// no llega al canvas (iframe). Cargarla directo asegura los glifos dentro del
+	// editor (p. ej. el selector de iconos del bloque proyecto-niveles).
+	add_editor_style( 'assets/css/fontawesome.css' );
 	add_editor_style( 'https://fonts.googleapis.com/css2?family=Aboreto&family=Montserrat:wght@300;400;500;600;700&display=swap' );
 	add_editor_style( 'assets/css/respira-brand.css' );
 } );

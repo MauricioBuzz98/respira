@@ -43,7 +43,9 @@
       "Bash(chmod +x node_modules/webpack/bin/webpack.js)",
       "Read(//private/tmp/**)",
       "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('package.json','utf8'\\)\\); console.log\\('ok'\\)\")",
-      "Bash(grep -nE \"\\\\.fa-[a-z-]+:{1,2}before\" assets/css/fontawesome.css)"
+      "Bash(grep -nE \"\\\\.fa-[a-z-]+:{1,2}before\" assets/css/fontawesome.css)",
+      "Bash(python3 -)",
+      "Bash(php -l src/Content.php)"
     ]
   }
 }
