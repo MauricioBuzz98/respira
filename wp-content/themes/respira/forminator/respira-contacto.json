@@ -1,0 +1,123 @@
+{
+    "type": "form",
+    "status": "publish",
+    "version": "1.0",
+    "data": {
+        "settings": {
+            "formName": "Respira Escazú — Contacto",
+            "form-type": "default",
+            "submission-behaviour": "behaviour-hide",
+            "thankyou-message": "<div class=\"respira-form-message respira-form-message--success\"><span class=\"respira-form-message__icon\">✓</span><span class=\"respira-form-message__title\">¡Mensaje enviado!</span><span class=\"respira-form-message__text\">Gracias por escribirnos. Te responderemos a la brevedad.</span></div>",
+            "submitData": {
+                "custom-submit-text": "Enviar mensaje",
+                "custom-invalid-form-message": "Ups, revisá los campos marcados e intentá de nuevo."
+            },
+            "enable-ajax": "true",
+            "validation": "on_submit",
+            "validation-inline": true,
+            "fields-style": "open",
+            "basic-fields-style": "open",
+            "form-style": "default",
+            "form-substyle": "default",
+            "form-expire": "no_expire",
+            "akismet-protection": true,
+            "cform-color-option": "theme",
+            "store_submissions": "1",
+            "autoclose": false,
+            "autoclose-time": 0,
+            "version": "1.0"
+        },
+        "behaviors": [
+            {
+                "slug": "behavior-respira-default",
+                "label": "",
+                "autoclose": false,
+                "autoclose-time": 0,
+                "newtab": "sametab",
+                "thankyou-message": "<div class=\"respira-form-message respira-form-message--success\"><span class=\"respira-form-message__icon\">✓</span><span class=\"respira-form-message__title\">¡Mensaje enviado!</span><span class=\"respira-form-message__text\">Gracias por escribirnos. Te responderemos a la brevedad.</span></div>",
+                "email-thankyou-message": "",
+                "manual-thankyou-message": "",
+                "submission-behaviour": "behaviour-thankyou",
+                "redirect-url": "",
+                "conditions": []
+            }
+        ],
+        "fields": [
+            {
+                "id": "text-1",
+                "element_id": "text-1",
+                "form_id": "wrapper-respira-1",
+                "parent_group": "",
+                "type": "text",
+                "cols": "6",
+                "required": "true",
+                "field_label": "Nombre",
+                "placeholder": "Tu nombre",
+                "input_type": ""
+            },
+            {
+                "id": "email-1",
+                "element_id": "email-1",
+                "form_id": "wrapper-respira-1",
+                "parent_group": "",
+                "type": "email",
+                "cols": "6",
+                "required": "true",
+                "field_label": "Correo electrónico",
+                "placeholder": "Correo electrónico",
+                "validation": true,
+                "validation_text": ""
+            },
+            {
+                "id": "text-2",
+                "element_id": "text-2",
+                "form_id": "wrapper-respira-2",
+                "parent_group": "",
+                "type": "text",
+                "cols": "6",
+                "required": false,
+                "field_label": "Teléfono",
+                "placeholder": "Teléfono",
+                "input_type": ""
+            },
+            {
+                "id": "text-3",
+                "element_id": "text-3",
+                "form_id": "wrapper-respira-2",
+                "parent_group": "",
+                "type": "text",
+                "cols": "6",
+                "required": false,
+                "field_label": "Asunto",
+                "placeholder": "Asunto",
+                "input_type": ""
+            },
+            {
+                "id": "textarea-1",
+                "element_id": "textarea-1",
+                "form_id": "wrapper-respira-3",
+                "parent_group": "",
+                "type": "textarea",
+                "cols": "12",
+                "required": "true",
+                "field_label": "Mensaje",
+                "placeholder": "Mensaje",
+                "input_type": "paragraph",
+                "limit": "",
+                "limit_type": "characters"
+            }
+        ],
+        "notifications": [
+            {
+                "slug": "notification-respira-admin",
+                "label": "Notificación al administrador",
+                "email-recipients": "default",
+                "recipients": "mauricio@buzz.cr",
+                "email-subject": "Nuevo mensaje de contacto — Respira Escazú",
+                "email-editor": "<p>Nuevo mensaje desde el formulario de contacto de Respira Escazú:</p><p><strong>Nombre:</strong> {text-1}</p><p><strong>Correo:</strong> {email-1}</p><p><strong>Teléfono:</strong> {text-2}</p><p><strong>Asunto:</strong> {text-3}</p><p><strong>Mensaje:</strong><br/>{textarea-1}</p><p>---<br/>Enviado desde {site_url}.</p>",
+                "email-attachment": "true",
+                "type": "default"
+            }
+        ]
+    }
+}

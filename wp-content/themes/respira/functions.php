@@ -97,6 +97,18 @@ add_action( 'wp_enqueue_scripts', function (): void {
 	// Override de marca (paleta + tipografias). Debe ir DESPUES de style.css.
 	wp_enqueue_style( 'respira-brand', $uri . '/assets/css/respira-brand.css', [ 'respira-style' ], $ver( '/assets/css/respira-brand.css' ) );
 
+	// Estilos del formulario de contacto en Forminator: replican el look de la
+	// plantilla (.form-clt / .theme-btn) y fuerzan por encima de Forminator y
+	// Elementor. Solo se encola si Forminator está activo. Debe ir DESPUES de
+	// respira-brand.css para usar sus variables de marca.
+	if ( class_exists( 'Forminator' ) ) {
+		wp_enqueue_style( 'respira-forminator', $uri . '/assets/css/forminator-respira.css', [ 'respira-brand' ], $ver( '/assets/css/forminator-respira.css' ) );
+
+		// Comportamiento del mensaje de éxito (overlay + fade + auto-restaurar).
+		// Depende de jQuery (la plantilla ya lo encola en el footer).
+		wp_enqueue_script( 'respira-forminator', $uri . '/assets/js/respira-forminator.js', [ 'jquery' ], $ver( '/assets/js/respira-forminator.js' ), true );
+	}
+
 	// --- Scripts ---------------------------------------------------------
 	// Reemplazamos el jQuery del core por el de la plantilla (la plantilla
 	// usa el global `$` y depende de ese jQuery). Se cargan todos en el footer

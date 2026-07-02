@@ -1,0 +1,350 @@
+/*
+ * ===========================================================================
+ *  Forminator × Respira Escazú
+ * ---------------------------------------------------------------------------
+ *  Reproduce EXACTAMENTE los estilos del formulario de la plantilla Realest
+ *  (.contact-section .form-clt / .theme-btn.btn-style-three) sobre el markup
+ *  que genera Forminator, forzándolos por encima de cualquier estilo que
+ *  inyecte Elementor o el propio Forminator.
+ *
+ *  Alcance: TODO formulario Forminator del sitio (`.forminator-custom-form`,
+ *  la clase que Forminator siempre coloca en el <form>). Como este sitio tiene
+ *  un único formulario —el de contacto— no hace falta clase extra. Si a futuro
+ *  agregás otros formularios Forminator y NO querés que hereden este diseño,
+ *  agregá una clase propia al formulario de contacto (p. ej. `respira-form`,
+ *  vía "CSS Classes" del widget de Elementor o del contenedor) y reemplazá en
+ *  cada selector `.forminator-ui.forminator-custom-form` por
+ *  `.forminator-ui.forminator-custom-form.respira-form`.
+ *
+ *  Se usa !important de forma deliberada: Elementor inyecta reglas de alta
+ *  especificidad sobre inputs/botones y esta es la vía fiable de ganarlas.
+ *  Los colores se toman de las variables de marca (respira-brand.css), así
+ *  que el formulario sigue automáticamente la paleta del tema.
+ * ===========================================================================
+ */
+
+/* ---------------------------------------------------------------------------
+ * 1. Contenedor: sin fondos/bordes que meta Forminator o Elementor.
+ * ------------------------------------------------------------------------- */
+.forminator-ui.forminator-custom-form,
+.forminator-ui.forminator-custom-form .forminator-row,
+.forminator-ui.forminator-custom-form .forminator-field {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Ancla para el overlay del mensaje de éxito (position:absolute). */
+.forminator-ui.forminator-custom-form {
+  position: relative !important;
+}
+
+/* Rejilla: dos columnas (col-sm-6) en desktop, apiladas en móvil.
+   Reproduce el gutter de Bootstrap de la plantilla. */
+.forminator-ui.forminator-custom-form .forminator-row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  margin: 0 -15px !important;
+}
+.forminator-ui.forminator-custom-form .forminator-col {
+  padding: 0 15px !important;
+  float: none !important;
+}
+.forminator-ui.forminator-custom-form .forminator-col.forminator-col-6 {
+  width: 50% !important;
+  flex: 0 0 50% !important;
+  max-width: 50% !important;
+}
+.forminator-ui.forminator-custom-form .forminator-col.forminator-col-12 {
+  width: 100% !important;
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+}
+@media (max-width: 575.98px) {
+  .forminator-ui.forminator-custom-form .forminator-col.forminator-col-6 {
+    width: 100% !important;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Separación vertical entre campos = .form-clt { margin-top: 16px } */
+.forminator-ui.forminator-custom-form .forminator-field {
+  margin-top: 16px !important;
+  padding: 0 !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * 2. Etiquetas: la plantilla no usa labels visibles (solo placeholders).
+ * ------------------------------------------------------------------------- */
+.forminator-ui.forminator-custom-form .forminator-label,
+.forminator-ui.forminator-custom-form label.forminator-label {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * 3. Inputs y textarea = .contact-section .form-clt input / textarea
+ * ------------------------------------------------------------------------- */
+.forminator-ui.forminator-custom-form input.forminator-input,
+.forminator-ui.forminator-custom-form textarea.forminator-textarea,
+.forminator-ui.forminator-custom-form input[type="text"],
+.forminator-ui.forminator-custom-form input[type="email"],
+.forminator-ui.forminator-custom-form input[type="tel"],
+.forminator-ui.forminator-custom-form textarea {
+  width: 100% !important;
+  background-color: transparent !important;
+  height: 60.8px !important;
+  min-height: 60.8px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  border-bottom: 1px solid rgba(var(--theme-color-black-rgb), 0.07) !important;
+  font-family: inherit !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: normal !important;
+  color: var(--theme-color-black) !important;
+  padding: 0 0 0 10px !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.forminator-ui.forminator-custom-form textarea.forminator-textarea,
+.forminator-ui.forminator-custom-form textarea {
+  height: 121px !important;
+  min-height: 121px !important;
+  margin-bottom: 7px !important;
+  padding-top: 18px !important;
+  resize: vertical !important;
+}
+
+/* Focus = border-color: var(--theme-color1) */
+.forminator-ui.forminator-custom-form input.forminator-input:focus,
+.forminator-ui.forminator-custom-form textarea.forminator-textarea:focus,
+.forminator-ui.forminator-custom-form input[type="text"]:focus,
+.forminator-ui.forminator-custom-form input[type="email"]:focus,
+.forminator-ui.forminator-custom-form input[type="tel"]:focus,
+.forminator-ui.forminator-custom-form textarea:focus {
+  border-color: var(--theme-color1) !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Placeholder = var(--text-color) */
+.forminator-ui.forminator-custom-form input.forminator-input::placeholder,
+.forminator-ui.forminator-custom-form textarea.forminator-textarea::placeholder,
+.forminator-ui.forminator-custom-form input::placeholder,
+.forminator-ui.forminator-custom-form textarea::placeholder {
+  color: var(--text-color) !important;
+  opacity: 1 !important;
+}
+.forminator-ui.forminator-custom-form input.forminator-input::-webkit-input-placeholder,
+.forminator-ui.forminator-custom-form textarea.forminator-textarea::-webkit-input-placeholder {
+  color: var(--text-color) !important;
+}
+.forminator-ui.forminator-custom-form input.forminator-input:-ms-input-placeholder,
+.forminator-ui.forminator-custom-form textarea.forminator-textarea:-ms-input-placeholder {
+  color: var(--text-color) !important;
+}
+
+/* Autofill: evita el fondo azul/blanco que fuerza el navegador */
+.forminator-ui.forminator-custom-form input:-webkit-autofill,
+.forminator-ui.forminator-custom-form input:-webkit-autofill:hover,
+.forminator-ui.forminator-custom-form input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--theme-color-black) !important;
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * 4. Botón = .theme-btn.btn-style-three  (+ override de .contact-section)
+ *    Incluye el barrido de fondo con :before (scale 0→1 al hover).
+ * ------------------------------------------------------------------------- */
+.forminator-ui.forminator-custom-form .forminator-button-submit,
+.forminator-ui.forminator-custom-form button.forminator-button-submit,
+.forminator-ui.forminator-custom-form .forminator-button.forminator-button-submit {
+  position: relative !important;
+  z-index: 0 !important;
+  overflow: hidden !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  margin-top: 16px !important;
+  padding: 15px 30px !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  background-color: var(--theme-color2) !important;
+  color: var(--theme-color2-text-color) !important;
+  font-family: inherit !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  line-height: 19px !important;
+  letter-spacing: 0.6px !important;
+  text-transform: uppercase !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  transition: color 300ms ease !important;
+}
+
+/* Capa de barrido (theme-color1) que se despliega al hover */
+.forminator-ui.forminator-custom-form .forminator-button-submit::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: -1 !important;
+  background-color: var(--theme-color1) !important;
+  transform: scale(0, 1) !important;
+  transform-origin: top right !important;
+  transition: transform 500ms cubic-bezier(0.86, 0, 0.07, 1) !important;
+}
+.forminator-ui.forminator-custom-form .forminator-button-submit:hover,
+.forminator-ui.forminator-custom-form .forminator-button-submit:focus {
+  color: var(--theme-color1-text-color) !important;
+  background-color: var(--theme-color2) !important;
+}
+.forminator-ui.forminator-custom-form .forminator-button-submit:hover::before {
+  transform: scale(1, 1) !important;
+  transform-origin: bottom left !important;
+}
+
+/* Ícono de "cargando" del botón alineado con el texto */
+.forminator-ui.forminator-custom-form .forminator-button-submit .forminator-icon-loader {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * 5. Mensaje de éxito como OVERLAY con fade (lo dispara respira-forminator.js).
+ *
+ *    Flujo: al enviar OK, el JS agrega `respira-fields-hidden` al form
+ *    (desvanece los campos manteniendo su altura) y convierte el
+ *    `.forminator-response-message` en un overlay a pantalla completa del
+ *    formulario. Tras unos segundos, el mensaje se desvanece y los campos
+ *    reaparecen (form reseteado).
+ * ------------------------------------------------------------------------- */
+
+/* Campos desvanecidos mientras se muestra el mensaje (conservan el espacio). */
+.forminator-ui.forminator-custom-form.respira-fields-hidden .forminator-row {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: opacity 350ms ease, visibility 0s linear 350ms !important;
+}
+.forminator-ui.forminator-custom-form .forminator-row {
+  transition: opacity 350ms ease !important;
+}
+
+/* El contenedor de respuesta, convertido en overlay por el JS. */
+.forminator-ui.forminator-custom-form .forminator-response-message.respira-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 5 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 20px !important;
+  background-color: var(--theme-color-white) !important;
+  color: inherit !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 0 !important;
+  transition: opacity 350ms ease !important;
+}
+.forminator-ui.forminator-custom-form .forminator-response-message.respira-overlay.respira-overlay--visible {
+  opacity: 1 !important;
+}
+
+/* Neutraliza el estilo verde por defecto del mensaje de éxito de Forminator
+   (fondo, borde e íconos), tanto en overlay como en flujo normal. */
+.forminator-ui.forminator-custom-form .forminator-response-message.forminator-success {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: inherit !important;
+}
+.forminator-ui.forminator-custom-form .forminator-response-message.forminator-success::before,
+.forminator-ui.forminator-custom-form .forminator-label--success,
+.forminator-ui.forminator-custom-form .forminator-icon-success {
+  display: none !important;
+}
+
+.respira-form-message {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  gap: 8px !important;
+  padding: 40px 30px !important;
+  border-radius: 20px !important;
+  background-color: var(--theme-color-white) !important;
+}
+.respira-form-message__icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 56px !important;
+  height: 56px !important;
+  margin-bottom: 8px !important;
+  border-radius: 50% !important;
+  background-color: var(--theme-color2) !important;
+  color: var(--theme-color2-text-color) !important;
+  font-size: 26px !important;
+  line-height: 1 !important;
+}
+.respira-form-message__title {
+  font-family: inherit !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  color: var(--theme-color-black) !important;
+}
+.respira-form-message__text {
+  font-size: 16px !important;
+  color: var(--text-color) !important;
+  max-width: 360px !important;
+}
+
+/* Mensaje de error genérico de Forminator */
+.forminator-ui.forminator-custom-form .forminator-response-message.forminator-error,
+.forminator-ui.forminator-custom-form .forminator-response-message.forminator-warning {
+  margin-top: 16px !important;
+  padding: 16px 20px !important;
+  border: 0 !important;
+  border-left: 4px solid #c0392b !important;
+  border-radius: 8px !important;
+  background-color: rgba(192, 57, 43, 0.08) !important;
+  color: #922b21 !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  list-style: none !important;
+}
+.forminator-ui.forminator-custom-form .forminator-response-message.forminator-error p {
+  color: #922b21 !important;
+  margin: 0 !important;
+}
+
+/* Mensaje inline de validación por campo */
+.forminator-ui.forminator-custom-form .forminator-error-message {
+  color: #c0392b !important;
+  font-size: 13px !important;
+  margin-top: 6px !important;
+}
+.forminator-ui.forminator-custom-form .forminator-field input.forminator-is_invalid,
+.forminator-ui.forminator-custom-form .forminator-field textarea.forminator-is_invalid {
+  border-bottom-color: #c0392b !important;
+}

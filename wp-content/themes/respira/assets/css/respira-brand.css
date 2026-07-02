@@ -733,6 +733,7 @@ hr.proyecto-separador {
   margin-left: 0;
   padding: 80px 60px;
   border-radius: 30px;
+  overflow: hidden;
 }
 @media (max-width: 575.98px) {
   .respira-contact .contact-section .outer-box .form-coumn .inner-column {
