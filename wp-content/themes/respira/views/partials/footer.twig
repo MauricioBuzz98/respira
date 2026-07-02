@@ -50,27 +50,22 @@
           </div>
         </div>
 
-        {# Menu (Enlaces) — alineado a la izquierda #}
-        <div class="footer-column style-two border-0 col-12 col-lg-2">
-          <div class="footer-widget links-widget wow fadeInUp" data-wow-delay="300ms">
-            <div class="h5 widget-title">{{ __('Enlaces', 'respira') }}</div>
-            <div class="widget-content">
-              <ul class="user-links">
-                {% if menu_footer %}
+        {# Menu (Enlaces) — alineado a la izquierda. Si el menú del footer no
+           tiene elementos, no se muestra toda la columna. #}
+        {% if menu_footer and menu_footer.items|length %}
+          <div class="footer-column style-two border-0 col-12 col-lg-2">
+            <div class="footer-widget links-widget wow fadeInUp" data-wow-delay="300ms">
+              <div class="h5 widget-title">{{ __('Enlaces', 'respira') }}</div>
+              <div class="widget-content">
+                <ul class="user-links">
                   {% for item in menu_footer.items %}
                     <li><a href="{{ item.link }}">{{ item.title }}</a></li>
                   {% endfor %}
-                {% else %}
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Our Team</a></li>
-                  <li><a href="#">Our Portfolio</a></li>
-                  <li><a href="#">Careers</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                {% endif %}
-              </ul>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
+        {% endif %}
 
         {# Logos extra #}
         <div class="footer-column col-12 col-lg-4">

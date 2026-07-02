@@ -548,6 +548,15 @@ hr.proyecto-separador {
 .footer-light .footer-main-row .links-widget .widget-content .user-links {
   padding-right: 0;
 }
+/* El grupo de columnas queda siempre centrado en la fila (en desktop). Con las
+   4 columnas suman el ancho completo y no hay cambio; si falta alguna (p. ej.
+   la de "Enlaces" cuando el menú está vacío) el resto queda centrado en vez de
+   dejar un hueco a la derecha. En mobile ya se centra al apilarse. */
+@media (min-width: 992px) {
+  .footer-light .footer-main-row {
+    justify-content: center;
+  }
+}
 @media (max-width: 991.98px) {
   .footer-light .footer-main-row .footer-column {
     margin-bottom: 36px;
