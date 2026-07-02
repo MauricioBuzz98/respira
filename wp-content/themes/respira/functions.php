@@ -316,3 +316,67 @@ add_action('template_redirect', function () {
 
     wp_die($html, 'En construcción', ['response' => 503]);
 });
+
+// ---------------------------------------------------------------------------
+// 10. Configuración SMTP (envío de correos, p. ej. el formulario de contacto)
+// ---------------------------------------------------------------------------
+// Las credenciales se definen como CONSTANTES en wp-config.php (NO se versionan
+// ni se hardcodean en el tema). Copiá este bloque en wp-config.php, arriba de
+// "/* That's all, stop editing! */", y completá con los datos reales:
+//
+//   define( 'RESPIRA_SMTP_HOST',      'smtp.tu-proveedor.com' );
+//   define( 'RESPIRA_SMTP_PORT',      587 );            // 587 = TLS, 465 = SSL
+//   define( 'RESPIRA_SMTP_SECURE',    'tls' );          // 'tls' | 'ssl' | ''
+//   define( 'RESPIRA_SMTP_USER',      'usuario@dominio.com' );
+//   define( 'RESPIRA_SMTP_PASS',      'la-contraseña-o-app-password' );
+//   define( 'RESPIRA_SMTP_FROM',      'no-reply@respiraescazu.com' ); // opcional
+//   define( 'RESPIRA_SMTP_FROM_NAME', 'Respira Escazú' );             // opcional
+//   define( 'RESPIRA_SMTP_AUTH',      true );            // opcional (default true)
+//
+// Si RESPIRA_SMTP_HOST no está definido, WordPress usa el envío por defecto
+// (mail() del servidor) y este bloque no hace nada.
+
+add_action( 'phpmailer_init', function ( $phpmailer ): void {
+	if ( ! defined( 'RESPIRA_SMTP_HOST' ) || '' === (string) RESPIRA_SMTP_HOST ) {
+		return;
+	}
+
+	/** @var PHPMailer\PHPMailer\PHPMailer $phpmailer */
+	$phpmailer->isSMTP();
+	$phpmailer->Host = (string) RESPIRA_SMTP_HOST;
+	$phpmailer->Port = defined( 'RESPIRA_SMTP_PORT' ) ? (int) RESPIRA_SMTP_PORT : 587;
+
+	$secure = defined( 'RESPIRA_SMTP_SECURE' ) ? strtolower( (string) RESPIRA_SMTP_SECURE ) : 'tls';
+	if ( in_array( $secure, [ 'tls', 'ssl' ], true ) ) {
+		$phpmailer->SMTPSecure = $secure;
+	} else {
+		$phpmailer->SMTPSecure = '';
+		$phpmailer->SMTPAutoTLS = false;
+	}
+
+	$auth = defined( 'RESPIRA_SMTP_AUTH' ) ? (bool) RESPIRA_SMTP_AUTH : true;
+	$phpmailer->SMTPAuth = $auth;
+	if ( $auth ) {
+		$phpmailer->Username = defined( 'RESPIRA_SMTP_USER' ) ? (string) RESPIRA_SMTP_USER : '';
+		$phpmailer->Password = defined( 'RESPIRA_SMTP_PASS' ) ? (string) RESPIRA_SMTP_PASS : '';
+	}
+} );
+
+// Remitente por defecto (From). Forzamos un From del propio dominio para que los
+// proveedores no rechacen/marquen como spam correos que dicen venir de otro dominio.
+add_filter( 'wp_mail_from', function ( string $email ): string {
+	if ( defined( 'RESPIRA_SMTP_FROM' ) && '' !== (string) RESPIRA_SMTP_FROM ) {
+		return (string) RESPIRA_SMTP_FROM;
+	}
+	if ( defined( 'RESPIRA_SMTP_USER' ) && '' !== (string) RESPIRA_SMTP_USER ) {
+		return (string) RESPIRA_SMTP_USER;
+	}
+	return $email;
+} );
+
+add_filter( 'wp_mail_from_name', function ( string $name ): string {
+	if ( defined( 'RESPIRA_SMTP_FROM_NAME' ) && '' !== (string) RESPIRA_SMTP_FROM_NAME ) {
+		return (string) RESPIRA_SMTP_FROM_NAME;
+	}
+	return $name;
+} );

@@ -48,7 +48,9 @@
       "Bash(php -l src/Content.php)",
       "Bash(grep -n 'function save\\\\b\\\\|_import\\\\|wrappers\\\\|$template' library/model/class-custom-form-model.php)",
       "Bash(grep -rn 'get_form_response_message\\\\|response-message\\\\|<form\\\\|</form>\\\\|render_form_header\\\\|$html .= ' library/render/class-render-form.php)",
-      "Bash(node --check assets/js/respira-forminator.js)"
+      "Bash(node --check assets/js/respira-forminator.js)",
+      "Bash(git check-ignore *)",
+      "Bash(php -l wp-config.php)"
     ]
   }
 }
