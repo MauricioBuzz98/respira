@@ -50,7 +50,9 @@
       "Bash(grep -rn 'get_form_response_message\\\\|response-message\\\\|<form\\\\|</form>\\\\|render_form_header\\\\|$html .= ' library/render/class-render-form.php)",
       "Bash(node --check assets/js/respira-forminator.js)",
       "Bash(git check-ignore *)",
-      "Bash(php -l wp-config.php)"
+      "Bash(php -l wp-config.php)",
+      "Bash(cat views/blocks/proyecto-niveles.twig)",
+      "Bash(cat blocks/proyecto-niveles/render.php)"
     ]
   }
 }

@@ -1302,3 +1302,23 @@ ol.respira-nivel-desc li {
   line-height: 1.25;
   font-weight: 700;
 }
+
+/* -------------------------------------------------------------------------
+   Detalle de amenidad (single del CPT amenidades, plantilla services-details).
+   1. Los ítems del listado lateral usan el beige de marca (#F1F0EA) en vez del
+      celeste #f5faff de la plantilla Realest.
+   2. La imagen destacada sale con esquinas redondeadas.
+   Acotado al body del single para no tocar otras vistas.
+   ------------------------------------------------------------------------- */
+.single-amenidades .sidebar-service-list li a {
+  background-color: var(--theme-color-light); /* Almendra #F1F0EA */
+  /* El chevron va absolute en right:20px con 45px de ancho (llega a ~65px del
+     borde); con el padding-right original (40px) el texto largo pasaba por
+     debajo y quedaba tapado. Se amplía y se permite ajustar el texto. */
+  padding-right: 75px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.single-amenidades .services-details__content img.w-100 {
+  border-radius: 20px;
+}
