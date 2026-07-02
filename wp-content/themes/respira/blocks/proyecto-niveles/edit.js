@@ -5,7 +5,7 @@ import {
 	MediaUploadCheck,
 	RichText,
 } from '@wordpress/block-editor';
-import { PanelBody, TextControl, TextareaControl, Button } from '@wordpress/components';
+import { PanelBody, TextControl, TextareaControl, Button, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useReorder, RepeaterRow, DragHandle, ReorderArrows } from '../shared/repeater';
 import { IconPicker } from '../shared/icons';
@@ -192,7 +192,7 @@ function LevelEditor( { level, li, count, levelReorder, updateLevel, removeLevel
 }
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { intro, items } = attributes;
+	const { intro, items, thumbsRight } = attributes;
 	const blockProps = useBlockProps( { className: 'respira-proyecto-niveles-editor' } );
 
 	// --- Repetidor de niveles ---------------------------------------------
@@ -208,7 +208,17 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Ayuda', 'respira' ) } initialOpen={ true }>
+				<PanelBody title={ __( 'Galería', 'respira' ) } initialOpen={ true }>
+					<ToggleControl
+						label={ __( 'Miniaturas a la derecha (escritorio)', 'respira' ) }
+						help={ thumbsRight
+							? __( 'Las miniaturas se muestran a la derecha de la imagen principal.', 'respira' )
+							: __( 'Las miniaturas se muestran debajo de la imagen principal. En móvil siempre van a la derecha.', 'respira' ) }
+						checked={ !! thumbsRight }
+						onChange={ ( v ) => setAttributes( { thumbsRight: v } ) }
+					/>
+				</PanelBody>
+				<PanelBody title={ __( 'Ayuda', 'respira' ) } initialOpen={ false }>
 					<p>
 						{ __(
 							'Agregá un nivel por cada imagen. La descripción es texto plano y se respetan los saltos de línea. Se muestra al seleccionar la miniatura del nivel en el front.',

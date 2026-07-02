@@ -77,6 +77,7 @@ foreach ( (array) ( $attributes['items'] ?? [] ) as $level ) {
 
 $context                       = Timber::context();
 $context['intro']              = wp_kses_post( (string) ( $attributes['intro'] ?? '' ) );
+$context['thumbs_right']       = ! empty( $attributes['thumbsRight'] );
 $context['gallery']            = $gallery;
 $context['uid']                = uniqid( 'proy-' );
 $context['wrapper_attributes'] = get_block_wrapper_attributes( [

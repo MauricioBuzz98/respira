@@ -157,6 +157,65 @@ hr.proyecto-separador {
   margin: 0;
   padding: 0;
 }
+
+/* --- Miniaturas a la derecha de la imagen principal ----------------------
+   - Mobile/tablet (≤991px): SIEMPRE a la derecha (ahorra alto vertical).
+   - Desktop (≥992px): a la derecha solo si se activa el toggle del bloque
+     (clase .proyecto-galeria--thumbs-right); si no, quedan debajo (default).
+   La disposición lado a lado usa flex: la imagen ocupa el espacio libre y las
+   miniaturas se apilan en una columna a la derecha (se ignora el float). */
+@media (max-width: 991px) {
+  .proyecto-galeria {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .proyecto-galeria .proyecto-galeria__stage {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+  .proyecto-galeria .thumb-box {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .proyecto-galeria .thumb-box li {
+    float: none;
+    margin-right: 0;
+    width: 80px;
+    height: 80px;
+  }
+}
+@media (max-width: 480px) {
+  .proyecto-galeria .thumb-box li {
+    width: 64px;
+    height: 64px;
+  }
+}
+@media (min-width: 992px) {
+  .proyecto-galeria--thumbs-right {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .proyecto-galeria--thumbs-right .proyecto-galeria__stage {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+  .proyecto-galeria--thumbs-right .thumb-box {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .proyecto-galeria--thumbs-right .thumb-box li {
+    float: none;
+    margin-right: 0;
+  }
+}
 .proyecto-galeria .thumb-box li {
   position: relative;
   display: inline-block;
@@ -605,6 +664,26 @@ hr.proyecto-separador {
   /* La descripción usa todo el ancho de la columna de texto (60%). */
   .respira-projects .project-block .inner-block:has(.image) .cat-desc {
     max-width: 100%;
+  }
+  /* Botón "Ver más" anclado al pie de la card: la columna de texto se vuelve
+     flex vertical y el botón se empuja con margin-top:auto. Reemplaza el truco
+     del margin-bottom fijo (280px) del título de Realest, que dejaba el botón
+     "flotando" según el largo del texto. Solo desktop; en mobile queda igual. */
+  .respira-projects .project-block .inner-block .content-box {
+    display: flex;
+    flex-direction: column;
+  }
+  .respira-projects .project-block .inner-block .content-box .inner-box {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .respira-projects .project-block .inner-block .content-box .inner-box .title {
+    margin-bottom: 14px;
+  }
+  .respira-projects .project-block .inner-block .content-box .inner-box .theme-btn {
+    margin-top: auto;
+    align-self: flex-start;
   }
 }
 
@@ -1321,4 +1400,47 @@ ol.respira-nivel-desc li {
 }
 .single-amenidades .services-details__content img.w-100 {
   border-radius: 20px;
+}
+
+/* -------------------------------------------------------------------------
+   FAQ (bloque respira/faq): en desktop (≥1200px, cuando las dos columnas van
+   lado a lado) la lista de preguntas de la derecha se limita al alto de la
+   tarjeta izquierda y hace scroll interno propio. Por debajo de 1200px las
+   columnas se apilan, así que se mantiene el comportamiento original (sin
+   límite de alto ni scroll) — incluye tablet y mobile.
+   ------------------------------------------------------------------------- */
+@media (min-width: 1200px) {
+  /* La fila estira ambas columnas a la misma altura; la marca la izquierda. */
+  .faq-section .row {
+    align-items: stretch;
+  }
+  .faq-section .faq-column .inner-column {
+    height: 100%;
+  }
+  /* La lista se saca del flujo para NO definir el alto de la fila: así el alto
+     lo fija la columna izquierda y este contenedor la iguala y hace scroll.
+     bottom:30px replica el margin-bottom del .inner-column para alinear con
+     el borde inferior de la tarjeta izquierda. */
+  .faq-section .faq-column .faq-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-right: 10px; /* aire para la barra de scroll */
+  }
+  /* Barra de scroll discreta acorde a la marca. */
+  .faq-section .faq-column .faq-box {
+    scrollbar-width: thin;
+    scrollbar-color: var(--theme-color1) transparent;
+  }
+  .faq-section .faq-column .faq-box::-webkit-scrollbar {
+    width: 6px;
+  }
+  .faq-section .faq-column .faq-box::-webkit-scrollbar-thumb {
+    background-color: var(--theme-color1);
+    border-radius: 6px;
+  }
 }
