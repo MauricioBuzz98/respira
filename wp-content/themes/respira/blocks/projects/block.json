@@ -12,6 +12,7 @@
   "attributes": {
     "subtitle": { "type": "string", "default": "Our Gallery" },
     "title":    { "type": "string", "default": "Displaying Your Creations" },
+    "description": { "type": "string", "default": "" },
     "source":   { "type": "string", "default": "all" },
     "count":    { "type": "number", "default": 6 },
     "category": { "type": "string", "default": "" },

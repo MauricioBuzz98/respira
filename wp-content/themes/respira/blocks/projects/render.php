@@ -79,7 +79,7 @@ if ( 'categories' === $source ) {
 			}
 
 			$items[] = [
-				'subtitle'    => sprintf( _n( '%d proyecto', '%d proyectos', (int) $term->count, 'respira' ), (int) $term->count ),
+				'subtitle'    => '',
 				'title'       => $term->name,
 				'description' => '' !== $term->description ? wpautop( $term->description ) : '',
 				'link'        => is_wp_error( $link ) ? '' : $link,
@@ -130,9 +130,10 @@ if ( 'manual' === $source || empty( $items ) ) {
 }
 
 $context             = Timber::context();
-$context['subtitle'] = $attributes['subtitle'] ?? '';
-$context['title']    = $attributes['title'] ?? '';
-$context['items']    = $items;
+$context['subtitle']    = $attributes['subtitle'] ?? '';
+$context['title']       = $attributes['title'] ?? '';
+$context['description'] = $attributes['description'] ?? '';
+$context['items']       = $items;
 $context['wrapper_attributes'] = get_block_wrapper_attributes( [
 	'class' => 'respira-projects',
 ] );

@@ -4,7 +4,7 @@ import {
 	MediaUpload,
 	MediaUploadCheck,
 } from '@wordpress/block-editor';
-import { PanelBody, TextControl, SelectControl, Button } from '@wordpress/components';
+import { PanelBody, TextControl, TextareaControl, SelectControl, Button } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
 import { useState, useMemo } from '@wordpress/element';
@@ -14,7 +14,7 @@ import { useReorder, RepeaterRow } from '../shared/repeater';
 const EMPTY_ITEM = { subtitle: '', title: '', link: '', imageId: 0, imageUrl: '', imageAlt: '' };
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { subtitle, title, source, count, category, categoryOrder, items } = attributes;
+	const { subtitle, title, description, source, count, category, categoryOrder, items } = attributes;
 	const blockProps = useBlockProps( { className: 'respira-projects-editor' } );
 
 	// Compatibilidad: el valor antiguo "dynamic" se interpreta según haya o no categoría.
@@ -89,6 +89,7 @@ export default function Edit( { attributes, setAttributes } ) {
 				<PanelBody title={ __( 'Encabezado', 'respira' ) }>
 					<TextControl label={ __( 'Subtítulo', 'respira' ) } value={ subtitle } onChange={ ( v ) => setAttributes( { subtitle: v } ) } />
 					<TextControl label={ __( 'Título', 'respira' ) } value={ title } onChange={ ( v ) => setAttributes( { title: v } ) } />
+					<TextareaControl label={ __( 'Descripción', 'respira' ) } value={ description } onChange={ ( v ) => setAttributes( { description: v } ) } rows={ 3 } />
 				</PanelBody>
 
 				<PanelBody title={ __( 'Qué mostrar', 'respira' ) }>
@@ -216,10 +217,11 @@ export default function Edit( { attributes, setAttributes } ) {
 
 			<div { ...blockProps }>
 				<div style={ { border: '1px dashed #c2c1c1', borderRadius: 8, padding: 16 } }>
-					{ ( subtitle || title ) && (
+					{ ( subtitle || title || description ) && (
 						<div style={ { textAlign: 'center', marginBottom: 12 } }>
 							{ subtitle && <div style={ { textTransform: 'uppercase', letterSpacing: 1, fontSize: 12 } }>{ subtitle }</div> }
 							{ title && <div style={ { fontSize: 22, fontWeight: 700 } }>{ title }</div> }
+							{ description && <div style={ { fontSize: 14, color: '#555', marginTop: 6, maxWidth: 600, marginInline: 'auto', whiteSpace: 'pre-line' } }>{ description }</div> }
 						</div>
 					) }
 					{ isManual ? (

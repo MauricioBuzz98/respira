@@ -496,6 +496,27 @@ hr.proyecto-separador {
 }
 
 /* -------------------------------------------------------------------------
+   Bloque respira/projects — encabezado: título más pequeño que el h2 base de
+   Realest y descripción opcional centrada debajo del título.
+   ------------------------------------------------------------------------- */
+.respira-projects .sec-title .projects-header__title {
+  font-size: 40px;
+  line-height: 1.2;
+}
+.respira-projects .sec-title .projects-header__desc {
+  max-width: 640px;
+  margin: 16px auto 0;
+  color: var(--text-color);
+  font-size: 16px;
+  line-height: 1.6;
+}
+@media (max-width: 767.98px) {
+  .respira-projects .sec-title .projects-header__title {
+    font-size: 30px;
+  }
+}
+
+/* -------------------------------------------------------------------------
    Bloque respira/projects (modo "categorías"): descripción de la categoría
    debajo del nombre. Ocupa la mitad del ancho de la tarjeta en desktop y el
    100% en mobile. El margen inferior grande del título se traslada a la
