@@ -567,6 +567,7 @@ hr.proyecto-separador {
     flex: 1 1 0;
     max-width: none;
     width: auto;
+    min-width: 0; /* que el contenido ancho (logos) no rompa los tercios iguales */
   }
 }
 @media (max-width: 991.98px) {
@@ -593,35 +594,32 @@ hr.proyecto-separador {
   }
 }
 .footer-images-widget .footer-image {
-  flex: 0 0 auto;
+  /* Permite que el logo se encoja para no desbordar su contenedor. */
+  flex: 0 1 auto;
+  min-width: 0;
 }
 .footer-images-widget .footer-image img {
   display: block;
   width: auto;
-  height: 90px;
-  max-width: 100%;
+  height: auto;
+  max-width: 100%; /* nunca más ancho que su contenedor: se achica solo */
   object-fit: contain;
 }
-/* En mobile los dos logos secundarios se reducen. */
-@media (max-width: 767.98px) {
-  .footer-images-widget .footer-image img {
-    height: 55px;
-  }
-}
-/* Cada logo de aliado con su propio alto (proporción según las capturas):
-   logo 1 (Volio & Trejos) algo más chico que logo 2 (Civitar). Ajustable. */
+/* Alto MÁXIMO por logo (no alto fijo): la imagen mantiene su proporción y toma
+   ese alto cuando hay espacio; si el ancho no alcanza, se reduce sola por el
+   max-width sin recortarse ni salirse. logo 1 (Volio & Trejos) / logo 2 (Civitar). */
 .footer-images-widget .footer-image--1 img {
-  height: 90px;
+  max-height: 90px;
 }
 .footer-images-widget .footer-image--2 img {
-  height: 140px;
+  max-height: 140px;
 }
 @media (max-width: 767.98px) {
   .footer-images-widget .footer-image--1 img {
-    height: 55px;
+    max-height: 55px;
   }
   .footer-images-widget .footer-image--2 img {
-    height: 90px;
+    max-height: 90px;
   }
 }
 /* Placeholder visible mientras no se carga una imagen desde el Personalizador. */
