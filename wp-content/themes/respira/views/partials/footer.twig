@@ -14,7 +14,7 @@
     <div class="auto-container">
 
       {# Fila unica: logo | contacto | menu | logos extra #}
-      <div class="row align-items-start footer-main-row">
+      <div class="row align-items-center footer-main-row gap-5">
 
         {# Logo del sitio #}
         <div class="footer-column col-12 col-lg-3">
@@ -72,14 +72,14 @@
           <div class="footer-widget footer-images-widget wow fadeInRight" data-wow-delay="400ms">
             <div class="footer-images">
               {% if options.footer_image_1 %}
-                <div class="footer-image"><img src="{{ options.footer_image_1 }}" alt=""></div>
+                <div class="footer-image footer-image--1"><img src="{{ options.footer_image_1 }}" alt=""></div>
               {% else %}
-                <div class="footer-image is-placeholder"></div>
+                <div class="footer-image footer-image--1 is-placeholder"></div>
               {% endif %}
               {% if options.footer_image_2 %}
-                <div class="footer-image"><img src="{{ options.footer_image_2 }}" alt=""></div>
+                <div class="footer-image footer-image--2"><img src="{{ options.footer_image_2 }}" alt=""></div>
               {% else %}
-                <div class="footer-image is-placeholder"></div>
+                <div class="footer-image footer-image--2 is-placeholder"></div>
               {% endif %}
             </div>
           </div>

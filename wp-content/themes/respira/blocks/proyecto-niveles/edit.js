@@ -10,7 +10,7 @@ import { __ } from '@wordpress/i18n';
 import { useReorder, RepeaterRow, DragHandle, ReorderArrows } from '../shared/repeater';
 import { IconPicker } from '../shared/icons';
 
-const EMPTY_AMENITY = { icon: 'fa-solid fa-location-dot', text: '', imageId: 0, imageUrl: '', imageAlt: '' };
+const EMPTY_AMENITY = { icon: 'fa-solid fa-location-dot', text: '', imageId: 0, imageUrl: '', imageAlt: '', marginClass: '' };
 const EMPTY_LEVEL = { name: '', imageId: 0, imageUrl: '', imageAlt: '', description: '', amenities: [] };
 
 // La descripción es texto plano (se respetan los saltos de línea). El contenido
@@ -171,16 +171,25 @@ function LevelEditor( { level, li, count, levelReorder, updateLevel, removeLevel
 								</MediaUploadCheck>
 							</div>
 							<div style={ { flex: 1 } }>
-								<TextControl
+								<TextareaControl
 									label={ __( 'Texto', 'respira' ) }
 									value={ amenity.text }
 									onChange={ ( v ) => updateAmenity( ai, { text: v } ) }
+									rows={ 2 }
+									help={ __( 'Podés usar saltos de línea (Enter) para dividir el texto en varias líneas.', 'respira' ) }
 								/>
 							</div>
 							<Button isDestructive variant="link" onClick={ () => removeAmenity( ai ) }>
 								{ __( 'Quitar', 'respira' ) }
 							</Button>
 						</div>
+						<TextControl
+							label={ __( 'Clase de espaciado (opcional)', 'respira' ) }
+							value={ amenity.marginClass || '' }
+							onChange={ ( v ) => updateAmenity( ai, { marginClass: v } ) }
+							placeholder="mt-2"
+							help={ __( 'Clase utilitaria de Bootstrap para separar esta amenidad (ej. mt-2, mt-3, mt-4).', 'respira' ) }
+						/>
 					</RepeaterRow>
 				) ) }
 				<Button variant="secondary" onClick={ addAmenity }>

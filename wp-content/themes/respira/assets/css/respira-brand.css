@@ -86,6 +86,11 @@ body {
   color: #F1F0EA;                             /* sobre el hero oscuro -> almendra */
 }
 
+.faq-ver-mas-container{
+  display: flex;
+  justify-content: center;
+}
+
 /* -------------------------------------------------------------------------
    Footer: el "degradado" original era una imagen PNG con glow amarillo-lima.
    Lo sustituimos por un glow radial cálido en tono café (paleta de marca).
@@ -186,6 +191,9 @@ hr.proyecto-separador {
     margin-right: 0;
     width: 80px;
     height: 80px;
+  }
+  .footer-logo{
+    margin: auto !important;
   }
 }
 @media (max-width: 480px) {
@@ -537,7 +545,7 @@ hr.proyecto-separador {
 /* Logo principal del footer más grande que el máximo base de Realest (180px). */
 .footer-light .footer-main-row .footer-logo,
 .footer-light .footer-main-row .footer-logo img {
-  max-width: 240px;
+  max-width: 270px;
 }
 .footer-light .footer-main-row .contact-area {
   align-items: flex-start;
@@ -548,13 +556,11 @@ hr.proyecto-separador {
 .footer-light .footer-main-row .links-widget .widget-content .user-links {
   padding-right: 0;
 }
-/* El grupo de columnas queda siempre centrado en la fila (en desktop). Con las
-   4 columnas suman el ancho completo y no hay cambio; si falta alguna (p. ej.
-   la de "Enlaces" cuando el menú está vacío) el resto queda centrado en vez de
-   dejar un hueco a la derecha. En mobile ya se centra al apilarse. */
+/* En desktop las columnas se distribuyen con espacio entre ellas (logo a la
+   izquierda, contacto al centro, logos de aliados a la derecha). */
 @media (min-width: 992px) {
   .footer-light .footer-main-row {
-    justify-content: center;
+    justify-content: space-between;
   }
 }
 @media (max-width: 991.98px) {
@@ -565,13 +571,19 @@ hr.proyecto-separador {
   .footer-light .footer-main-row .footer-column:last-child {
     margin-bottom: 0;
   }
-  /* El contenido se centra como bloque, pero su texto queda a la izquierda. */
+  /* En mobile se centra TODO: contactos, iconos de redes y logos. */
   .footer-light .footer-main-row .footer-widget {
-    display: inline-block;
-    text-align: left;
+    display: block;
+    text-align: center;
+  }
+  .footer-light .footer-main-row .contact-area {
+    align-items: center;
+  }
+  .footer-light .footer-main-row .social-widget .social-icon-list1 {
+    justify-content: center;
   }
   .footer-light .footer-main-row .footer-images {
-    justify-content: flex-start;
+    justify-content: center;
   }
 }
 .footer-images-widget .footer-image {
@@ -588,6 +600,22 @@ hr.proyecto-separador {
 @media (max-width: 767.98px) {
   .footer-images-widget .footer-image img {
     height: 55px;
+  }
+}
+/* Cada logo de aliado con su propio alto (proporción según las capturas):
+   logo 1 (Volio & Trejos) algo más chico que logo 2 (Civitar). Ajustable. */
+.footer-images-widget .footer-image--1 img {
+  height: 90px;
+}
+.footer-images-widget .footer-image--2 img {
+  height: 130px;
+}
+@media (max-width: 767.98px) {
+  .footer-images-widget .footer-image--1 img {
+    height: 70px;
+  }
+  .footer-images-widget .footer-image--2 img {
+    height: 100px;
   }
 }
 /* Placeholder visible mientras no se carga una imagen desde el Personalizador. */
@@ -610,12 +638,15 @@ hr.proyecto-separador {
   max-width: 640px;
   margin: 16px auto 0;
   color: var(--text-color);
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.6;
 }
 @media (max-width: 767.98px) {
   .respira-projects .sec-title .projects-header__title {
     font-size: 30px;
+  }
+  .respira-projects .sec-title .projects-header__desc {
+    font-size: 16px;
   }
 }
 
@@ -635,7 +666,7 @@ hr.proyecto-separador {
   max-width: 50%;
   margin-bottom: 28px;
   color: var(--text-color);
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.6;
 }
 .respira-projects .cat-desc p {
@@ -648,6 +679,7 @@ hr.proyecto-separador {
   .respira-projects .cat-desc {
     max-width: 100%;
     margin-bottom: 24px;
+    font-size: 16px;
   }
 }
 /* Cards con imagen: texto 60% (izquierda) e imagen 40% (derecha), sin hueco
@@ -810,7 +842,9 @@ hr.proyecto-separador {
 }
 @media (max-width: 991.98px) {
   .respira-contact .contact-section .outer-box .info-column {
-    padding: 0 15px 40px;
+    /* Más aire arriba: separa el bloque de texto/redes del formulario (que en
+       móvil queda encima por el order-*). */
+    padding: 56px 15px 40px;
     text-align: center;
   }
 }
@@ -888,9 +922,15 @@ hr.proyecto-separador {
   .respira-contact .contact-social-list {
     display: inline-block;
     text-align: left;
+    /* Menos espacio entre el horario y las redes en móvil (el margin base de
+       36px no colapsa con el horario por el inline-block). */
+    margin-top: 6px;
   }
   .respira-contact .contact-social-list li a {
     justify-content: flex-start;
+  }
+  .respira-contact .contact-hours {
+    margin-bottom: 14px;
   }
 }
 
@@ -992,7 +1032,7 @@ hr.proyecto-separador {
   text-align: center;
 }
 .respira-respaldo .sec-title {
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 /* Título un poco más chico que el h2 base (48px). */
 .respira-respaldo .sec-title .title {
@@ -1006,10 +1046,10 @@ hr.proyecto-separador {
 }
 /* Más aire entre el texto y los logos (arriba y abajo). */
 .respira-respaldo .respaldo-logo {
-  margin: 0 auto 50px;
+  margin: 0 auto 40px;
 }
 .respira-respaldo .respaldo-logo--bottom {
-  margin: 55px auto 0;
+  margin: 40px auto 0;
 }
 .respira-respaldo .respaldo-logo img {
   display: inline-block;
@@ -1118,6 +1158,7 @@ hr.proyecto-separador {
 }
 .respira-page-hero .title {
   color: var(--theme-color-white);
+  font-family: var(--font-family-style3);
   font-size: 60px;
   line-height: 1.08;
   margin-bottom: 16px;
@@ -1273,7 +1314,6 @@ hr.proyecto-separador {
 .respira-galeria .galeria-lead {
   max-width: 640px;
   margin: 0 auto;
-  font-style: italic;
   color: var(--theme-color-dark);
   font-size: 20px;
   line-height: 1.6;
@@ -1452,4 +1492,182 @@ ol.respira-nivel-desc li {
     background-color: var(--theme-color1);
     border-radius: 6px;
   }
+}
+
+/* =========================================================================
+   Ajustes solicitados por el cliente (fuera de la plantilla original)
+   ========================================================================= */
+
+/* --- Descripciones de bloques: 18px (16px en móvil) ---------------------- */
+/* .text es la clase de descripción compartida por casi todos los bloques.
+   No afecta menús ni el footer de contacto (usan .phone/.mail, no .text). */
+p,
+.text {
+  font-size: 18px;
+}
+@media (max-width: 767.98px) {
+  p,
+  .text {
+    font-size: 16px;
+  }
+}
+
+/* --- Hero home (bloque respira/hero): en móvil el título va a 20px y la
+   descripción a 14px, ambos alineados a la izquierda. Debe ir DESPUÉS del
+   bloque global de descripciones para ganar en el tamaño de .text. --------- */
+@media (max-width: 767.98px) {
+  .banner-section .outer-box .banner-block .inner-block .banner-title {
+    font-size: 20px;
+    margin-top: 180px;
+    line-height: 1.4;
+    text-align: left;
+  }
+  .banner-section .outer-box .banner-block .inner-block .content-box {
+    align-items: flex-start;
+  }
+  .banner-section .outer-box .banner-block .inner-block .content-box .text {
+    font-size: 14px;
+    line-height: 1.5rem;
+    text-align: left;
+  }
+}
+
+/* --- Navbar: logo más grande (base de la plantilla: 160px). --------------- */
+.header-style-one .header-lower .inner-container .main-box .logo-box .logo {
+  max-width: 200px;
+}
+
+/* --- Banner de páginas internas (.page-title de la plantilla): mismo
+   tratamiento tipográfico que el hero de imagen única (bloque page-hero, usado
+   en Ubicación): fuente Aboreto y tamaños equivalentes. Cubre Casas (archivo de
+   categoría), Amenidades, los singles de amenidad y el single de proyecto
+   (título "Modelo A"). El home usa el slider .banner-section, no .page-title. */
+.page-title .title {
+  font-family: var(--font-family-style3);
+  font-size: 60px;
+  line-height: 1.08;
+}
+@media (max-width: 991.98px) {
+  .page-title .title {
+    font-size: 44px;
+  }
+}
+@media (max-width: 767.98px) {
+  .page-title .title {
+    font-size: 30px;
+  }
+}
+/* Título "Modelo A": en el contenido del single de proyecto y en el archivo de
+   categoría de casas (bloque proyecto-niveles → taxonomy-proyecto_categoria),
+   ambos con la fuente de titulares (Aboreto). */
+.single-proyecto .project-details__content-left .h3,
+.proyecto-listado-item .product-details__title,
+.proyecto-listado-item .product-details__title a {
+  font-family: var(--font-family-style3);
+}
+/* Más espacio entre el título de nivel y la imagen en móvil (imagen arriba,
+   contenido debajo). Aplica al bloque en cualquier contexto: single de proyecto
+   Y archivo de categoría (tipo-proyecto/casas). */
+@media (max-width: 991.98px) {
+  .respira-proyecto-niveles .product-info {
+    margin-top: 34px;
+  }
+}
+
+/* --- Bloque respira/contact: título "Conversemos" + horario arriba de las
+   redes (columna izquierda, fondo claro). ---------------------------------- */
+.respira-contact .contact-social-title {
+  color: var(--theme-color-dark);
+  font-family: var(--font-family-style3);
+  margin-bottom: 10px;
+}
+.respira-contact .contact-hours {
+  margin-bottom: 26px;
+  color: var(--theme-color-dark);
+}
+.respira-contact .contact-hours__label {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 13px;
+  color: var(--theme-color1);
+  margin-bottom: 2px;
+}
+.respira-contact .contact-hours__value {
+  font-size: 18px;
+}
+
+/* --- FAQ (bloque respira/faq): en móvil solo 3 preguntas visibles + botón
+   "Ver más". En desktop la lista ya tiene scroll propio (arriba), así que el
+   botón se oculta y se muestran todas. ------------------------------------- */
+.faq-ver-mas {
+  display: none;
+}
+@media (max-width: 991.98px) {
+  .respira-faq .accordion-box .accordion.faq-extra {
+    display: none;
+  }
+  .respira-faq .faq-box.is-expanded .accordion-box .accordion.faq-extra {
+    display: block;
+  }
+  .faq-ver-mas {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    padding: 12px 26px;
+    border: 1px solid var(--theme-color1);
+    border-radius: 60px;
+    background: transparent;
+    color: var(--theme-color1);
+    font-family: var(--heading-font-family);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 300ms ease;
+  }
+  .faq-ver-mas:hover {
+    background: var(--theme-color1);
+    color: var(--theme-color1-text-color);
+  }
+}
+
+/* --- Navegación móvil (drawer lateral) ----------------------------------- */
+/* (a) Ítem activo/hover: color claro contrastante (antes usaba el café, igual
+   al fondo del drawer, y se perdía). */
+.mobile-menu .navigation li:hover > a,
+.mobile-menu .navigation li.current > a {
+  color: var(--theme-color-white);
+  font-weight: 700;
+}
+/* (b) Botón "Contáctenos" dentro del menú, adaptado al fondo oscuro. */
+.mobile-menu .mobile-menu-cta {
+  padding: 22px 20px 0;
+  text-align: left;
+}
+/* Horario de atención: alineado a la izquierda como los ítems del menú (se
+   quita el sangrado de 54px que reservaba el espacio del ícono, ya removido). */
+.mobile-menu .contact-list-one li {
+  padding-left: 0;
+}
+.mobile-menu .mobile-menu-cta .theme-btn.btn-style-one {
+  color: var(--theme-color-white);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.mobile-menu .mobile-menu-cta .btn-style-one .icon,
+.mobile-menu .mobile-menu-cta .btn-style-one:before {
+  background-color: var(--theme-color-light);
+}
+.mobile-menu .mobile-menu-cta .btn-style-one .icon {
+  color: var(--theme-color-dark);
+}
+
+/* --- Galería: nota al pie después de las fotos --------------------------- */
+.respira-galeria .galeria-disclaimer {
+  margin: 40px auto 0;
+  max-width: 720px;
+  text-align: center;
+  color: var(--theme-color-dark);
+  opacity: 0.7;
+  font-size: 14px;
+  line-height: 1.6;
 }

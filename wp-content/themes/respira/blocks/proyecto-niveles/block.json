@@ -22,7 +22,7 @@
           "imageAlt": "",
           "description": "",
           "amenities": [
-            { "icon": "fa-solid fa-location-dot", "text": "", "imageId": 0, "imageUrl": "", "imageAlt": "" }
+            { "icon": "fa-solid fa-location-dot", "text": "", "imageId": 0, "imageUrl": "", "imageAlt": "", "marginClass": "" }
           ]
         }
       ]

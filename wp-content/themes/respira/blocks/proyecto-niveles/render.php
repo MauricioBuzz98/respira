@@ -48,10 +48,12 @@ foreach ( (array) ( $attributes['items'] ?? [] ) as $level ) {
 		$text = (string) ( $amenity['text'] ?? '' );
 		if ( '' !== $text ) {
 			$level_amenities[] = [
-				'icon'     => (string) ( $amenity['icon'] ?? '' ),
-				'imageUrl' => $resolve( (string) ( $amenity['imageUrl'] ?? '' ) ),
-				'imageAlt' => (string) ( $amenity['imageAlt'] ?? '' ),
-				'text'     => $text,
+				'icon'        => (string) ( $amenity['icon'] ?? '' ),
+				'imageUrl'    => $resolve( (string) ( $amenity['imageUrl'] ?? '' ) ),
+				'imageAlt'    => (string) ( $amenity['imageAlt'] ?? '' ),
+				// Se respetan los saltos de línea: se escapa y luego \n -> <br>.
+				'text'        => nl2br( esc_html( $text ) ),
+				'marginClass' => (string) ( $amenity['marginClass'] ?? '' ),
 			];
 		}
 	}

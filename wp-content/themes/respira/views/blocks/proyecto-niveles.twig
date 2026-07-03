@@ -56,7 +56,7 @@
                 {% if g.amenities %}
                   <ul class="list-unstyled proyecto-amenidades">
                     {% for a in g.amenities %}
-                      <li><p>{% if a.imageUrl %}<img class="proyecto-amenidad-img" src="{{ a.imageUrl }}" alt="{{ a.imageAlt }}"> {% elseif a.icon %}<i class="{{ a.icon }}"></i> {% endif %}{{ a.text }}</p></li>
+                      <li{% if a.marginClass %} class="{{ a.marginClass }}"{% endif %}><p>{% if a.imageUrl %}<img class="proyecto-amenidad-img" src="{{ a.imageUrl }}" alt="{{ a.imageAlt }}"> {% elseif a.icon %}<i class="{{ a.icon }}"></i> {% endif %}{{ a.text|raw }}</p></li>
                     {% endfor %}
                   </ul>
                 {% endif %}
