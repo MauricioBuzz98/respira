@@ -71,7 +71,8 @@
       "Bash(awk 'NR>=4948 && NR<=5010' assets/css/style.css)",
       "Bash(awk 'NR>=4880 && NR<=4960' assets/css/style.css)",
       "Bash(/usr/bin/curl -s --max-time 20 -b sitio_preview=__TRACKED_VAR__ http://respira.test/ -o /tmp/home2.html)",
-      "Bash(/usr/bin/curl -s --max-time 20 -b sitio_preview=__TRACKED_VAR__ http://respira.test/ -o /tmp/home3.html)"
+      "Bash(/usr/bin/curl -s --max-time 20 -b sitio_preview=__TRACKED_VAR__ http://respira.test/ -o /tmp/home3.html)",
+      "Bash(/usr/bin/curl -s --max-time 20 -b sitio_preview=__TRACKED_VAR__ http://respira.test/)"
     ]
   }
 }

@@ -548,19 +548,25 @@ hr.proyecto-separador {
   max-width: 270px;
 }
 .footer-light .footer-main-row .contact-area {
-  align-items: flex-start;
+  align-items: center;
 }
 .footer-light .footer-main-row .social-widget .social-icon-list1 {
-  justify-content: flex-start;
+  justify-content: center;
 }
 .footer-light .footer-main-row .links-widget .widget-content .user-links {
   padding-right: 0;
 }
-/* En desktop las columnas se distribuyen con espacio entre ellas (logo a la
-   izquierda, contacto al centro, logos de aliados a la derecha). */
+/* En desktop las 3 columnas (logo | contacto | logos) ocupan el MISMO ancho:
+   se ignoran los col-lg-* desparejos (3/3/4) y cada una crece por igual. La
+   separación entre ellas la da el gap del row. */
 @media (min-width: 992px) {
   .footer-light .footer-main-row {
     justify-content: space-between;
+  }
+  .footer-light .footer-main-row > .footer-column {
+    flex: 1 1 0;
+    max-width: none;
+    width: auto;
   }
 }
 @media (max-width: 991.98px) {
@@ -608,14 +614,14 @@ hr.proyecto-separador {
   height: 90px;
 }
 .footer-images-widget .footer-image--2 img {
-  height: 130px;
+  height: 140px;
 }
 @media (max-width: 767.98px) {
   .footer-images-widget .footer-image--1 img {
-    height: 70px;
+    height: 55px;
   }
   .footer-images-widget .footer-image--2 img {
-    height: 100px;
+    height: 90px;
   }
 }
 /* Placeholder visible mientras no se carga una imagen desde el Personalizador. */
