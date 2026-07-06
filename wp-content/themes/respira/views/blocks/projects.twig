@@ -3,12 +3,12 @@
 #}
 <section {{ wrapper_attributes|raw }}>
   <div class="project-section">
-    <div class="shape-1 bounce-x"><img src="{{ theme.link }}/assets/images/icons/shape-3.png" alt=""></div>
+    {#<div class="shape-1 bounce-x"><img src="{{ theme.link }}/assets/images/icons/shape-3.png" alt=""></div>#}
     <div class="auto-container">
 
       {% if subtitle or title or description %}
         <div class="row">
-          <div class="sec-title text-center">
+          <div class="sec-title text-center mb-80px">
             {% if subtitle %}<div class="h6 sub-title">{{ subtitle }}</div>{% endif %}
             {% if title %}<div class="h2 title projects-header__title">{{ title }}</div>{% endif %}
             {% if description %}<div class="text projects-header__desc">{{ description|nl2br }}</div>{% endif %}

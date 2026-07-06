@@ -5692,7 +5692,7 @@ Section Title
 .banner-section .outer-box .banner-block .inner-block .content-box {
   position: relative;
   z-index: 2;
-  max-width: 1293px;
+  max-width: 1330px;
   padding: 32px 0 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -6345,6 +6345,10 @@ Section Title
           transform: translate(-50%, -50%) scale(1);
 }
 
+.mb-80px{
+  margin-bottom: 80px;
+}
+
 /***
 ====================================================================
     Projects Section
@@ -6352,11 +6356,11 @@ Section Title
 ***/
 .project-section {
   position: relative;
-  padding: 120px 0;
+  padding: 80px 0 120px 0;
 }
 @media (max-width: 991.98px) {
   .project-section {
-    padding: 80px 0 60px;
+    padding: 50px 0 60px;
   }
 }
 .project-section .sec-title {
