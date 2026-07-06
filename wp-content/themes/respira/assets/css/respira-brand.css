@@ -86,6 +86,11 @@ body {
   color: #F1F0EA;                             /* sobre el hero oscuro -> almendra */
 }
 
+.faq-ver-mas-container{
+  display: flex;
+  justify-content: center;
+}
+
 /* -------------------------------------------------------------------------
    Footer: el "degradado" original era una imagen PNG con glow amarillo-lima.
    Lo sustituimos por un glow radial cálido en tono café (paleta de marca).
@@ -186,6 +191,9 @@ hr.proyecto-separador {
     margin-right: 0;
     width: 80px;
     height: 80px;
+  }
+  .footer-logo{
+    margin: auto !important;
   }
 }
 @media (max-width: 480px) {
@@ -537,24 +545,29 @@ hr.proyecto-separador {
 /* Logo principal del footer más grande que el máximo base de Realest (180px). */
 .footer-light .footer-main-row .footer-logo,
 .footer-light .footer-main-row .footer-logo img {
-  max-width: 240px;
+  max-width: 270px;
 }
 .footer-light .footer-main-row .contact-area {
-  align-items: flex-start;
+  align-items: center;
 }
 .footer-light .footer-main-row .social-widget .social-icon-list1 {
-  justify-content: flex-start;
+  justify-content: center;
 }
 .footer-light .footer-main-row .links-widget .widget-content .user-links {
   padding-right: 0;
 }
-/* El grupo de columnas queda siempre centrado en la fila (en desktop). Con las
-   4 columnas suman el ancho completo y no hay cambio; si falta alguna (p. ej.
-   la de "Enlaces" cuando el menú está vacío) el resto queda centrado en vez de
-   dejar un hueco a la derecha. En mobile ya se centra al apilarse. */
+/* En desktop las 3 columnas (logo | contacto | logos) ocupan el MISMO ancho:
+   se ignoran los col-lg-* desparejos (3/3/4) y cada una crece por igual. La
+   separación entre ellas la da el gap del row. */
 @media (min-width: 992px) {
   .footer-light .footer-main-row {
-    justify-content: center;
+    justify-content: space-between;
+  }
+  .footer-light .footer-main-row > .footer-column {
+    flex: 1 1 0;
+    max-width: none;
+    width: auto;
+    min-width: 0; /* que el contenido ancho (logos) no rompa los tercios iguales */
   }
 }
 @media (max-width: 991.98px) {
@@ -565,29 +578,48 @@ hr.proyecto-separador {
   .footer-light .footer-main-row .footer-column:last-child {
     margin-bottom: 0;
   }
-  /* El contenido se centra como bloque, pero su texto queda a la izquierda. */
+  /* En mobile se centra TODO: contactos, iconos de redes y logos. */
   .footer-light .footer-main-row .footer-widget {
-    display: inline-block;
-    text-align: left;
+    display: block;
+    text-align: center;
+  }
+  .footer-light .footer-main-row .contact-area {
+    align-items: center;
+  }
+  .footer-light .footer-main-row .social-widget .social-icon-list1 {
+    justify-content: center;
   }
   .footer-light .footer-main-row .footer-images {
-    justify-content: flex-start;
+    justify-content: center;
   }
 }
 .footer-images-widget .footer-image {
-  flex: 0 0 auto;
+  /* Permite que el logo se encoja para no desbordar su contenedor. */
+  flex: 0 1 auto;
+  min-width: 0;
 }
 .footer-images-widget .footer-image img {
   display: block;
   width: auto;
-  height: 90px;
-  max-width: 100%;
+  height: auto;
+  max-width: 100%; /* nunca más ancho que su contenedor: se achica solo */
   object-fit: contain;
 }
-/* En mobile los dos logos secundarios se reducen. */
+/* Alto MÁXIMO por logo (no alto fijo): la imagen mantiene su proporción y toma
+   ese alto cuando hay espacio; si el ancho no alcanza, se reduce sola por el
+   max-width sin recortarse ni salirse. logo 1 (Volio & Trejos) / logo 2 (Civitar). */
+.footer-images-widget .footer-image--1 img {
+  max-height: 90px;
+}
+.footer-images-widget .footer-image--2 img {
+  max-height: 140px;
+}
 @media (max-width: 767.98px) {
-  .footer-images-widget .footer-image img {
-    height: 55px;
+  .footer-images-widget .footer-image--1 img {
+    max-height: 55px;
+  }
+  .footer-images-widget .footer-image--2 img {
+    max-height: 90px;
   }
 }
 /* Placeholder visible mientras no se carga una imagen desde el Personalizador. */
@@ -610,12 +642,15 @@ hr.proyecto-separador {
   max-width: 640px;
   margin: 16px auto 0;
   color: var(--text-color);
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.6;
 }
 @media (max-width: 767.98px) {
   .respira-projects .sec-title .projects-header__title {
     font-size: 30px;
+  }
+  .respira-projects .sec-title .projects-header__desc {
+    font-size: 16px;
   }
 }
 
@@ -635,7 +670,7 @@ hr.proyecto-separador {
   max-width: 50%;
   margin-bottom: 28px;
   color: var(--text-color);
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.6;
 }
 .respira-projects .cat-desc p {
@@ -648,6 +683,7 @@ hr.proyecto-separador {
   .respira-projects .cat-desc {
     max-width: 100%;
     margin-bottom: 24px;
+    font-size: 16px;
   }
 }
 /* Cards con imagen: texto 60% (izquierda) e imagen 40% (derecha), sin hueco
@@ -806,11 +842,13 @@ hr.proyecto-separador {
    contenido editable.
    ------------------------------------------------------------------------- */
 .respira-contact .contact-section .outer-box .info-column {
-  padding: 40px 50px 40px 0;
+  padding: 40px 50px 40px 20px;
 }
 @media (max-width: 991.98px) {
   .respira-contact .contact-section .outer-box .info-column {
-    padding: 0 15px 40px;
+    /* Más aire arriba: separa el bloque de texto/redes del formulario (que en
+       móvil queda encima por el order-*). */
+    padding: 56px 15px 40px;
     text-align: center;
   }
 }
@@ -888,9 +926,15 @@ hr.proyecto-separador {
   .respira-contact .contact-social-list {
     display: inline-block;
     text-align: left;
+    /* Menos espacio entre el horario y las redes en móvil (el margin base de
+       36px no colapsa con el horario por el inline-block). */
+    margin-top: 6px;
   }
   .respira-contact .contact-social-list li a {
     justify-content: flex-start;
+  }
+  .respira-contact .contact-hours {
+    margin-bottom: 14px;
   }
 }
 
@@ -947,7 +991,7 @@ hr.proyecto-separador {
 }
 @media (max-width: 1024px) {
   .respira-why-choose-us .why-choose-us-section .outer-box .image-column .image {
-    height: 420px;
+    height: 70vh;
   }
 }
 @media (max-width: 575.98px) {
@@ -992,7 +1036,7 @@ hr.proyecto-separador {
   text-align: center;
 }
 .respira-respaldo .sec-title {
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 /* Título un poco más chico que el h2 base (48px). */
 .respira-respaldo .sec-title .title {
@@ -1006,10 +1050,10 @@ hr.proyecto-separador {
 }
 /* Más aire entre el texto y los logos (arriba y abajo). */
 .respira-respaldo .respaldo-logo {
-  margin: 0 auto 50px;
+  margin: 0 auto 40px;
 }
 .respira-respaldo .respaldo-logo--bottom {
-  margin: 55px auto 0;
+  margin: 40px auto 0;
 }
 .respira-respaldo .respaldo-logo img {
   display: inline-block;
@@ -1118,6 +1162,7 @@ hr.proyecto-separador {
 }
 .respira-page-hero .title {
   color: var(--theme-color-white);
+  font-family: var(--font-family-style3);
   font-size: 60px;
   line-height: 1.08;
   margin-bottom: 16px;
@@ -1273,7 +1318,6 @@ hr.proyecto-separador {
 .respira-galeria .galeria-lead {
   max-width: 640px;
   margin: 0 auto;
-  font-style: italic;
   color: var(--theme-color-dark);
   font-size: 20px;
   line-height: 1.6;
@@ -1451,5 +1495,286 @@ ol.respira-nivel-desc li {
   .faq-section .faq-column .faq-box::-webkit-scrollbar-thumb {
     background-color: var(--theme-color1);
     border-radius: 6px;
+  }
+}
+
+/* =========================================================================
+   Ajustes solicitados por el cliente (fuera de la plantilla original)
+   ========================================================================= */
+
+/* --- Descripciones de bloques: 18px (16px en móvil) ---------------------- */
+/* .text es la clase de descripción compartida por casi todos los bloques.
+   No afecta menús ni el footer de contacto (usan .phone/.mail, no .text). */
+p,
+.text {
+  font-size: 18px;
+}
+@media (max-width: 767.98px) {
+  p,
+  .text {
+    font-size: 16px;
+  }
+}
+
+/* --- Hero home (bloque respira/hero): en móvil el título va a 20px y la
+   descripción a 14px, ambos alineados a la izquierda. Debe ir DESPUÉS del
+   bloque global de descripciones para ganar en el tamaño de .text. --------- */
+@media (max-width: 767.98px) {
+  .banner-section .outer-box .banner-block .inner-block .banner-title {
+    font-size: 20px;
+    margin-top: 180px;
+    line-height: 1.4;
+    text-align: left;
+  }
+  .banner-section .outer-box .banner-block .inner-block .content-box {
+    align-items: flex-start;
+  }
+  .banner-section .outer-box .banner-block .inner-block .content-box .text {
+    font-size: 14px;
+    line-height: 1.5rem;
+    text-align: left;
+  }
+}
+
+/* --- Navbar: logo más grande (base de la plantilla: 160px). --------------- */
+.header-style-one .header-lower .inner-container .main-box .logo-box .logo {
+  max-width: 200px;
+}
+
+/* --- Banner de páginas internas (.page-title de la plantilla): mismo
+   tratamiento tipográfico que el hero de imagen única (bloque page-hero, usado
+   en Ubicación): fuente Aboreto y tamaños equivalentes. Cubre Casas (archivo de
+   categoría), Amenidades, los singles de amenidad y el single de proyecto
+   (título "Modelo A"). El home usa el slider .banner-section, no .page-title. */
+.page-title .title {
+  font-family: var(--font-family-style3);
+  font-size: 60px;
+  line-height: 1.08;
+}
+@media (max-width: 991.98px) {
+  .page-title .title {
+    font-size: 44px;
+  }
+}
+@media (max-width: 767.98px) {
+  .page-title .title {
+    font-size: 30px;
+  }
+}
+/* Título "Modelo A": en el contenido del single de proyecto y en el archivo de
+   categoría de casas (bloque proyecto-niveles → taxonomy-proyecto_categoria),
+   ambos con la fuente de titulares (Aboreto). */
+.single-proyecto .project-details__content-left .h3,
+.proyecto-listado-item .product-details__title,
+.proyecto-listado-item .product-details__title a {
+  font-family: var(--font-family-style3);
+}
+/* Espacio inferior en el detalle de proyecto: el footer sube con margin-top
+   negativo (-70px) y esquinas redondeadas, y tapaba el final del contenido
+   (precio / m²). Este padding lo mantiene por encima del footer. */
+.single-proyecto .project-details {
+  padding-bottom: 150px;
+}
+@media (max-width: 767.98px) {
+  .single-proyecto .project-details {
+    padding-bottom: 110px;
+  }
+}
+/* Más espacio entre el título de nivel y la imagen en móvil (imagen arriba,
+   contenido debajo). Aplica al bloque en cualquier contexto: single de proyecto
+   Y archivo de categoría (tipo-proyecto/casas). */
+@media (max-width: 991.98px) {
+  .respira-proyecto-niveles .product-info {
+    margin-top: 34px;
+  }
+}
+
+/* --- Bloque respira/contact: título "Conversemos" + horario arriba de las
+   redes (columna izquierda, fondo claro). ---------------------------------- */
+.respira-contact .contact-social-title {
+  color: var(--theme-color-dark);
+  font-family: var(--font-family-style3);
+  margin-bottom: 10px;
+}
+.respira-contact .contact-hours {
+  margin-bottom: 26px;
+  color: var(--theme-color-dark);
+}
+.respira-contact .contact-hours__label {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 13px;
+  color: var(--theme-color1);
+  margin-bottom: 2px;
+}
+.respira-contact .contact-hours__value {
+  font-size: 18px;
+}
+
+/* --- FAQ (bloque respira/faq): en móvil solo 3 preguntas visibles + botón
+   "Ver más". En desktop la lista ya tiene scroll propio (arriba), así que el
+   botón se oculta y se muestran todas. ------------------------------------- */
+.faq-ver-mas {
+  display: none;
+}
+@media (max-width: 991.98px) {
+  .respira-faq .accordion-box .accordion.faq-extra {
+    display: none;
+  }
+  .respira-faq .faq-box.is-expanded .accordion-box .accordion.faq-extra {
+    display: block;
+  }
+  .faq-ver-mas {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 24px;
+    padding: 12px 26px;
+    border: 1px solid var(--theme-color1);
+    border-radius: 60px;
+    background: transparent;
+    color: var(--theme-color1);
+    font-family: var(--heading-font-family);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 300ms ease;
+  }
+  .faq-ver-mas:hover {
+    background: var(--theme-color1);
+    color: var(--theme-color1-text-color);
+  }
+}
+
+/* --- Navegación escritorio: ítem activo (página actual) ------------------ */
+/* El CSS base marcaba el ítem .current con un ::before que nunca se genera
+   (no tiene content), así que el activo no se distinguía; en el sticky-header
+   además quedaba del mismo negro que el resto. Se resalta con el café de marca
+   + negrita (mismo criterio "estás aquí" que usa el drawer móvil). */
+.main-menu .navigation > li.current > a {
+  color: var(--theme-color1);
+  font-weight: 700;
+}
+.sticky-header .main-menu .navigation > li.current > a {
+  color: var(--theme-color1);
+  font-weight: 700;
+}
+
+/* --- Navegación móvil (drawer lateral) ----------------------------------- */
+/* (a) Ítem activo/hover: color claro contrastante (antes usaba el café, igual
+   al fondo del drawer, y se perdía). */
+.mobile-menu .navigation li:hover > a,
+.mobile-menu .navigation li.current > a {
+  color: var(--theme-color-white);
+  font-weight: 700;
+}
+/* (b) Botón "Contáctenos" dentro del menú, adaptado al fondo oscuro. */
+.mobile-menu .mobile-menu-cta {
+  padding: 22px 20px 0;
+  text-align: left;
+}
+/* Horario de atención: alineado a la izquierda como los ítems del menú (se
+   quita el sangrado de 54px que reservaba el espacio del ícono, ya removido). */
+.mobile-menu .contact-list-one li {
+  padding-left: 0;
+}
+.mobile-menu .mobile-menu-cta .theme-btn.btn-style-one {
+  color: var(--theme-color-white);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.mobile-menu .mobile-menu-cta .btn-style-one .icon,
+.mobile-menu .mobile-menu-cta .btn-style-one:before {
+  background-color: var(--theme-color-light);
+}
+.mobile-menu .mobile-menu-cta .btn-style-one .icon {
+  color: var(--theme-color-dark);
+}
+/* (c) Redes sociales (pie del drawer): el CSS base ponía el ícono en hover con
+   --theme-color1 (café), idéntico al fondo del drawer (--theme-color-dark, el
+   mismo café), y el ícono desaparecía. Se pasa a claro para que contraste. */
+.mobile-menu .social-links li a:hover {
+  color: var(--theme-color-white);
+}
+
+/* --- Galería: nota al pie después de las fotos --------------------------- */
+.respira-galeria .galeria-disclaimer {
+  margin: 40px auto 0;
+  max-width: 720px;
+  text-align: center;
+  color: var(--theme-color-dark);
+  opacity: 0.7;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* =========================================================================
+   Franja "escritorio angosto" (1025px–1400px)
+   -------------------------------------------------------------------------
+   En este rango el sitio YA usa el layout de escritorio (columnas lado a
+   lado), pero el .auto-container aporta solo 15px de gutter porque todavía
+   no alcanza márgenes laterales cómodos: hasta 1350px no llega a su
+   max-width (1350px) para centrarse, y entre 1350–1400px el centrado recién
+   arranca (márgenes casi nulos). Resultado: los bloques (tarjeta de "Casas",
+   formulario de "Conversemos", etc.) quedan pegados a los bordes ("espaciado
+   a los costados nulo") y el bloque de ubicación deja franjas del fondo
+   arriba/abajo de la imagen.
+
+   Debajo de 1025px aplican las reglas tablet/móvil de la plantilla (que ya
+   se ven bien). El corte superior es 1400px porque ahí el margen natural del
+   contenedor ya alcanza los 40px que fijamos aquí: el traspaso es continuo y
+   por encima no se toca nada. El rango que reportó el cliente (1025–1233) va
+   incluido; se extendió hasta 1400 para no dejar una franja idéntica de rota
+   ni un salto visible al redimensionar.
+   ========================================================================= */
+@media (min-width: 1025px) and (max-width: 1400px) {
+  /* Respiro lateral para el contenido de todos los bloques (mismo inset que
+     el diseño alcanza de forma natural en >=1400px). Cubre proyectos,
+     contacto, amenidades (título), respaldo, FAQ, cabecera y pie. */
+  .auto-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  /* Bloque why-choose-us (usado como "Ubicación"). Dos arreglos combinados:
+
+     1) Reparto 50/50. Sin ancho explícito, el flex toma el ancho natural de la
+        imagen (mapa) y le da ~69% del bloque, dejando la columna de texto muy
+        angosta y altísima. Se igualan las columnas como en el diseño >=1400px.
+
+     2) Imagen estirada al alto de la fila. El .outer-box centra en vertical
+        (align-items:center) y la imagen tiene alto fijo (600px); como la
+        columna de texto sigue siendo más alta que 600px en esta franja, la
+        imagen quedaba centrada dejando franjas del fondo oscuro arriba/abajo
+        del mapa. Con align-items:stretch la imagen llena todo el alto de la
+        fila y desaparecen esos huecos (nunca se achica de 600px porque en esta
+        franja el texto siempre es más alto). */
+  .respira-why-choose-us .why-choose-us-section .outer-box {
+    align-items: stretch;
+  }
+  .respira-why-choose-us .why-choose-us-section .outer-box .image-column {
+    display: flex;
+    flex: 1 1 50%;
+    max-width: 50%;
+  }
+  .respira-why-choose-us .why-choose-us-section .outer-box .content-column {
+    flex: 1 1 50%;
+    max-width: 50%;
+  }
+  .respira-why-choose-us .why-choose-us-section .outer-box .image-column .image {
+    height: auto;
+    align-self: stretch;
+  }
+  /* La columna de texto trae 75px de padding lateral (regla base <=1366px), que
+     en esta franja angosta deja el texto demasiado estrecho. Se reduce para que
+     respire y quepa cómodo en el 50% asignado. */
+  .respira-why-choose-us .why-choose-us-section .outer-box .content-column .inner-column {
+    padding: 40px 45px;
+  }
+
+  /* Contacto: la columna izquierda ("Conversemos") trae padding-left:0 en el
+     layout de escritorio y quedaba casi pegada al borde. Se le da un poco de
+     aire para acompañar el nuevo inset del contenedor. */
+  .respira-contact .contact-section .outer-box .info-column {
+    padding-left: 12px;
   }
 }

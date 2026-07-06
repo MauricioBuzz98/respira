@@ -610,7 +610,7 @@ var THEMEMASCOT = {};
 			loop: true,
 			loopedSlides: 6,
 			autoplay: {
-				delay: 4000,            // time between slides (in ms)
+				delay: 15000,           // time between slides (in ms)
 				disableOnInteraction: false, // keep autoplay after user interactions
 				pauseOnMouseEnter: false,    // optional: autoplay won't pause on hover
 			},

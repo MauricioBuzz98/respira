@@ -159,6 +159,10 @@ add_action( 'wp_enqueue_scripts', function (): void {
 		wp_enqueue_script( 'respira-proyectos', $uri . '/assets/js/respira-proyectos.js', [ 'respira-script' ], $ver( '/assets/js/respira-proyectos.js' ), true );
 	}
 
+	// FAQ (bloque respira/faq): botón "Ver más" en móvil. Handler delegado, no
+	// hace nada si no hay .faq-ver-mas en la página.
+	wp_enqueue_script( 'respira-faq', $uri . '/assets/js/respira-faq.js', [ 'respira-script' ], $ver( '/assets/js/respira-faq.js' ), true );
+
 	// Red de seguridad para el preloader: aunque algún script de la plantilla
 	// lance un error y aborte (script.js es un único IIFE), este script inline
 	// corre en su propia etiqueta y oculta el preloader al cargar (o a los 5s),

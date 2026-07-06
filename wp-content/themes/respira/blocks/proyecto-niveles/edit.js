@@ -7,11 +7,26 @@ import {
 } from '@wordpress/block-editor';
 import { PanelBody, TextControl, TextareaControl, Button, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { useState } from '@wordpress/element';
 import { useReorder, RepeaterRow, DragHandle, ReorderArrows } from '../shared/repeater';
 import { IconPicker } from '../shared/icons';
 
-const EMPTY_AMENITY = { icon: 'fa-solid fa-location-dot', text: '', imageId: 0, imageUrl: '', imageAlt: '' };
+const EMPTY_AMENITY = { icon: 'fa-solid fa-location-dot', text: '', imageId: 0, imageUrl: '', imageAlt: '', marginClass: '' };
 const EMPTY_LEVEL = { name: '', imageId: 0, imageUrl: '', imageAlt: '', description: '', amenities: [] };
+
+// Chevrons SVG inline para el colapsable de niveles. Se usa SVG (no dashicons)
+// porque el lienzo del editor corre en un <iframe> donde la CSS de dashicons no
+// se carga y los íconos quedarían invisibles (ver blocks/shared/repeater.js).
+const ChevronDownIcon = (
+	<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+		<path fill="currentColor" d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.6-3.6z" />
+	</svg>
+);
+const ChevronRightIcon = (
+	<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+		<path fill="currentColor" d="M10.6 6L9.4 7l4.6 5-4.6 5 1.2 1 5.4-6z" />
+	</svg>
+);
 
 // La descripción es texto plano (se respetan los saltos de línea). El contenido
 // antiguo pudo guardarse como HTML (<br>, listas); esto lo normaliza a texto
@@ -37,7 +52,7 @@ const toPlainText = ( value ) => {
  * Es un componente propio para poder usar useReorder() con las amenidades de
  * este nivel (los hooks no pueden llamarse dentro de un map en el padre).
  */
-function LevelEditor( { level, li, count, levelReorder, updateLevel, removeLevel } ) {
+function LevelEditor( { level, li, count, levelReorder, updateLevel, removeLevel, collapsed, onToggleCollapse } ) {
 	const amenities = level.amenities || [];
 	const amenityReorder = useReorder( amenities, ( next ) => updateLevel( li, { amenities: next } ) );
 
@@ -62,8 +77,20 @@ function LevelEditor( { level, li, count, levelReorder, updateLevel, removeLevel
 		>
 			<div style={ { display: 'flex', justifyContent: 'space-between', alignItems: 'center' } }>
 				<span style={ { display: 'flex', alignItems: 'center', gap: 4 } }>
+					<Button
+						icon={ collapsed ? ChevronRightIcon : ChevronDownIcon }
+						label={ collapsed ? __( 'Expandir nivel', 'respira' ) : __( 'Colapsar nivel', 'respira' ) }
+						size="small"
+						onClick={ onToggleCollapse }
+					/>
 					<DragHandle reorder={ levelReorder } index={ li } />
-					<strong>{ level.name ? level.name : `${ __( 'Nivel', 'respira' ) } #${ li + 1 }` }</strong>
+					<strong
+						onClick={ onToggleCollapse }
+						style={ { cursor: 'pointer', userSelect: 'none' } }
+						title={ collapsed ? __( 'Expandir nivel', 'respira' ) : __( 'Colapsar nivel', 'respira' ) }
+					>
+						{ level.name ? level.name : `${ __( 'Nivel', 'respira' ) } #${ li + 1 }` }
+					</strong>
 				</span>
 				<span style={ { display: 'flex', alignItems: 'center', gap: 4 } }>
 					<ReorderArrows index={ li } count={ count } move={ levelReorder.move } />
@@ -72,6 +99,8 @@ function LevelEditor( { level, li, count, levelReorder, updateLevel, removeLevel
 					</Button>
 				</span>
 			</div>
+
+			<div style={ { display: collapsed ? 'none' : 'block' } }>
 
 			<div style={ { marginTop: 12 } }>
 				<TextControl
@@ -171,21 +200,31 @@ function LevelEditor( { level, li, count, levelReorder, updateLevel, removeLevel
 								</MediaUploadCheck>
 							</div>
 							<div style={ { flex: 1 } }>
-								<TextControl
+								<TextareaControl
 									label={ __( 'Texto', 'respira' ) }
 									value={ amenity.text }
 									onChange={ ( v ) => updateAmenity( ai, { text: v } ) }
+									rows={ 2 }
+									help={ __( 'Podés usar saltos de línea (Enter) para dividir el texto en varias líneas.', 'respira' ) }
 								/>
 							</div>
 							<Button isDestructive variant="link" onClick={ () => removeAmenity( ai ) }>
 								{ __( 'Quitar', 'respira' ) }
 							</Button>
 						</div>
+						<TextControl
+							label={ __( 'Clase de espaciado (opcional)', 'respira' ) }
+							value={ amenity.marginClass || '' }
+							onChange={ ( v ) => updateAmenity( ai, { marginClass: v } ) }
+							placeholder="mt-2"
+							help={ __( 'Clase utilitaria de Bootstrap para separar esta amenidad (ej. mt-2, mt-3, mt-4).', 'respira' ) }
+						/>
 					</RepeaterRow>
 				) ) }
 				<Button variant="secondary" onClick={ addAmenity }>
 					{ __( 'Agregar amenidad', 'respira' ) }
 				</Button>
+			</div>
 			</div>
 		</div>
 	);
@@ -204,6 +243,18 @@ export default function Edit( { attributes, setAttributes } ) {
 	const removeLevel = ( index ) => setAttributes( { items: items.filter( ( _, i ) => i !== index ) } );
 
 	const levelReorder = useReorder( items, ( next ) => setAttributes( { items: next } ) );
+
+	// Estado (solo del editor) de niveles colapsados, por índice. No se guarda en
+	// el contenido; sirve para ver el orden de un vistazo y reordenar cómodo.
+	const [ collapsed, setCollapsed ] = useState( () => new Set() );
+	const toggleCollapse = ( i ) =>
+		setCollapsed( ( prev ) => {
+			const next = new Set( prev );
+			if ( next.has( i ) ) { next.delete( i ); } else { next.add( i ); }
+			return next;
+		} );
+	const collapseAll = () => setCollapsed( new Set( items.map( ( _, i ) => i ) ) );
+	const expandAll = () => setCollapsed( new Set() );
 
 	return (
 		<>
@@ -249,6 +300,17 @@ export default function Edit( { attributes, setAttributes } ) {
 					placeholder={ __( 'Introducción del proyecto (opcional)…', 'respira' ) }
 				/>
 
+				{ items.length > 1 && (
+					<div style={ { display: 'flex', gap: 8, alignItems: 'center', margin: '4px 0 12px' } }>
+						<Button variant="secondary" size="small" icon={ ChevronRightIcon } onClick={ collapseAll }>
+							{ __( 'Colapsar todos', 'respira' ) }
+						</Button>
+						<Button variant="secondary" size="small" icon={ ChevronDownIcon } onClick={ expandAll }>
+							{ __( 'Expandir todos', 'respira' ) }
+						</Button>
+					</div>
+				) }
+
 				{ items.map( ( level, li ) => (
 					<LevelEditor
 						key={ li }
@@ -258,6 +320,8 @@ export default function Edit( { attributes, setAttributes } ) {
 						levelReorder={ levelReorder }
 						updateLevel={ updateLevel }
 						removeLevel={ removeLevel }
+						collapsed={ collapsed.has( li ) }
+						onToggleCollapse={ () => toggleCollapse( li ) }
 					/>
 				) ) }
 

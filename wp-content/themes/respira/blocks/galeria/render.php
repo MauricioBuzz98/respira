@@ -44,6 +44,7 @@ $context             = Timber::context();
 $context['subtitle'] = $attributes['subtitle'] ?? '';
 $context['title']    = $attributes['title'] ?? '';
 $context['text']     = '' !== $text ? wpautop( $text ) : '';
+$context['disclaimer'] = trim( (string) ( $attributes['disclaimer'] ?? '' ) );
 $context['columns']  = $columns;
 $context['images']   = $images;
 

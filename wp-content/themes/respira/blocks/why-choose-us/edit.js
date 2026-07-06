@@ -19,6 +19,8 @@ export default function Edit( { attributes, setAttributes } ) {
 		imageUrl,
 		mobileImageId,
 		mobileImageUrl,
+		tabletImageId,
+		tabletImageUrl,
 		subtitle,
 		title,
 		text,
@@ -126,6 +128,52 @@ export default function Edit( { attributes, setAttributes } ) {
 					</MediaUploadCheck>
 					<p style={ { fontSize: 11, opacity: 0.7, marginTop: 6 } }>
 						{ __( 'Si la dejás vacía, en mobile se usa la imagen principal.', 'respira' ) }
+					</p>
+
+					<p style={ { fontSize: 11, textTransform: 'uppercase', letterSpacing: 0.4, opacity: 0.7, margin: '16px 0 6px' } }>
+						{ __( 'Imagen para tablet 969–1439 px (opcional)', 'respira' ) }
+					</p>
+					<MediaUploadCheck>
+						<MediaUpload
+							onSelect={ ( media ) =>
+								setAttributes( {
+									tabletImageId: media.id,
+									tabletImageUrl: media.url,
+									tabletImageAlt: media.alt || '',
+								} )
+							}
+							allowedTypes={ [ 'image' ] }
+							value={ tabletImageId }
+							render={ ( { open } ) => (
+								<div>
+									{ tabletImageUrl && (
+										<img
+											src={ tabletImageUrl }
+											alt=""
+											style={ { width: '100%', borderRadius: '4px', marginBottom: '8px' } }
+										/>
+									) }
+									<Button variant={ tabletImageUrl ? 'secondary' : 'primary' } onClick={ open }>
+										{ tabletImageUrl ? __( 'Cambiar imagen tablet', 'respira' ) : __( 'Seleccionar imagen tablet', 'respira' ) }
+									</Button>
+									{ tabletImageUrl && (
+										<Button
+											isDestructive
+											variant="link"
+											onClick={ () =>
+												setAttributes( { tabletImageId: 0, tabletImageUrl: '', tabletImageAlt: '' } )
+											}
+											style={ { display: 'block', marginTop: '4px' } }
+										>
+											{ __( 'Quitar imagen tablet', 'respira' ) }
+										</Button>
+									) }
+								</div>
+							) }
+						/>
+					</MediaUploadCheck>
+					<p style={ { fontSize: 11, opacity: 0.7, marginTop: 6 } }>
+						{ __( 'Si la dejás vacía, entre 969 y 1439 px se usa la imagen principal.', 'respira' ) }
 					</p>
 				</PanelBody>
 

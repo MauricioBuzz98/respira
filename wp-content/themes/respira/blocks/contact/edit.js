@@ -22,7 +22,7 @@ const SOCIAL_ICONS = [
 const EMPTY_SOCIAL = { text: '', link: '', icon: 'fab fa-whatsapp' };
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { subtitle, title, text, socials = [], formShortcode = '' } = attributes;
+	const { socialTitle = '', subtitle, title, text, socials = [], formShortcode = '' } = attributes;
 
 	const blockProps = useBlockProps( { className: 'respira-contact-editor' } );
 
@@ -57,6 +57,12 @@ export default function Edit( { attributes, setAttributes } ) {
 				</PanelBody>
 
 				<PanelBody title={ __( 'Redes / contacto', 'respira' ) } initialOpen={ true }>
+					<TextControl
+						label={ __( 'Título de la columna', 'respira' ) }
+						value={ socialTitle }
+						onChange={ ( v ) => setAttributes( { socialTitle: v } ) }
+						help={ __( 'Se muestra arriba de las redes (ej. «Conversemos»). El horario de atención sale del Personalizador.', 'respira' ) }
+					/>
 					{ socials.map( ( s, i ) => (
 						<RepeaterRow key={ i } reorder={ reorder } index={ i } count={ socials.length }>
 							<SelectControl
@@ -110,7 +116,10 @@ export default function Edit( { attributes, setAttributes } ) {
 						) }
 						{ text && <div style={ { opacity: 0.8, marginBottom: 16 } }>{ text }</div> }
 
-						<ul style={ { listStyle: 'none', margin: '16px 0 0', padding: 0 } }>
+						{ socialTitle && (
+							<div style={ { fontSize: 18, fontWeight: 700, marginTop: 16 } }>{ socialTitle }</div>
+						) }
+						<ul style={ { listStyle: 'none', margin: '12px 0 0', padding: 0 } }>
 							{ socials.length === 0 && (
 								<li style={ { opacity: 0.6, fontStyle: 'italic' } }>
 									{ __( 'Agregá redes/contacto desde el panel lateral.', 'respira' ) }

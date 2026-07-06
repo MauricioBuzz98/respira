@@ -15,7 +15,7 @@ import { __ } from '@wordpress/i18n';
 import { useReorder, RepeaterRow } from '../shared/repeater';
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { subtitle, title, text, columns, images } = attributes;
+	const { subtitle, title, text, disclaimer, columns, images } = attributes;
 	const blockProps = useBlockProps( { className: 'respira-galeria-editor' } );
 
 	const updateImage = ( index, patch ) => {
@@ -43,6 +43,13 @@ export default function Edit( { attributes, setAttributes } ) {
 					<TextControl label={ __( 'Subtítulo', 'respira' ) } value={ subtitle } onChange={ ( v ) => setAttributes( { subtitle: v } ) } />
 					<TextControl label={ __( 'Título', 'respira' ) } value={ title } onChange={ ( v ) => setAttributes( { title: v } ) } />
 					<TextareaControl label={ __( 'Texto', 'respira' ) } value={ text } onChange={ ( v ) => setAttributes( { text: v } ) } rows={ 3 } />
+					<TextareaControl
+						label={ __( 'Nota al pie (después de las fotos)', 'respira' ) }
+						value={ disclaimer }
+						onChange={ ( v ) => setAttributes( { disclaimer: v } ) }
+						rows={ 2 }
+						help={ __( 'Se muestra debajo de la galería (ej. aviso de imágenes ilustrativas). Dejalo vacío para ocultarlo.', 'respira' ) }
+					/>
 				</PanelBody>
 
 				<PanelBody title={ __( 'Disposición', 'respira' ) } initialOpen={ true }>
@@ -100,7 +107,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					<div style={ { textAlign: 'center', marginBottom: 16 } }>
 						{ subtitle && <div style={ { textTransform: 'uppercase', letterSpacing: 1, fontSize: 12 } }>{ subtitle }</div> }
 						{ title && <div style={ { fontSize: 24, fontWeight: 700 } }>{ title }</div> }
-						{ text && <div style={ { fontSize: 15, color: '#555', marginTop: 6, maxWidth: 600, marginInline: 'auto', fontStyle: 'italic' } }>{ text }</div> }
+						{ text && <div style={ { fontSize: 15, color: '#555', marginTop: 6, maxWidth: 600, marginInline: 'auto' } }>{ text }</div> }
 					</div>
 
 					{ images.length === 0 ? (

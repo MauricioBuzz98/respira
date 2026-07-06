@@ -5,7 +5,7 @@
 #}
 <section {{ wrapper_attributes|raw }}>
   <div class="faq-section">
-    <div class="shape-1"><img src="{{ theme.link }}/assets/images/icons/shape-9.png" alt=""></div>
+    {#<div class="shape-1"><img src="{{ theme.link }}/assets/images/icons/shape-9.png" alt=""></div>#}
     <div class="auto-container">
       <div class="row">
 
@@ -47,8 +47,10 @@
               <div class="inner-box">
                 <ul class="accordion-box">
                   {% for item in items %}
-                    {#-- El primer item queda abierto/activo, igual que el original --#}
-                    <li class="accordion block{{ loop.first ? ' active-block' : '' }}">
+                    {#-- El primer item queda abierto/activo, igual que el original.
+                         En móvil solo se muestran las 3 primeras; el resto (.faq-extra)
+                         se revela con el botón "Ver más" (ver assets/js/respira-faq.js). --#}
+                    <li class="accordion block{{ loop.first ? ' active-block' : '' }}{{ loop.index > 3 ? ' faq-extra' : '' }}">
                       <div class="acc-btn{{ loop.first ? ' active' : '' }}">{{ item.question }}
                         <i class="icon fa-solid fa-chevron-down"></i>
                       </div>
@@ -60,6 +62,13 @@
                     </li>
                   {% endfor %}
                 </ul>
+                <div class="faq-ver-mas-container">
+                  {% if items|length > 3 %}
+                    <button type="button" class="faq-ver-mas" data-more="{{ __('Ver más', 'respira') }}" data-less="{{ __('Ver menos', 'respira') }}">
+                      <span class="faq-ver-mas__label">{{ __('Ver más', 'respira') }}</span>
+                    </button>
+                  {% endif %}
+                </div>
               </div>
             </div>
           </div>

@@ -13,6 +13,7 @@
     "subtitle": { "type": "string", "default": "" },
     "title":    { "type": "string", "default": "Galería" },
     "text":     { "type": "string", "default": "Respira no es solamente un lugar para vivir. Es un lugar para volver a sentir." },
+    "disclaimer": { "type": "string", "default": "Todas las imágenes son de carácter ilustrativo y podrían variar." },
     "columns":  { "type": "number", "default": 3 },
     "images": {
       "type": "array",

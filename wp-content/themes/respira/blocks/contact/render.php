@@ -13,6 +13,7 @@ use Timber\Timber;
 
 $context = Timber::context();
 
+$context['social_title'] = $attributes['socialTitle'] ?? '';
 $context['subtitle'] = $attributes['subtitle'] ?? '';
 $context['title']    = $attributes['title'] ?? '';
 $context['text']     = $attributes['text'] ?? '';

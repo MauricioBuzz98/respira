@@ -97,19 +97,38 @@ export function DragHandle( { reorder, index } ) {
 	);
 }
 
+/*
+ * Íconos de flecha como SVG inline (no dashicons).
+ * El editor de bloques moderno renderiza el lienzo dentro de un <iframe> y la
+ * hoja de estilos de dashicons no siempre se carga ahí: con `icon="arrow-up-alt2"`
+ * el <span class="dashicons"> quedaba SIN glifo y las flechas se veían como
+ * botones vacíos (parecían "no aparecer"). Un SVG inline se dibuja siempre,
+ * sin depender de la fuente/CSS de dashicons.
+ */
+const ArrowUpIcon = (
+	<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+		<path fill="currentColor" d="M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.6 3.6z" />
+	</svg>
+);
+const ArrowDownIcon = (
+	<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+		<path fill="currentColor" d="M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.6-3.6z" />
+	</svg>
+);
+
 /** Botones ↑/↓ para reordenar (respaldo accesible del drag & drop). */
 export function ReorderArrows( { index, count, move } ) {
 	return (
 		<>
 			<Button
-				icon="arrow-up-alt2"
+				icon={ ArrowUpIcon }
 				label={ __( 'Subir', 'respira' ) }
 				size="small"
 				disabled={ index === 0 }
 				onClick={ () => move( index, index - 1 ) }
 			/>
 			<Button
-				icon="arrow-down-alt2"
+				icon={ ArrowDownIcon }
 				label={ __( 'Bajar', 'respira' ) }
 				size="small"
 				disabled={ index === count - 1 }

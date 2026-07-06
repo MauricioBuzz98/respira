@@ -102,13 +102,23 @@
       <ul class="navigation clearfix">
         {# Vacio: script.js inserta aqui la misma navegacion #}
       </ul>
-      <ul class="contact-list-one">
-        <li>
-          <i class="icon fa-regular fa-envelope"></i>
-          <span class="title">{{ __('Escribenos', 'respira') }}</span>
-          <div class="text"><a href="mailto:{{ options.email }}">{{ options.email }}</a></div>
-        </li>
-      </ul>
+      <div class="mobile-menu-cta">
+        <a class="theme-btn btn-style-one" href="{{ options.cta_url }}">
+          <span class="icon">
+            <i class="fa-solid fa-arrow-right"></i>
+            <i class="fa-solid fa-arrow-right"></i>
+          </span>
+          <span class="btn-title">{{ options.cta_label }}</span>
+        </a>
+      </div>
+      {% if options.hours %}
+        <ul class="contact-list-one">
+          <li>
+            <span class="title">{{ __('Horario de atención', 'respira') }}</span>
+            <div class="text">{{ options.hours }}</div>
+          </li>
+        </ul>
+      {% endif %}
       {% if options.socials %}
         <ul class="social-links">
           {% for s in options.socials %}
