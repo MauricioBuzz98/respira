@@ -1646,6 +1646,20 @@ p,
   }
 }
 
+/* --- Navegación escritorio: ítem activo (página actual) ------------------ */
+/* El CSS base marcaba el ítem .current con un ::before que nunca se genera
+   (no tiene content), así que el activo no se distinguía; en el sticky-header
+   además quedaba del mismo negro que el resto. Se resalta con el café de marca
+   + negrita (mismo criterio "estás aquí" que usa el drawer móvil). */
+.main-menu .navigation > li.current > a {
+  color: var(--theme-color1);
+  font-weight: 700;
+}
+.sticky-header .main-menu .navigation > li.current > a {
+  color: var(--theme-color1);
+  font-weight: 700;
+}
+
 /* --- Navegación móvil (drawer lateral) ----------------------------------- */
 /* (a) Ítem activo/hover: color claro contrastante (antes usaba el café, igual
    al fondo del drawer, y se perdía). */
@@ -1674,6 +1688,12 @@ p,
 }
 .mobile-menu .mobile-menu-cta .btn-style-one .icon {
   color: var(--theme-color-dark);
+}
+/* (c) Redes sociales (pie del drawer): el CSS base ponía el ícono en hover con
+   --theme-color1 (café), idéntico al fondo del drawer (--theme-color-dark, el
+   mismo café), y el ícono desaparecía. Se pasa a claro para que contraste. */
+.mobile-menu .social-links li a:hover {
+  color: var(--theme-color-white);
 }
 
 /* --- Galería: nota al pie después de las fotos --------------------------- */
