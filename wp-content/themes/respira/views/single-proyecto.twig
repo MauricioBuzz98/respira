@@ -8,8 +8,14 @@
 {% block content %}
   {% set web = post.meta('_respira_website') %}
 
+  {# Imagen del banner: la misma que usa la categoría del proyecto (term meta
+     _respira_image), como en la plantilla de tipo-de-proyecto. Fallback al
+     placeholder de la plantilla si la categoría no tiene imagen. #}
+  {% set banner_cat = post.terms('proyecto_categoria')|first %}
+  {% set banner_image_id = banner_cat ? banner_cat.meta('_respira_image') : null %}
+  {% set banner_image = banner_image_id ? function('wp_get_attachment_image_url', banner_image_id, 'full') : (theme.link ~ '/assets/images/resource/page-title.jpg') %}
   <div style="padding: 0 15px;">
-    <section class="page-title" style="background-image: url({{ theme.link }}/assets/images/resource/page-title.jpg);">
+    <section class="page-title" style="background-image: url({{ banner_image }});">
       <div class="auto-container">
         <div class="title-outer text-center">
           <div class="h1 title">{{ post.title }}</div>

@@ -5678,7 +5678,7 @@ Section Title
 }
 @media (max-width: 880px) {
   .banner-section .outer-box .banner-block .inner-block .banner-title {
-    font-size: 40px;
+    font-size: 30px;
     line-height: 1.5em;
     text-align: center;
   }
