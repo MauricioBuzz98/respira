@@ -118,7 +118,12 @@
       "Bash(node -e \"const a=require\\('./build/blocks/why-choose-us/block.json'\\).attributes; console.log\\(Object.keys\\(a\\).filter\\(k=>/[Ii]mage/.test\\(k\\)\\).join\\(', '\\)\\)\")",
       "Bash(mysql -h127.0.0.1 -uroot respira_web -N -e \"SELECT option_value FROM wp_options WHERE option_name='page_on_front';\")",
       "Bash(mysql -h127.0.0.1 -uroot respira_web -N -e \"SELECT ID, guid FROM wp_posts WHERE post_type='attachment' AND post_mime_type LIKE 'image/%' AND guid LIKE '%respira.test%' ORDER BY ID DESC LIMIT 12;\")",
-      "Bash(mysql -h127.0.0.1 -uroot respira_web -e \"UPDATE wp_posts SET post_content = REPLACE\\(post_content, '\\\\\"mobileImageUrl\\\\\":\\\\\"https://respiraescazu.com/wp-content/uploads/2026/07/Mapa-RESPIRA-WEB-1.jpg\\\\\",', '\\\\\"mobileImageUrl\\\\\":\\\\\"https://respiraescazu.com/wp-content/uploads/2026/07/Mapa-RESPIRA-WEB-1.jpg\\\\\",\\\\\"tabletImageId\\\\\":164,\\\\\"tabletImageUrl\\\\\":\\\\\"http://respira.test/wp-content/uploads/2026/07/Planta-ambientada-casa-D-nivel-1-2026-0618.png\\\\\",'\\) WHERE ID=9;\")"
+      "Bash(mysql -h127.0.0.1 -uroot respira_web -e \"UPDATE wp_posts SET post_content = REPLACE\\(post_content, '\\\\\"mobileImageUrl\\\\\":\\\\\"https://respiraescazu.com/wp-content/uploads/2026/07/Mapa-RESPIRA-WEB-1.jpg\\\\\",', '\\\\\"mobileImageUrl\\\\\":\\\\\"https://respiraescazu.com/wp-content/uploads/2026/07/Mapa-RESPIRA-WEB-1.jpg\\\\\",\\\\\"tabletImageId\\\\\":164,\\\\\"tabletImageUrl\\\\\":\\\\\"http://respira.test/wp-content/uploads/2026/07/Planta-ambientada-casa-D-nivel-1-2026-0618.png\\\\\",'\\) WHERE ID=9;\")",
+      "Bash(ls -la blocks/shared/)",
+      "Bash(ls -la blocks/proyecto-niveles/)",
+      "Bash(mysql -h127.0.0.1 -uroot respira_web -N -e \"SELECT ID, post_title, post_type, post_status FROM wp_posts WHERE post_title LIKE '%MODELO A%' AND post_type NOT IN \\('revision'\\) LIMIT 5;\")",
+      "Bash(mysql -h127.0.0.1 -uroot respira_web -N -e \"SELECT u.ID, u.user_login FROM wp_users u LIMIT 5;\")",
+      "Bash(mysql -h127.0.0.1 -uroot respira_web)"
     ]
   }
 }
