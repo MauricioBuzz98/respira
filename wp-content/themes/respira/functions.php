@@ -273,12 +273,19 @@ add_action( 'template_redirect', function (): void {
 		return;
 	}
 
-	// 2. No interferir con admin, login, cron, REST o WP-CLI.
+	// 2. No interferir con admin, login, cron, REST, WP-CLI, ni con robots.txt /
+	//    sitemap. Googlebot DEBE poder leer robots.txt y el sitemap: si /robots.txt
+	//    devuelve 503 (como hacía el muro), Google interpreta "sitio caído", pausa
+	//    el rastreo del sitio entero y nunca llega a ver el noindex de las páginas,
+	//    así que la entrada vieja se queda en el índice. Dejándolos pasar, Google
+	//    rastrea las páginas (200 + noindex, ver abajo) y las saca del índice.
 	if (
 		is_admin()
 		|| ( defined( 'DOING_CRON' ) && DOING_CRON )
 		|| ( defined( 'WP_CLI' ) && WP_CLI )
 		|| ( function_exists( 'wp_is_json_request' ) && wp_is_json_request() )
+		|| is_robots()
+		|| ( function_exists( 'is_sitemap' ) && is_sitemap() )
 		|| ( isset( $GLOBALS['pagenow'] ) && 'wp-login.php' === $GLOBALS['pagenow'] )
 	) {
 		return;
@@ -331,8 +338,13 @@ add_action( 'template_redirect', function (): void {
 	}
 
 	// 5. Mostrar la pantalla de construcción con el formulario.
-	status_header( 503 );
-	header( 'Retry-After: 3600' );
+	//    IMPORTANTE: respondemos 200, NO 503. Con 503 Google interpreta "caído
+	//    temporalmente", conserva la entrada ya indexada y NO procesa el noindex;
+	//    ESA es la razón por la que el sitio seguía apareciendo en las búsquedas.
+	//    Con 200 + X-Robots-Tag: noindex (ver arriba), Googlebot rastrea, lee el
+	//    noindex y saca la URL del índice. El muro no tiene contenido real y va con
+	//    noindex, así que no hay riesgo de que se indexe la propia pantalla.
+	status_header( 200 );
 
 	$msg_error = '' !== $error
 		? '<p style="color:#c0392b;margin:0 0 1rem;">' . esc_html( $error ) . '</p>'
@@ -353,7 +365,7 @@ add_action( 'template_redirect', function (): void {
 		</form>
 	</div>';
 
-	wp_die( $html, 'En construcción', [ 'response' => 503 ] );
+	wp_die( $html, 'En construcción', [ 'response' => 200 ] );
 } );
 
 // ---------------------------------------------------------------------------
