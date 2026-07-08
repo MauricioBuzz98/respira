@@ -125,7 +125,41 @@
       "Bash(mysql -h127.0.0.1 -uroot respira_web -N -e \"SELECT u.ID, u.user_login FROM wp_users u LIMIT 5;\")",
       "Bash(mysql -h127.0.0.1 -uroot respira_web)",
       "Bash(php -l wp-content/themes/respira/functions.php)",
-      "Bash(php -l src/Site.php)"
+      "Bash(php -l src/Site.php)",
+      "Bash(/Users/Shared/DBngin/mysql/8.0.33/bin/mysql -h127.0.0.1 -uroot respira_web -N -e 'SELECT ID, post_type, post_status, post_title FROM wp_posts WHERE post_status IN \\('\\\\''publish'\\\\'','\\\\''draft'\\\\'','\\\\''private'\\\\''\\) AND post_type IN \\('\\\\''page'\\\\'','\\\\''post'\\\\'','\\\\''proyecto'\\\\'','\\\\''amenidades'\\\\'','\\\\''miembro'\\\\'','\\\\''testimonio'\\\\''\\) ORDER BY post_type, ID;')",
+      "Bash(/Users/Shared/DBngin/mysql/8.0.33/bin/mysql -h127.0.0.1 -uroot respira_web -N -e 'SELECT option_name, option_value FROM wp_options WHERE option_name IN \\('\\\\''show_on_front'\\\\'','\\\\''page_on_front'\\\\'','\\\\''page_for_posts'\\\\'','\\\\''blogname'\\\\'','\\\\''template'\\\\'','\\\\''stylesheet'\\\\'','\\\\''active_plugins'\\\\''\\);')",
+      "Bash(/Users/Shared/DBngin/mysql/8.0.33/bin/mysql -h127.0.0.1 -uroot respira_web -N -e 'SELECT u.ID, u.user_login, u.user_email FROM wp_users u JOIN wp_usermeta m ON m.user_id=u.ID WHERE m.meta_key='\\\\''wp_capabilities'\\\\'' AND m.meta_value LIKE '\\\\''%administrator%'\\\\'';')",
+      "Bash(/Users/Shared/DBngin/mysql/8.0.33/bin/mysql -h127.0.0.1 -uroot respira_web -N -e 'SELECT option_name, option_value FROM wp_options WHERE option_name IN \\('\\\\''siteurl'\\\\'','\\\\''home'\\\\''\\);')",
+      "Bash(wp --version)",
+      "Bash(curl -s -o /dev/null -w \"login: %{http_code}\\\\n\" http://respira.test/wp-login.php)",
+      "Bash(curl -s -o /dev/null -w \"home: %{http_code}\\\\n\" http://respira.test/)",
+      "Bash(/Users/Shared/DBngin/mysql/8.0.33/bin/mysql -h127.0.0.1 -uroot respira_web -N -e 'SELECT post_content FROM wp_posts WHERE ID=9;')",
+      "Bash(node -e \"const f=require\\('./respira-contacto.json'\\); const d=f.data||f; console.log\\('keys:',Object.keys\\(d\\)\\); const fields=\\(d.fields||d.wrappers||[]\\); console.log\\(JSON.stringify\\(fields,null,1\\).slice\\(0,2500\\)\\);\")",
+      "Bash(python3 -c \"import json;d=json.load\\(open\\('respira-contacto.json'\\)\\);print\\('top keys:',list\\(d.keys\\(\\)\\)\\);\")",
+      "Bash(/Users/Shared/DBngin/mysql/8.0.33/bin/mysql -h127.0.0.1 -uroot respira_web -N -e 'SELECT t.term_id, t.name, t.slug FROM wp_terms t JOIN wp_term_taxonomy tt ON tt.term_id=t.term_id WHERE tt.taxonomy='\\\\''proyecto_categoria'\\\\'';')",
+      "Bash(node -e ' *)",
+      "Bash(node optimize.js)",
+      "Bash(node build-manual.js)",
+      "Bash(node render-pdf.js)",
+      "Bash(ls -la *.pdf)",
+      "Bash(sips -g pixelWidth Manual-Administrador-Respira-Escazu.pdf)",
+      "Bash(mdls -name kMDItemNumberOfPages Manual-Administrador-Respira-Escazu.pdf)",
+      "Bash(node -e \"const fs=require\\('fs'\\);const d=fs.readFileSync\\('Manual-Administrador-Respira-Escazu.pdf','latin1'\\);const m=d.match\\(/\\\\/Type\\\\s*\\\\/Pages[^>]*\\\\/Count\\\\s+\\(\\\\d+\\)/\\);console.log\\('Páginas \\(Count\\):', m?m[1]:'?'\\);\")",
+      "Bash(command -v brew)",
+      "Bash(brew install *)",
+      "Bash(command -v pdftoppm)",
+      "Bash(pdftoppm -v)",
+      "Bash(node -e \"const fs=require\\('fs'\\);const d=fs.readFileSync\\('Manual-Administrador-Respira-Escazu.pdf','latin1'\\);const ms=[...d.matchAll\\(/\\\\/Type\\\\s*\\\\/Pages[^>]*\\\\/Count\\\\s+\\(\\\\d+\\)/g\\)];console.log\\('Páginas:', Math.max\\(...ms.map\\(m=>+m[1]\\)\\), '| tamaño MB:', \\(fs.statSync\\('Manual-Administrador-Respira-Escazu.pdf'\\).size/1e6\\).toFixed\\(1\\)\\);\")",
+      "Bash(/opt/homebrew/bin/pdfinfo Manual-Administrador-Respira-Escazu.pdf)",
+      "Bash(/opt/homebrew/bin/pdftotext -layout Manual-Administrador-Respira-Escazu.pdf -)",
+      "Bash(awk ' *)",
+      "Bash(awk 'BEGIN{RS=\"\\\\f\"; IGNORECASE=1} *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://respira.test/_login_ss_6b3d1ec09234cb46595754e0.php?k=ss_6b3d1ec09234cb46595754e0\")",
+      "Bash(curl -s -i \"http://respira.test/_login_ss_6b3d1ec09234cb46595754e0.php?k=ss_6b3d1ec09234cb46595754e0\")",
+      "Bash(cp Manual-Administrador-Respira-Escazu.pdf /Volumes/DevSSD/Buzz/Proyectos/sites/respira/docs/)"
+    ],
+    "additionalDirectories": [
+      "/Volumes/DevSSD/Buzz/Proyectos/sites/respira"
     ]
   }
 }
