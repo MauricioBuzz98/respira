@@ -123,7 +123,8 @@
       "Bash(ls -la blocks/proyecto-niveles/)",
       "Bash(mysql -h127.0.0.1 -uroot respira_web -N -e \"SELECT ID, post_title, post_type, post_status FROM wp_posts WHERE post_title LIKE '%MODELO A%' AND post_type NOT IN \\('revision'\\) LIMIT 5;\")",
       "Bash(mysql -h127.0.0.1 -uroot respira_web -N -e \"SELECT u.ID, u.user_login FROM wp_users u LIMIT 5;\")",
-      "Bash(mysql -h127.0.0.1 -uroot respira_web)"
+      "Bash(mysql -h127.0.0.1 -uroot respira_web)",
+      "Bash(php -l wp-content/themes/respira/functions.php)"
     ]
   }
 }

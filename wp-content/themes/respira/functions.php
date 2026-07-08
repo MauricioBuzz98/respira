@@ -253,78 +253,120 @@ add_action('template_redirect', function () {
 */
 
 // ---------------------------------------------------------------------------
-// 9. Solicitar contraseña
+// 9. Solicitar contraseña (muro de previsualización, cache-safe)
 // ---------------------------------------------------------------------------
-add_action('template_redirect', function () {
+add_action( 'template_redirect', function (): void {
 
-    // --- CONFIGURACIÓN ---
-    $clave_acceso = 'buzz)=respira#3s5';          // cambiá esto
-    $nombre_cookie = 'sitio_preview';
-    $dias_validez  = 7;                   // cuánto dura el acceso
+	// --- CONFIGURACIÓN ---
+	// La clave puede vivir en wp-config.php como constante (recomendado, igual
+	// que el SMTP): define( 'RESPIRA_PREVIEW_PASS', 'buzz)=respira#3s5' );
+	$clave_acceso  = defined( 'RESPIRA_PREVIEW_PASS' ) ? (string) RESPIRA_PREVIEW_PASS : 'buzz)=respira#3s5';
+	$nombre_cookie = 'sitio_preview';
+	$dias_validez  = 3;
 
-    // 1. Los administradores logueados siempre ven el sitio
-    if (current_user_can('manage_options') || is_user_logged_in()) {
-        return;
-    }
+	// Token esperado en la cookie: atado al salt del sitio, no es el hash pelado
+	// de la contraseña.
+	$token = hash_hmac( 'sha256', $clave_acceso, wp_salt( 'auth' ) );
 
-    // 2. No interferir con el login ni el admin
-    if (is_admin() || $GLOBALS['pagenow'] === 'wp-login.php') {
-        return;
-    }
+	// 1. Cualquier usuario logueado ve el sitio normal.
+	if ( is_user_logged_in() ) {
+		return;
+	}
 
-    // 3. Procesar el envío de la contraseña
-    if (isset($_POST['preview_pass'])) {
-        if (hash_equals($clave_acceso, (string) $_POST['preview_pass'])) {
-            setcookie(
-                $nombre_cookie,
-                hash('sha256', $clave_acceso),
-                time() + ($dias_validez * DAY_IN_SECONDS),
-                COOKIEPATH ?: '/',
-                COOKIE_DOMAIN,
-                is_ssl(),
-                true // HttpOnly
-            );
-            wp_safe_redirect(home_url());
-            exit;
-        } else {
-            $error = 'Contraseña incorrecta.';
-        }
-    }
+	// 2. No interferir con admin, login, cron, REST, WP-CLI, ni con robots.txt /
+	//    sitemap. Googlebot DEBE poder leer robots.txt y el sitemap: si /robots.txt
+	//    devuelve 503 (como hacía el muro), Google interpreta "sitio caído", pausa
+	//    el rastreo del sitio entero y nunca llega a ver el noindex de las páginas,
+	//    así que la entrada vieja se queda en el índice. Dejándolos pasar, Google
+	//    rastrea las páginas (200 + noindex, ver abajo) y las saca del índice.
+	if (
+		is_admin()
+		|| ( defined( 'DOING_CRON' ) && DOING_CRON )
+		|| ( defined( 'WP_CLI' ) && WP_CLI )
+		|| ( function_exists( 'wp_is_json_request' ) && wp_is_json_request() )
+		|| is_robots()
+		|| ( function_exists( 'is_sitemap' ) && is_sitemap() )
+		|| ( isset( $GLOBALS['pagenow'] ) && 'wp-login.php' === $GLOBALS['pagenow'] )
+	) {
+		return;
+	}
 
-    // 4. Si ya tiene la cookie válida, dejarlo pasar
-    if (
-        isset($_COOKIE[$nombre_cookie]) &&
-        hash_equals(hash('sha256', $clave_acceso), $_COOKIE[$nombre_cookie])
-    ) {
-        return;
-    }
+	// A partir de aquí el visitante es anónimo: esta respuesta NUNCA debe
+	// cachearse. Es la parte clave: si Cloudflare o un plugin de caché guardan
+	// una versión (el muro o una página real), el hook deja de correr y el muro
+	// se salta o se queda pegado. Marcamos no-cache en TODA respuesta anónima,
+	// incluida la de quien ya tiene la cookie, para que su render tampoco se
+	// cachee y luego se sirva a un anónimo (bypass del muro).
+	if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+    	define( 'DONOTCACHEPAGE', true );
+	}
+	nocache_headers();
+	header( 'Cache-Control: private, no-store, no-cache, max-age=0', true );
+	header( 'X-Robots-Tag: noindex, nofollow', true ); // ← sacar de Google
 
-    // 5. Mostrar la pantalla de construcción con el formulario
-    status_header(503);
-    header('Retry-After: 3600');
-    nocache_headers();
+	$secure = is_ssl();
+	$error  = '';
 
-    $msg_error = !empty($error)
-        ? '<p style="color:#c0392b;margin:0 0 1rem;">' . esc_html($error) . '</p>'
-        : '';
+	// 3. Procesar el envío de la contraseña.
+	if ( isset( $_POST['preview_pass'] ) ) {
+		$enviada = wp_unslash( $_POST['preview_pass'] );
 
-    $html = '
-    <div style="font-family:system-ui,sans-serif;max-width:420px;margin:15vh auto;text-align:center;padding:0 1rem;">
-        <h1 style="font-size:1.6rem;margin-bottom:.5rem;">Sitio en construcción</h1>
-        <p style="color:#666;margin-bottom:2rem;">Estamos trabajando en algo nuevo. Si tenés acceso, ingresá la contraseña.</p>
-        ' . $msg_error . '
-        <form method="post" action="">
-            <input type="password" name="preview_pass" placeholder="Contraseña"
-                style="width:100%;padding:.7rem;border:1px solid #ccc;border-radius:6px;margin-bottom:.8rem;font-size:1rem;">
-            <button type="submit"
-                style="width:100%;padding:.7rem;border:0;border-radius:6px;background:#111;color:#fff;font-size:1rem;cursor:pointer;">
-                Entrar
-            </button>
-        </form>
-    </div>';
+		if ( is_string( $enviada ) && hash_equals( $clave_acceso, $enviada ) ) {
+			setcookie( $nombre_cookie, $token, [
+				'expires'  => time() + ( $dias_validez * DAY_IN_SECONDS ),
+				'path'     => '/',
+				'domain'   => '',      // host-only: más fiable tras Cloudflare.
+				'secure'   => $secure,
+				'httponly' => true,
+				'samesite' => 'Lax',
+			] );
 
-    wp_die($html, 'En construcción', ['response' => 503]);
-});
+			nocache_headers();
+			wp_safe_redirect( home_url( '/' ) );
+			exit;
+		}
+
+		$error = 'Contraseña incorrecta.';
+	}
+
+	// 4. Cookie válida → dejar pasar.
+	if (
+		isset( $_COOKIE[ $nombre_cookie ] ) &&
+		hash_equals( $token, (string) $_COOKIE[ $nombre_cookie ] )
+	) {
+		return;
+	}
+
+	// 5. Mostrar la pantalla de construcción con el formulario.
+	//    IMPORTANTE: respondemos 200, NO 503. Con 503 Google interpreta "caído
+	//    temporalmente", conserva la entrada ya indexada y NO procesa el noindex;
+	//    ESA es la razón por la que el sitio seguía apareciendo en las búsquedas.
+	//    Con 200 + X-Robots-Tag: noindex (ver arriba), Googlebot rastrea, lee el
+	//    noindex y saca la URL del índice. El muro no tiene contenido real y va con
+	//    noindex, así que no hay riesgo de que se indexe la propia pantalla.
+	status_header( 200 );
+
+	$msg_error = '' !== $error
+		? '<p style="color:#c0392b;margin:0 0 1rem;">' . esc_html( $error ) . '</p>'
+		: '';
+
+	$html = '
+	<div style="font-family:system-ui,sans-serif;max-width:420px;margin:15vh auto;text-align:center;padding:0 1rem;">
+		<h1 style="font-size:1.6rem;margin-bottom:.5rem;">Sitio en construcción</h1>
+		<p style="color:#666;margin-bottom:2rem;">Estamos trabajando en algo nuevo. Si tenés acceso, ingresá la contraseña.</p>
+		' . $msg_error . '
+		<form method="post" action="">
+			<input type="password" name="preview_pass" placeholder="Contraseña"
+				style="width:100%;padding:.7rem;border:1px solid #ccc;border-radius:6px;margin-bottom:.8rem;font-size:1rem;">
+			<button type="submit"
+				style="width:100%;padding:.7rem;border:0;border-radius:6px;background:#111;color:#fff;font-size:1rem;cursor:pointer;">
+				Entrar
+			</button>
+		</form>
+	</div>';
+
+	wp_die( $html, 'En construcción', [ 'response' => 200 ] );
+} );
 
 // ---------------------------------------------------------------------------
 // 10. Configuración SMTP (envío de correos, p. ej. el formulario de contacto)
