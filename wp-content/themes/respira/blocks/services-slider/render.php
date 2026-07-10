@@ -30,10 +30,10 @@ $count  = max( 1, (int) ( $attributes['count'] ?? 6 ) );
 
 $items = [];
 
-// Modo dinámico: amenidades del CPT. Cada card enlaza al listado (/amenidades/).
+// Modo dinámico: amenidades del CPT. Cada card enlaza a su propia página (el
+// permalink de la amenidad), no al listado.
 if ( 'amenidades' === $source ) {
-	$archive = (string) ( get_post_type_archive_link( 'amenidades' ) ?: '' );
-	$posts   = get_posts( [
+	$posts = get_posts( [
 		'post_type'   => 'amenidades',
 		'numberposts' => $count,
 		'orderby'     => 'menu_order date',
@@ -46,7 +46,7 @@ if ( 'amenidades' === $source ) {
 			'icon'      => (string) get_post_meta( $p->ID, '_respira_icon', true ),
 			'iconImage' => $icon_img_id ? (string) wp_get_attachment_image_url( $icon_img_id, 'medium' ) : '',
 			'title'     => get_the_title( $p ),
-			'link'      => $archive,
+			'link'      => (string) get_permalink( $p->ID ),
 			'text'      => get_the_excerpt( $p ),
 			'image'     => $thumb_id ? (string) wp_get_attachment_image_url( $thumb_id, 'large' ) : '',
 			'alt'       => $thumb_id ? (string) get_post_meta( $thumb_id, '_wp_attachment_image_alt', true ) : '',

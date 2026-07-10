@@ -157,7 +157,15 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://respira.test/_login_ss_6b3d1ec09234cb46595754e0.php?k=ss_6b3d1ec09234cb46595754e0\")",
       "Bash(curl -s -i \"http://respira.test/_login_ss_6b3d1ec09234cb46595754e0.php?k=ss_6b3d1ec09234cb46595754e0\")",
       "Bash(cp Manual-Administrador-Respira-Escazu.pdf /Volumes/DevSSD/Buzz/Proyectos/sites/respira/docs/)",
-      "Bash(php -l src/Social_Repeater_Control.php)"
+      "Bash(php -l src/Social_Repeater_Control.php)",
+      "Read(//Users/mauriciogabrielteruel/.claude/projects/-Volumes-DevSSD-Buzz-Proyectos-sites-respira/memory/**)",
+      "Bash(cat local-render-workflow.md)",
+      "Bash(php -r 'define\\(\"WP_USE_THEMES\", false\\); require \"wp-load.php\"; echo hash_hmac\\(\"sha256\", defined\\(\"RESPIRA_PREVIEW_PASS\"\\) ? RESPIRA_PREVIEW_PASS : \"buzz\\)=respira#3s5\", wp_salt\\(\"auth\"\\)\\);')",
+      "Bash(php -r 'define\\(\"WP_USE_THEMES\", false\\); require \"wp-load.php\"; echo get_post_type_archive_link\\(\"amenidades\"\\);')",
+      "Bash(NODE_PATH=/Volumes/DevSSD/Buzz/Proyectos/sites/respira/wp-content/themes/respira/node_modules node measure-amenidades.js)",
+      "Bash(NODE_PATH=/Volumes/DevSSD/Buzz/Proyectos/sites/respira/wp-content/themes/respira/node_modules node -e ' *)",
+      "Bash(php -r 'define\\(\"WP_USE_THEMES\", false\\); require \"wp-load.php\"; $q = get_posts\\([\"post_type\"=>\"amenidades\",\"numberposts\"=>1]\\); echo $q ? get_permalink\\($q[0]->ID\\) : \"NO_POSTS\";')",
+      "Bash(php -r 'define\\(\"WP_USE_THEMES\", false\\); require \"wp-load.php\"; $q = get_posts\\([\"post_type\"=>\"page\",\"numberposts\"=>-1,\"s\"=>\"\"]\\); foreach \\($q as $p\\){ if \\(has_block\\(\"respira/page-hero\", $p\\)\\) echo get_permalink\\($p->ID\\).\"\\\\n\"; }')"
     ],
     "additionalDirectories": [
       "/Volumes/DevSSD/Buzz/Proyectos/sites/respira"

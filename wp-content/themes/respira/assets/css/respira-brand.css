@@ -91,6 +91,10 @@ body {
   justify-content: center;
 }
 
+.image-wus-background{
+  background: #5a514c;
+}
+
 /* -------------------------------------------------------------------------
    Footer: el "degradado" original era una imagen PNG con glow amarillo-lima.
    Lo sustituimos por un glow radial cálido en tono café (paleta de marca).
@@ -277,7 +281,7 @@ hr.proyecto-separador {
 }
 .proyecto-amenidades li p {
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* icono alineado al inicio (arriba) del texto, no centrado */
   margin-bottom: 8px;
 }
 .proyecto-amenidades li i {
@@ -432,6 +436,25 @@ hr.proyecto-separador {
   height: 340px;
   min-height: 0;
   object-fit: cover;
+}
+/* Ajustes mobile del listado de amenidades:
+   (1) Inset lateral: la sección aporta 15px (.services-section-two) y el
+       .auto-container otros 15px → 30px, el doble que el hero (15px). Se anula el
+       padding del .auto-container para que las cards queden a 15px como el hero.
+   (2) Separación vertical: al apilarse, las cards quedaban pegadas (el
+       margin-bottom del .service-block se neutraliza por el height:100% de la
+       igualación de alturas). Se separa cada columna del grid. */
+@media (max-width: 767.98px) {
+  .post-type-archive-amenidades .services-section-two .auto-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .post-type-archive-amenidades .services-section-two .row > * {
+    margin-bottom: 24px;
+  }
+  .post-type-archive-amenidades .services-section-two .row > *:last-child {
+    margin-bottom: 0;
+  }
 }
 
 /* -------------------------------------------------------------------------
@@ -989,11 +1012,18 @@ hr.proyecto-separador {
   width: 100%;
   height: 100%;
   min-height: 0;
-  object-fit: cover;
+  /* contain (no cover): la imagen del mapa se muestra completa, sin recortar los
+     costados. El alto de la caja se mantiene fijo, así que puede quedar un
+     margen arriba/abajo según la proporción de la imagen. */
+  object-fit: contain;
 }
 @media (max-width: 1024px) {
   .respira-why-choose-us .why-choose-us-section .outer-box .image-column .image {
     height: 70vh;
+  }
+
+  .respira-why-choose-us .why-choose-us-section .outer-box .image-column .image img{
+    object-fit: cover;
   }
 }
 @media (max-width: 575.98px) {
@@ -1040,6 +1070,16 @@ hr.proyecto-separador {
 .respira-services-slider .services-section-two .outer-box .arrow-box .slider-next:hover {
   background-color: var(--theme-color-dark2); /* negro de marca */
   color: var(--theme-color-white);
+}
+/* Solo en tablet (768–991px): el arrow-box hereda el top:135px base y cae sobre
+   la descripción (que ahí ocupa el ancho completo). El lado derecho de la fila
+   del título está vacío (título corto), así que se suben los botones a esa fila.
+   Fuera de este rango: mobile (<=767.98px) ya reubica el arrow-box abajo, y en
+   desktop el top base no se superpone. */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .respira-services-slider .services-section-two .outer-box .arrow-box {
+    top: 83px;
+  }
 }
 
 /* -------------------------------------------------------------------------
@@ -1151,6 +1191,12 @@ hr.proyecto-separador {
   overflow: hidden;
   padding: 130px 0;
   color: var(--theme-color-white);
+  /* Ancho máximo igual al de la barra de navegación (.header-lower
+     .inner-container: max-width 1840px, centrada) para que no sobresalga más
+     ancho que el header en pantallas grandes. */
+  max-width: 1840px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .respira-page-hero__overlay {
   position: absolute;
@@ -1523,10 +1569,15 @@ p,
 .text {
   font-size: 18px;
 }
+/* Interlineado general de todos los párrafos <p> (no aplica a .text, que en
+   varios bloques define su propio line-height). */
+p {
+  line-height: 2rem;
+}
 @media (max-width: 767.98px) {
   p,
   .text {
-    font-size: 16px;
+    font-size: 18px;
   }
 }
 
@@ -1561,6 +1612,15 @@ p,
    en Ubicación): fuente Aboreto y tamaños equivalentes. Cubre Casas (archivo de
    categoría), Amenidades, los singles de amenidad y el single de proyecto
    (título "Modelo A"). El home usa el slider .banner-section, no .page-title. */
+/* Ancho máximo del hero de páginas internas: igual que la barra de navegación
+   (.header-lower .inner-container: max-width 1840px, centrada), para que no
+   sobresalga más ancho que el header en pantallas grandes. El wrapper con
+   padding:0 15px mantiene el inset en pantallas menores. */
+.page-title {
+  max-width: 1840px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .page-title .title {
   font-family: var(--font-family-style3);
   font-size: 60px;
@@ -1574,6 +1634,18 @@ p,
 @media (max-width: 767.98px) {
   .page-title .title {
     font-size: 30px;
+  }
+}
+/* Separación entre el header y el hero de páginas internas mientras se usa el
+   header compacto/hamburguesa (mobile + tablet, <1200px): el header está en
+   flujo (position:relative) y el hero es una tarjeta redondeada con inset; al
+   quedar pegados se ve incómodo. El padding-top del hero vive dentro de su
+   imagen de fondo, así que se usa un margen superior —fuera del fondo— para
+   despegarlo. En desktop (>=1200px, nav completo) el hero queda al ras, como el
+   diseño original. */
+@media (max-width: 1199.98px) {
+  .page-title {
+    margin-top: 20px;
   }
 }
 /* Título "Modelo A": en el contenido del single de proyecto y en el archivo de

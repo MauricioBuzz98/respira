@@ -30,7 +30,7 @@
     <div class="container">
       <div class="row">
 
-        <div class="col-xl-4 col-lg-4">
+        <div class="col-xl-4 col-lg-4 order-2 order-lg-1">
           <div class="service-sidebar">
             <div class="sidebar-widget service-sidebar-single">
               <div class="sidebar-service-list">
@@ -46,7 +46,7 @@
           </div>
         </div>
 
-        <div class="col-xl-8 col-lg-8">
+        <div class="col-xl-8 col-lg-8 order-1 order-lg-2">
           <div class="services-details__content">
             {% if post.thumbnail %}
               <img class="w-100" src="{{ post.thumbnail.src('large') }}" alt="{{ post.thumbnail.alt }}">
