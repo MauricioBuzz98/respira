@@ -31,6 +31,8 @@ class Site extends TimberSite {
 		// Menus (devuelven null si no hay menu asignado a la ubicacion).
 		$context['menu_primary'] = Timber::get_menu( 'primary' );
 		$context['menu_footer']  = Timber::get_menu( 'footer' );
+		// Enlaces legales de la barra inferior (politica de privacidad, terminos, etc.).
+		$context['menu_legal']   = Timber::get_menu( 'legal' );
 
 		// Tema (para construir rutas a assets en Twig: {{ theme.link }}/assets/...).
 		$context['theme'] = $this->theme;

@@ -73,6 +73,7 @@ add_action( 'after_setup_theme', function (): void {
 	register_nav_menus( [
 		'primary' => __( 'Menu principal', 'respira' ),
 		'footer'  => __( 'Menu del footer', 'respira' ),
+		'legal'   => __( 'Menu legal (footer)', 'respira' ),
 	] );
 } );
 

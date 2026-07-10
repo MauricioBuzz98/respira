@@ -90,10 +90,16 @@
       <div class="footer-bottom">
         <div class="inner-container justify-content-center justify-content-sm-between">
           <p class="copyright-text">© {{ "now"|date("Y") }} {{ site.name }}. {{ __('Todos los derechos reservados.', 'respira') }}</p>
-          <ul class="d-flex align-items-center gap-3">
-            <li><a href="#0">{{ __('Politica de privacidad', 'respira') }}</a></li>
-            <li><a href="#0">{{ __('Terminos del servicio', 'respira') }}</a></li>
-          </ul>
+          {# Enlaces legales: se toman del menu asignado a la ubicacion "Menu legal
+             (footer)" (Apariencia -> Menus). Si el menu esta vacio o sin asignar,
+             no se muestra la lista. #}
+          {% if menu_legal and menu_legal.items|length %}
+            <ul class="d-flex align-items-center gap-3">
+              {% for item in menu_legal.items %}
+                <li><a href="{{ item.link }}"{% if item.target == '_blank' %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ item.title }}</a></li>
+              {% endfor %}
+            </ul>
+          {% endif %}
         </div>
       </div>
     </div>
