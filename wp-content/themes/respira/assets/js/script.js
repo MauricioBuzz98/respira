@@ -137,6 +137,11 @@ var THEMEMASCOT = {};
 			$('body').removeClass('mobile-menu-visible');
 		});
 
+		//Cerrar el menú móvil al tocar el CTA "Contáctenos"
+		$('.mobile-menu .mobile-menu-cta a').on('click', function() {
+			$('body').removeClass('mobile-menu-visible');
+		});
+
 	}
 
 	//Header Search

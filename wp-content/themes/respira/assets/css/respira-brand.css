@@ -575,8 +575,10 @@ hr.proyecto-separador {
     margin-bottom: 36px;
     text-align: center; /* centra cada bloque al apilarse */
   }
+  /* Los logos extra son la última columna: 40px de aire antes del pie legal
+     mientras el footer está apilado (<=991.98px). */
   .footer-light .footer-main-row .footer-column:last-child {
-    margin-bottom: 0;
+    margin-bottom: 50px;
   }
   /* En mobile se centra TODO: contactos, iconos de redes y logos. */
   .footer-light .footer-main-row .footer-widget {
@@ -997,6 +999,18 @@ hr.proyecto-separador {
 @media (max-width: 575.98px) {
   .respira-why-choose-us .why-choose-us-section .outer-box .image-column .image {
     height: 480px;
+  }
+}
+/* En vista apilada (<=1024px, cuando .outer-box pasa a flex-direction:column) el
+   DOM muestra primero la imagen y luego el texto. Se invierte el orden con order
+   para que en mobile aparezca primero el texto y después la imagen.
+   (.shape-1 es position:absolute: no participa del orden visual.) */
+@media (max-width: 1024px) {
+  .respira-why-choose-us .why-choose-us-section .outer-box .content-column {
+    order: 1;
+  }
+  .respira-why-choose-us .why-choose-us-section .outer-box .image-column {
+    order: 2;
   }
 }
 
@@ -1533,6 +1547,7 @@ p,
     font-size: 14px;
     line-height: 1.5rem;
     text-align: left;
+    max-width: 300px;
   }
 }
 
@@ -1694,6 +1709,10 @@ p,
    mismo café), y el ícono desaparecía. Se pasa a claro para que contraste. */
 .mobile-menu .social-links li a:hover {
   color: var(--theme-color-white);
+}
+/* (d) Íconos de redes más grandes en el drawer móvil (base de Realest: 14px). */
+.mobile-menu .social-links li a {
+  font-size: 20px;
 }
 
 /* --- Galería: nota al pie después de las fotos --------------------------- */

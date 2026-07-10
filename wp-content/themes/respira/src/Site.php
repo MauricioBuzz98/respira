@@ -57,6 +57,9 @@ class Site extends TimberSite {
 			'footer_image_2' => get_theme_mod( 'respira_footer_image_2', '' ),
 			'socials'        => $this->socials(),
 			'whatsapp_url'   => $this->whatsapp_url(),
+			// Migas de pan (breadcrumbs) en páginas internas. Por defecto ocultas;
+			// se muestran con el switch del Personalizador.
+			'show_breadcrumbs' => (bool) get_theme_mod( 'respira_show_breadcrumbs', false ),
 		];
 
 		return $context;

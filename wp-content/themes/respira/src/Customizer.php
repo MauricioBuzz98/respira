@@ -25,10 +25,11 @@ class Customizer {
 	/**
 	 * Campos del Personalizador. Cada uno = un theme_mod editable.
 	 *
-	 * @return array<string, array{label:string,default:string,type:string,sanitize:string}>
+	 * @return array<string, array{label:string,default:string|bool,type:string,sanitize:string}>
 	 */
 	private function fields(): array {
 		return [
+			'respira_show_breadcrumbs' => [ 'label' => __( 'Mostrar migas de pan (breadcrumbs) en páginas internas', 'respira' ), 'default' => false, 'type' => 'checkbox', 'sanitize' => 'wp_validate_boolean' ],
 			'respira_cta_label'      => [ 'label' => __( 'Botón header — texto', 'respira' ),   'default' => 'Get In Touch', 'type' => 'text',  'sanitize' => 'sanitize_text_field' ],
 			'respira_cta_url'        => [ 'label' => __( 'Botón header — enlace', 'respira' ),   'default' => '#',            'type' => 'url',   'sanitize' => 'esc_url_raw' ],
 			'respira_address'        => [ 'label' => __( 'Dirección', 'respira' ),               'default' => '1901 Thornridge Cir. Shiloh, Hawaii 81063', 'type' => 'text', 'sanitize' => 'sanitize_text_field' ],
@@ -171,6 +172,8 @@ class Customizer {
 		hidden.value = JSON.stringify( data );
 		$( hidden ).trigger( 'change' );
 	}
+	// Reordenar con flechas: el orden de las filas en el DOM es el que sync()
+	// persiste, así que Site.php respeta ese orden.
 	$( document ).on( 'click', '.respira-socials-add', function ( e ) {
 		e.preventDefault();
 		var control = controlOf( this );
@@ -183,6 +186,24 @@ class Customizer {
 		var control = controlOf( this );
 		this.closest( '.respira-socials-row' ).remove();
 		sync( control );
+	} );
+	$( document ).on( 'click', '.respira-socials-row .r-up', function ( e ) {
+		e.preventDefault();
+		var row = this.closest( '.respira-socials-row' );
+		var prev = row.previousElementSibling;
+		if ( prev ) {
+			row.parentNode.insertBefore( row, prev );
+			sync( controlOf( this ) );
+		}
+	} );
+	$( document ).on( 'click', '.respira-socials-row .r-down', function ( e ) {
+		e.preventDefault();
+		var row = this.closest( '.respira-socials-row' );
+		var next = row.nextElementSibling;
+		if ( next ) {
+			row.parentNode.insertBefore( next, row );
+			sync( controlOf( this ) );
+		}
 	} );
 	$( document ).on( 'change', '.respira-socials-row .r-icon, .respira-socials-row .r-link', function () {
 		sync( controlOf( this ) );

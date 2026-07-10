@@ -156,7 +156,8 @@
       "Bash(awk 'BEGIN{RS=\"\\\\f\"; IGNORECASE=1} *)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"http://respira.test/_login_ss_6b3d1ec09234cb46595754e0.php?k=ss_6b3d1ec09234cb46595754e0\")",
       "Bash(curl -s -i \"http://respira.test/_login_ss_6b3d1ec09234cb46595754e0.php?k=ss_6b3d1ec09234cb46595754e0\")",
-      "Bash(cp Manual-Administrador-Respira-Escazu.pdf /Volumes/DevSSD/Buzz/Proyectos/sites/respira/docs/)"
+      "Bash(cp Manual-Administrador-Respira-Escazu.pdf /Volumes/DevSSD/Buzz/Proyectos/sites/respira/docs/)",
+      "Bash(php -l src/Social_Repeater_Control.php)"
     ],
     "additionalDirectories": [
       "/Volumes/DevSSD/Buzz/Proyectos/sites/respira"

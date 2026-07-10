@@ -19,10 +19,12 @@
       <div class="auto-container">
         <div class="title-outer text-center">
           <div class="h1 title">{{ post.title }}</div>
-          <ul class="page-breadcrumb">
-            <li><a href="{{ site.url }}">{{ __('Inicio', 'respira') }}</a></li>
-            <li>{{ post.title }}</li>
-          </ul>
+          {% if options.show_breadcrumbs %}
+            <ul class="page-breadcrumb">
+              <li><a href="{{ site.url }}">{{ __('Inicio', 'respira') }}</a></li>
+              <li>{{ post.title }}</li>
+            </ul>
+          {% endif %}
         </div>
       </div>
     </section>

@@ -64,8 +64,10 @@ class Social_Repeater_Control extends WP_Customize_Control {
 			return $out;
 		};
 
-		$row_style = 'display:flex;gap:6px;align-items:center;margin-bottom:6px;';
-		$del_style = 'color:#b32d2e;font-size:18px;line-height:1;text-decoration:none;';
+		$row_style   = 'display:flex;gap:6px;align-items:center;margin-bottom:6px;';
+		$del_style   = 'color:#b32d2e;font-size:18px;line-height:1;text-decoration:none;';
+		$move_style  = 'flex:0 0 auto;display:inline-flex;flex-direction:column;line-height:1;';
+		$arrow_style = 'cursor:pointer;color:#787c82;font-size:11px;line-height:1;text-decoration:none;padding:1px 2px;';
 		?>
 		<span class="customize-control-title"><?php echo esc_html( (string) $this->label ); ?></span>
 		<?php if ( $this->description ) : ?>
@@ -77,6 +79,10 @@ class Social_Repeater_Control extends WP_Customize_Control {
 		<ul class="respira-socials-rows" style="margin:10px 0;padding:0;list-style:none;">
 			<?php foreach ( $items as $item ) : ?>
 				<li class="respira-socials-row" style="<?php echo esc_attr( $row_style ); ?>">
+					<span class="r-move" style="<?php echo esc_attr( $move_style ); ?>">
+						<a href="#" class="r-up" title="<?php esc_attr_e( 'Subir', 'respira' ); ?>" style="<?php echo esc_attr( $arrow_style ); ?>">&#9650;</a>
+						<a href="#" class="r-down" title="<?php esc_attr_e( 'Bajar', 'respira' ); ?>" style="<?php echo esc_attr( $arrow_style ); ?>">&#9660;</a>
+					</span>
 					<select class="r-icon" style="flex:0 0 96px;width:96px;max-width:96px;"><?php echo $build_options( (string) ( $item['icon'] ?? '' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></select>
 					<input type="url" class="r-link" placeholder="https://..." value="<?php echo esc_url( (string) ( $item['link'] ?? '' ) ); ?>" style="flex:1;min-width:0;">
 					<a href="#" class="r-del" title="<?php esc_attr_e( 'Quitar', 'respira' ); ?>" style="<?php echo esc_attr( $del_style ); ?>">&times;</a>
@@ -87,6 +93,10 @@ class Social_Repeater_Control extends WP_Customize_Control {
 
 		<script type="text/html" class="respira-socials-tpl">
 			<li class="respira-socials-row" style="<?php echo esc_attr( $row_style ); ?>">
+				<span class="r-move" style="<?php echo esc_attr( $move_style ); ?>">
+					<a href="#" class="r-up" title="<?php esc_attr_e( 'Subir', 'respira' ); ?>" style="<?php echo esc_attr( $arrow_style ); ?>">&#9650;</a>
+					<a href="#" class="r-down" title="<?php esc_attr_e( 'Bajar', 'respira' ); ?>" style="<?php echo esc_attr( $arrow_style ); ?>">&#9660;</a>
+				</span>
 				<select class="r-icon" style="flex:0 0 96px;width:96px;max-width:96px;"><?php echo $build_options( '' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></select>
 				<input type="url" class="r-link" placeholder="https://..." value="" style="flex:1;min-width:0;">
 				<a href="#" class="r-del" title="<?php esc_attr_e( 'Quitar', 'respira' ); ?>" style="<?php echo esc_attr( $del_style ); ?>">&times;</a>
