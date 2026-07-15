@@ -710,6 +710,20 @@ hr.proyecto-separador {
     margin-bottom: 24px;
     font-size: 16px;
   }
+  /* Realest fija 50px de padding en la card (.inner-box), demasiado en pantallas
+     angostas: recorta el ancho útil y parte títulos largos como "APARTAMENTOS".
+     En mobile bajamos el padding horizontal para que el contenido aproveche el
+     ancho y el título quepa en una línea. */
+  .respira-projects .project-block .inner-block .content-box .inner-box {
+    padding: 40px 20px;
+  }
+}
+/* Pantallas ultra angostas (≤359px, p. ej. iPhone SE 1ª gen): a "APARTAMENTOS"
+   le faltan ~8px para caber; apretamos un poco más el padding horizontal. */
+@media (max-width: 359.98px) {
+  .respira-projects .project-block .inner-block .content-box .inner-box {
+    padding: 42px 14px;
+  }
 }
 /* Cards con imagen: texto 60% (izquierda) e imagen 40% (derecha), sin hueco
    intermedio. La imagen llena el alto de la card (cover). Solo desktop: en
