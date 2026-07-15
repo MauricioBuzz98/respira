@@ -9,6 +9,10 @@
  *   3. Tras unos segundos, desvanece el mensaje y vuelve a mostrar los campos
  *      (formulario reseteado), listo para un nuevo envío.
  *
+ * Además empuja un evento `generate_lead` al dataLayer para que Google Tag
+ * Manager / GA4 pueda registrar la conversión (Forminator no dispara ninguno
+ * por su cuenta).
+ *
  * Toda la parte visual (posición, fade, colores) vive en forminator-respira.css.
  */
 (function ($) {
@@ -21,6 +25,16 @@
 
 	$(document).on('forminator:form:submit:success', '.forminator-custom-form', function () {
 		var $form = $(this);
+
+		// Conversión para GTM / GA4. Va lo primero y fuera de cualquier retorno
+		// temprano: debe dispararse SIEMPRE que el envío sea exitoso, sin
+		// depender de la lógica visual del overlay.
+		window.dataLayer = window.dataLayer || [];
+		window.dataLayer.push({
+			event: 'generate_lead',
+			form_id: $form.data('form-id') || $form.attr('id') || null
+		});
+
 		var $msg = $form.find('.forminator-response-message').first();
 
 		if (!$msg.length) {
