@@ -1547,6 +1547,10 @@ ol.respira-nivel-desc li {
   border-radius: 20px;
 }
 
+.single-amenidades .services-details__content P {
+  margin-bottom: 0px !important;
+}
+
 /* -------------------------------------------------------------------------
    FAQ (bloque respira/faq): en desktop (≥1200px, cuando las dos columnas van
    lado a lado) la lista de preguntas de la derecha se limita al alto de la
@@ -1653,6 +1657,9 @@ p {
   margin-left: auto;
   margin-right: auto;
 }
+.single-amenidades .page-title{
+  margin-bottom: 80px;
+}
 .page-title .title {
   font-family: var(--font-family-style3);
   font-size: 60px;
@@ -1680,6 +1687,32 @@ p {
     margin-top: 20px;
   }
 }
+
+/* -------------------------------------------------------------------------
+   Detalle de amenidad (single-amenidades) — ajustes SOLO mobile/tablet.
+   Se usa el corte <lg (991.98px): ahí el layout de .services-details pasa a una
+   sola columna y la lista de enlaces de amenidades (sidebar, order-2) queda
+   DEBAJO del contenido/texto (order-1). En desktop (>=992px) son dos columnas
+   lado a lado y no se toca nada.
+   ------------------------------------------------------------------------- */
+@media (max-width: 991.98px) {
+  /* Ocultar el banner inicial (page-title) del detalle de amenidad en
+     mobile/tablet. Para volver a mostrarlo, comentar o quitar esta regla. */
+  .single-amenidades .page-title {
+    display: none;
+  }
+
+  /* Más aire + divisor entre el texto del contenido y la lista de enlaces de
+     amenidades. El divisor va arriba del sidebar (que en mobile/tablet queda
+     debajo del texto); el margin y el padding dejan el mismo aire a ambos lados
+     de la línea. */
+  .single-amenidades .services-details .service-sidebar {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(90, 81, 75, 0.2);
+  }
+}
+
 /* Título "Modelo A": en el contenido del single de proyecto y en el archivo de
    categoría de casas (bloque proyecto-niveles → taxonomy-proyecto_categoria),
    ambos con la fuente de titulares (Aboreto). */
