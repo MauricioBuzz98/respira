@@ -347,6 +347,24 @@ hr.proyecto-separador {
 }
 
 /* -------------------------------------------------------------------------
+   Hero (bloque respira/hero): igualar la altura de TODOS los slides tomando
+   como referencia el más alto. Swiper deja el .swiper-wrapper como flex con
+   box-sizing:content-box y cada .swiper-slide en height:auto, de modo que cada
+   slide mide lo que mide su propio contenido: los slides sin párrafo
+   descriptivo (solo titular) quedan más bajos y la imagen se ve "cortada"
+   respecto al primer banner. En este layout align-items:stretch NO estira los
+   slides, así que respira-hero.js calcula el .inner-block más alto y aplica
+   ese min-height a todos. La imagen de fondo (bg-image height:100%) cubre
+   entonces toda la altura igualada.
+
+   El min-height se aplica SIN transición a propósito: si se animara, el slide
+   corto crecería de a poco (p. ej. 490→610px) y durante esa animación su
+   imagen quedaría más baja que la del vecino, dejando un recorte visible al
+   hacer swipe (y al arrastrar el ancho en el modo responsive). Aplicándolo al
+   instante nunca hay desfase entre slides.
+   ------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------
    Servicios (slider) — bloque respira/services-slider.
    En hover la tarjeta toma el fondo café (--theme-color1); el CSS base deja el
    texto en --headings-color (#222), ilegible sobre el café. Se aclaran texto,

@@ -164,6 +164,11 @@ add_action( 'wp_enqueue_scripts', function (): void {
 	// hace nada si no hay .faq-ver-mas en la página.
 	wp_enqueue_script( 'respira-faq', $uri . '/assets/js/respira-faq.js', [ 'respira-script' ], $ver( '/assets/js/respira-faq.js' ), true );
 
+	// Hero (bloque respira/hero): iguala la altura de los slides del carrusel al
+	// más alto. Depende de respira-script (Swiper ya inicializado). No hace nada
+	// si no hay .banner-h1-slider en la página.
+	wp_enqueue_script( 'respira-hero', $uri . '/assets/js/respira-hero.js', [ 'respira-script' ], $ver( '/assets/js/respira-hero.js' ), true );
+
 	// Red de seguridad para el preloader: aunque algún script de la plantilla
 	// lance un error y aborte (script.js es un único IIFE), este script inline
 	// corre en su propia etiqueta y oculta el preloader al cargar (o a los 5s),
