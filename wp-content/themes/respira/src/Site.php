@@ -76,21 +76,25 @@ class Site extends TimberSite {
 			return '';
 		}
 
-		// Si ya es un enlace, se respeta tal cual.
+		// Si ya es un enlace, se respeta tal cual; si no, se interpreta como
+		// número: solo dígitos y se arma el enlace wa.me.
 		if ( preg_match( '#^https?://#i', $raw ) ) {
-			return esc_url_raw( $raw );
+			$url = esc_url_raw( $raw );
+		} else {
+			$digits = preg_replace( '/\D/', '', $raw );
+			if ( '' === $digits ) {
+				return '';
+			}
+			$url = 'https://wa.me/' . $digits;
 		}
 
-		// Si no, se interpreta como número: solo dígitos y se arma el enlace wa.me.
-		$digits = preg_replace( '/\D/', '', $raw );
-		if ( '' === $digits ) {
-			return '';
-		}
-
-		$url = 'https://wa.me/' . $digits;
+		// Mensaje predeterminado (?text=): se agrega tanto si el campo es un
+		// número como si es un enlace completo. Si el enlace ya trae su propio
+		// text= se respeta y no se pisa.
 		$msg = trim( (string) get_theme_mod( 'respira_whatsapp_msg', '' ) );
-		if ( '' !== $msg ) {
-			$url .= '?text=' . rawurlencode( $msg );
+		if ( '' !== $msg && ! preg_match( '/[?&]text=/i', $url ) ) {
+			$sep  = ( false === strpos( $url, '?' ) ) ? '?' : '&';
+			$url .= $sep . 'text=' . rawurlencode( $msg );
 		}
 
 		return $url;
