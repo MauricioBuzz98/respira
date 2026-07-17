@@ -261,7 +261,19 @@ add_action('template_redirect', function () {
 // ---------------------------------------------------------------------------
 // 9. Solicitar contraseña (muro de previsualización, cache-safe)
 // ---------------------------------------------------------------------------
+// INTERRUPTOR (wp-config.php): el muro SOLO se activa si RESPIRA_PREVIEW_WALL
+// está definido y es verdadero (entornos de staging/preview). En PRODUCCIÓN
+// dejá la constante sin definir o en false: el sitio queda público y Google
+// puede rastrearlo (no se emite el X-Robots-Tag: noindex de más abajo).
+//   define( 'RESPIRA_PREVIEW_WALL', true );  // staging: pide contraseña + noindex
+//   define( 'RESPIRA_PREVIEW_WALL', false ); // producción: sitio abierto e indexable
 add_action( 'template_redirect', function (): void {
+
+	// 0. Interruptor global: si el muro no está habilitado, no hacemos nada
+	//    (ni contraseña ni noindex). Es lo que reabre el rastreo de Google.
+	if ( ! defined( 'RESPIRA_PREVIEW_WALL' ) || ! RESPIRA_PREVIEW_WALL ) {
+		return;
+	}
 
 	// --- CONFIGURACIÓN ---
 	// La clave puede vivir en wp-config.php como constante (recomendado, igual
