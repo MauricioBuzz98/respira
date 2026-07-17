@@ -19,7 +19,10 @@ $context['text']      = $attributes['text'] ?? '';
 $context['infoTitle'] = $attributes['infoTitle'] ?? '';
 $context['infoText']  = $attributes['infoText'] ?? '';
 $context['ctaLabel']  = $attributes['ctaLabel'] ?? '';
-$context['ctaUrl']    = $attributes['ctaUrl'] ?? '';
+// El botón de la caja de información apunta a WhatsApp: se le agrega el mensaje
+// predeterminado del Personalizador (el mismo del botón flotante). Si la URL no
+// es de WhatsApp, append_whatsapp_message() la devuelve intacta.
+$context['ctaUrl']    = \Respira\Site::append_whatsapp_message( (string) ( $attributes['ctaUrl'] ?? '' ) );
 
 // Formatea la respuesta (texto plano) a HTML: líneas que empiezan con "-", "*",
 // "•" o "◦" se agrupan en una lista <ul>; el resto se vuelve párrafos.

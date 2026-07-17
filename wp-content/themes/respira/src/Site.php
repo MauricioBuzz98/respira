@@ -91,13 +91,43 @@ class Site extends TimberSite {
 		// Mensaje predeterminado (?text=): se agrega tanto si el campo es un
 		// número como si es un enlace completo. Si el enlace ya trae su propio
 		// text= se respeta y no se pisa.
-		$msg = trim( (string) get_theme_mod( 'respira_whatsapp_msg', '' ) );
-		if ( '' !== $msg && ! preg_match( '/[?&]text=/i', $url ) ) {
-			$sep  = ( false === strpos( $url, '?' ) ) ? '?' : '&';
-			$url .= $sep . 'text=' . rawurlencode( $msg );
-		}
+		return self::add_text_param( $url, self::whatsapp_message() );
+	}
 
-		return $url;
+	/**
+	 * Mensaje predeterminado de WhatsApp (Personalizador). Es el mismo para todo
+	 * el sitio: botón flotante y enlaces de WhatsApp de los bloques (contacto,
+	 * faq). No se configura por enlace.
+	 */
+	public static function whatsapp_message(): string {
+		return trim( (string) get_theme_mod( 'respira_whatsapp_msg', '' ) );
+	}
+
+	/**
+	 * Agrega el mensaje predeterminado (?text=) SOLO a enlaces de WhatsApp
+	 * (wa.me / api.whatsapp.com / web.whatsapp.com / whatsapp://). Cualquier otro
+	 * enlace (Facebook, Instagram, correo…) se devuelve intacto, así que se puede
+	 * aplicar a una lista mixta de redes sin filtrar. Si el enlace ya trae su
+	 * propio text= se respeta. Pensado para los render.php de los bloques.
+	 */
+	public static function append_whatsapp_message( string $url ): string {
+		$url = trim( $url );
+		if ( '' === $url || ! preg_match( '#(?:wa\.me|(?:api|web)\.whatsapp\.com|whatsapp://)#i', $url ) ) {
+			return $url;
+		}
+		return self::add_text_param( $url, self::whatsapp_message() );
+	}
+
+	/**
+	 * Anexa text=<mensaje> a un enlace: elige el separador (? o &) y respeta un
+	 * text= ya presente. No valida que sea de WhatsApp; eso lo decide quien llama.
+	 */
+	private static function add_text_param( string $url, string $msg ): string {
+		if ( '' === $msg || preg_match( '/[?&]text=/i', $url ) ) {
+			return $url;
+		}
+		$sep = ( false === strpos( $url, '?' ) ) ? '?' : '&';
+		return $url . $sep . 'text=' . rawurlencode( $msg );
 	}
 
 	/**
@@ -125,7 +155,9 @@ class Site extends TimberSite {
 			$icon = (string) ( $row['icon'] ?? '' );
 			$link = (string) ( $row['link'] ?? '' );
 			if ( '' !== $icon ) {
-				$out[] = [ 'icon' => $icon, 'link' => $link ];
+				// Al enlace de WhatsApp se le agrega el mensaje predeterminado
+				// (el mismo del botón flotante); el resto queda intacto.
+				$out[] = [ 'icon' => $icon, 'link' => self::append_whatsapp_message( $link ) ];
 			}
 		}
 		return $out;
