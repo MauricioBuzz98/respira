@@ -60,6 +60,9 @@ class Site extends TimberSite {
 			// Migas de pan (breadcrumbs) en páginas internas. Por defecto ocultas;
 			// se muestran con el switch del Personalizador.
 			'show_breadcrumbs' => (bool) get_theme_mod( 'respira_show_breadcrumbs', false ),
+			// Preloader (pantalla de carga de la plantilla). Desactivado en todo el
+			// sitio salvo que en wp-config.php se defina RESPIRA_PRELOADER = true.
+			'preloader'        => defined( 'RESPIRA_PRELOADER' ) && RESPIRA_PRELOADER,
 		];
 
 		return $context;

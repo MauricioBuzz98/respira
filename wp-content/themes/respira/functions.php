@@ -173,10 +173,14 @@ add_action( 'wp_enqueue_scripts', function (): void {
 	// lance un error y aborte (script.js es un único IIFE), este script inline
 	// corre en su propia etiqueta y oculta el preloader al cargar (o a los 5s),
 	// evitando que la página quede bloqueada. Los errores siguen en consola.
-	wp_add_inline_script(
-		'respira-script',
-		"(function(){function h(){var p=document.querySelector('.preloader');if(p){p.style.transition='opacity .4s ease';p.style.opacity='0';setTimeout(function(){if(p){p.style.display='none';}},450);}}window.addEventListener('load',h);setTimeout(h,5000);})();"
-	);
+	// Solo se inyecta si el preloader está activo (RESPIRA_PRELOADER=true en
+	// wp-config.php); por defecto el preloader no se renderiza y esto sobra.
+	if ( defined( 'RESPIRA_PRELOADER' ) && RESPIRA_PRELOADER ) {
+		wp_add_inline_script(
+			'respira-script',
+			"(function(){function h(){var p=document.querySelector('.preloader');if(p){p.style.transition='opacity .4s ease';p.style.opacity='0';setTimeout(function(){if(p){p.style.display='none';}},450);}}window.addEventListener('load',h);setTimeout(h,5000);})();"
+		);
+	}
 } );
 
 // ---------------------------------------------------------------------------
