@@ -1,0 +1,45 @@
+{#
+  Bloque: respira/carrusel — carrusel de imágenes genérico (Swiper 11).
+  Cada slide es una imagen de fondo con texto opcional y overlay activable.
+  respira-carousel.js inicializa un Swiper por instancia leyendo
+  data-autoplay-delay (ms) y scoping flechas/puntos a cada .respira-carrusel__slider.
+#}
+<section {{ wrapper_attributes|raw }}>
+  {% if items %}
+    <div class="respira-carrusel__outer">
+      <div class="swiper respira-carrusel__slider"
+           data-autoplay-delay="{{ autoplay_delay }}"
+           data-arrows="{{ show_arrows ? '1' : '0' }}"
+           data-dots="{{ show_dots ? '1' : '0' }}"
+           style="--carrusel-height: {{ height }}px; --carrusel-overlay: {{ overlay_alpha }};">
+        <div class="swiper-wrapper">
+          {% for slide in items %}
+            <div class="swiper-slide respira-carrusel__slide">
+              {% if slide.bg %}
+                <div class="respira-carrusel__bg" style="background-image: url('{{ slide.bg }}');" role="img" aria-label="{{ slide.bgAlt }}"></div>
+              {% endif %}
+              {% if show_overlay %}
+                <div class="respira-carrusel__overlay"></div>
+              {% endif %}
+              {% if slide.hasText %}
+                <div class="respira-carrusel__content-wrap">
+                  <div class="respira-carrusel__content">
+                    {% if slide.title %}<div class="h2 title">{{ slide.title }}</div>{% endif %}
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+
+        {% if show_dots %}
+          <div class="respira-carrusel__dots swiper-pagination"></div>
+        {% endif %}
+        {% if show_arrows %}
+          <div class="respira-carrusel__prev swiper-button-prev"></div>
+          <div class="respira-carrusel__next swiper-button-next"></div>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+</section>

@@ -607,6 +607,10 @@ var THEMEMASCOT = {};
 
 	// banner-h1-slider-image
 	if ($('.banner-h1-slider').length) {
+		// El bloque respira/hero define el tiempo entre slides via
+		// data-autoplay-delay (en ms). Fallback a 15000 si no viene el atributo.
+		var bannerDelay = parseInt($('.banner-h1-slider').attr('data-autoplay-delay'), 10);
+		if (!bannerDelay || bannerDelay < 1) { bannerDelay = 15000; }
 		var slider = new Swiper ('.banner-h1-slider', {
 			slidesPerView: 1,
 			spaceBetween: 0,
@@ -615,7 +619,7 @@ var THEMEMASCOT = {};
 			loop: true,
 			loopedSlides: 6,
 			autoplay: {
-				delay: 15000,           // time between slides (in ms)
+				delay: bannerDelay,     // time between slides (in ms)
 				disableOnInteraction: false, // keep autoplay after user interactions
 				pauseOnMouseEnter: false,    // optional: autoplay won't pause on hover
 			},

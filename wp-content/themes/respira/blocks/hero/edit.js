@@ -4,7 +4,7 @@ import {
 	MediaUpload,
 	MediaUploadCheck,
 } from '@wordpress/block-editor';
-import { PanelBody, TextControl, TextareaControl, Button } from '@wordpress/components';
+import { PanelBody, TextControl, TextareaControl, RangeControl, Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useReorder, RepeaterRow } from '../shared/repeater';
 
@@ -19,7 +19,7 @@ const EMPTY_SLIDE = {
 const isFullUrl = ( url ) => !! url && /^https?:\/\//.test( url );
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { items } = attributes;
+	const { items, autoplayDelay } = attributes;
 	const blockProps = useBlockProps( { className: 'respira-hero-editor' } );
 
 	const updateItem = ( index, patch ) => {
@@ -33,6 +33,17 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
+				<PanelBody title={ __( 'Ajustes del carrusel', 'respira' ) }>
+					<RangeControl
+						label={ __( 'Tiempo entre slides (segundos)', 'respira' ) }
+						value={ autoplayDelay }
+						onChange={ ( v ) => setAttributes( { autoplayDelay: v || 1 } ) }
+						min={ 1 }
+						max={ 30 }
+						step={ 1 }
+						help={ __( 'Cuánto se muestra cada slide antes de pasar al siguiente.', 'respira' ) }
+					/>
+				</PanelBody>
 				<PanelBody title={ __( 'Slides del carrusel', 'respira' ) }>
 					{ items.map( ( item, index ) => (
 						<RepeaterRow key={ index } reorder={ reorder } index={ index } count={ items.length } label={ `${ __( 'Slide', 'respira' ) } #${ index + 1 }` }>

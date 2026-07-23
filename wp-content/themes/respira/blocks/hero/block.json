@@ -10,6 +10,10 @@
   "keywords": ["hero", "banner", "slider", "carrusel"],
   "textdomain": "respira",
   "attributes": {
+    "autoplayDelay": {
+      "type": "number",
+      "default": 15
+    },
     "items": {
       "type": "array",
       "default": [

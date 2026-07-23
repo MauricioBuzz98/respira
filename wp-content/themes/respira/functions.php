@@ -169,6 +169,11 @@ add_action( 'wp_enqueue_scripts', function (): void {
 	// si no hay .banner-h1-slider en la página.
 	wp_enqueue_script( 'respira-hero', $uri . '/assets/js/respira-hero.js', [ 'respira-script' ], $ver( '/assets/js/respira-hero.js' ), true );
 
+	// Carrusel de imágenes (bloque respira/carrusel): inicializa un Swiper por
+	// instancia. Depende de respira-script (Swiper ya cargado). No hace nada si
+	// no hay .respira-carrusel__slider en la página.
+	wp_enqueue_script( 'respira-carousel', $uri . '/assets/js/respira-carousel.js', [ 'respira-script' ], $ver( '/assets/js/respira-carousel.js' ), true );
+
 	// Red de seguridad para el preloader: aunque algún script de la plantilla
 	// lance un error y aborte (script.js es un único IIFE), este script inline
 	// corre en su propia etiqueta y oculta el preloader al cargar (o a los 5s),

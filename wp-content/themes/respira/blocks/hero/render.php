@@ -40,8 +40,12 @@ foreach ( (array) ( $attributes['items'] ?? [] ) as $slide ) {
 	];
 }
 
+// Tiempo entre slides: el editor lo configura en segundos; Swiper lo espera en ms.
+$autoplay_delay = max( 1, (int) ( $attributes['autoplayDelay'] ?? 15 ) ) * 1000;
+
 $context = Timber::context();
 $context['items'] = $items;
+$context['autoplay_delay'] = $autoplay_delay;
 $context['wrapper_attributes'] = get_block_wrapper_attributes( [
 	'class' => 'respira-hero',
 ] );

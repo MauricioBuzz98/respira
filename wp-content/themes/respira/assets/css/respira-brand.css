@@ -1298,6 +1298,138 @@ hr.proyecto-separador {
 }
 
 /* -------------------------------------------------------------------------
+   Bloque respira/carrusel — carrusel de imágenes genérico (Swiper).
+   Cada slide: imagen de fondo + overlay opcional + texto opcional.
+   Altura y opacidad del overlay llegan por custom properties inline
+   (--carrusel-height, --carrusel-overlay) desde el twig.
+   ------------------------------------------------------------------------- */
+/* Mismo contenedor que el hero banner (.banner-section / .outer-box):
+   gutter lateral de 15px en la sección y caja centrada de max-width 1840px. */
+.respira-carrusel {
+  position: relative;
+  padding: 0 15px;
+}
+.respira-carrusel__outer {
+  position: relative;
+  max-width: 1840px;
+  margin: 0 auto;
+}
+.respira-carrusel__slider {
+  width: 100%;
+  height: var(--carrusel-height, 600px);
+  border-radius: 30px;
+  overflow: hidden;
+}
+/* Full-bleed: al alinear el bloque a todo el ancho (alignfull) la caja deja de
+   limitarse y el slider va de borde a borde sin radio. */
+.respira-carrusel.alignfull {
+  padding: 0;
+}
+.respira-carrusel.alignfull .respira-carrusel__outer {
+  max-width: 100%;
+}
+.respira-carrusel.alignfull .respira-carrusel__slider {
+  border-radius: 0;
+}
+.respira-carrusel__slide {
+  position: relative;
+  height: var(--carrusel-height, 600px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.respira-carrusel__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.respira-carrusel__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, var(--carrusel-overlay, 0.45));
+}
+.respira-carrusel__content-wrap {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 0 40px;
+}
+.respira-carrusel__content {
+  max-width: 760px;
+  color: var(--theme-color-white);
+}
+.respira-carrusel.align-center .respira-carrusel__content {
+  margin: 0 auto;
+  text-align: center;
+}
+.respira-carrusel.align-left .respira-carrusel__content {
+  margin-right: auto;
+  text-align: left;
+}
+.respira-carrusel__content .sub-title {
+  color: var(--theme-color-light);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+.respira-carrusel__content .title {
+  color: var(--theme-color-white);
+  font-family: var(--font-family-style3);
+  font-size: 54px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.respira-carrusel__content .text {
+  color: var(--theme-color-white);
+  opacity: 0.92;
+  font-size: 18px;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+.respira-carrusel__content .text p:last-child {
+  margin-bottom: 0;
+}
+/* Flechas y puntos de Swiper con la paleta de marca. */
+.respira-carrusel .swiper-button-next,
+.respira-carrusel .swiper-button-prev {
+  color: var(--theme-color-white);
+}
+.respira-carrusel .swiper-pagination-bullet {
+  background: var(--theme-color-white);
+  opacity: 0.6;
+}
+.respira-carrusel .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+@media (max-width: 991.98px) {
+  .respira-carrusel__content .title {
+    font-size: 40px;
+  }
+}
+@media (max-width: 767.98px) {
+  .respira-carrusel__slider,
+  .respira-carrusel__slide {
+    /* En móvil limitá la altura a lo definido pero sin pasar de la pantalla. */
+    height: min(var(--carrusel-height, 600px), 70vh);
+  }
+  .respira-carrusel__content-wrap {
+    padding: 0 20px;
+  }
+  .respira-carrusel__content .title {
+    font-size: 28px;
+  }
+  .respira-carrusel__content .text {
+    font-size: 15px;
+  }
+  .respira-carrusel__content .sub-title {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+  }
+}
+
+/* -------------------------------------------------------------------------
    Bloque respira/ubicacion — texto + mapa + puntos de interés por categoría.
    ------------------------------------------------------------------------- */
 .respira-ubicacion .ubicacion-section {

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "respira/carrusel",
+  "version": "1.0.0",
+  "title": "Carrusel de imágenes",
+  "category": "respira",
+  "icon": "images-alt2",
+  "description": "Carrusel de imágenes genérico (Swiper). Cada slide puede llevar texto opcional (subtítulo, título, texto y botón) y overlay activable. Tiempo entre slides configurable.",
+  "keywords": ["carrusel", "slider", "imagenes", "imágenes", "banner", "galeria"],
+  "textdomain": "respira",
+  "attributes": {
+    "autoplayDelay": {
+      "type": "number",
+      "default": 6
+    },
+    "height": {
+      "type": "number",
+      "default": 600
+    },
+    "contentAlign": {
+      "type": "string",
+      "default": "center"
+    },
+    "showOverlay": {
+      "type": "boolean",
+      "default": true
+    },
+    "overlayOpacity": {
+      "type": "number",
+      "default": 45
+    },
+    "showArrows": {
+      "type": "boolean",
+      "default": true
+    },
+    "showDots": {
+      "type": "boolean",
+      "default": true
+    },
+    "items": {
+      "type": "array",
+      "default": []
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "align": ["wide", "full"],
+    "spacing": { "margin": true, "padding": true }
+  },
+  "editorScript": "file:./index.js",
+  "render": "file:render.php"
+}

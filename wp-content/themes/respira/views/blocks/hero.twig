@@ -7,7 +7,7 @@
 <section {{ wrapper_attributes|raw }}>
   <div class="banner-section">
     <div class="outer-box">
-      <div class="swiper-container banner-h1-slider pb-0">
+      <div class="swiper-container banner-h1-slider pb-0" data-autoplay-delay="{{ autoplay_delay }}">
         <div class="swiper-wrapper">
           {% for slide in items %}
             <div class="banner-block swiper-slide">
