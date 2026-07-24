@@ -1300,8 +1300,10 @@ hr.proyecto-separador {
 /* -------------------------------------------------------------------------
    Bloque respira/carrusel — carrusel de imágenes genérico (Swiper).
    Cada slide: imagen de fondo + overlay opcional + texto opcional.
-   Altura y opacidad del overlay llegan por custom properties inline
-   (--carrusel-height, --carrusel-overlay) desde el twig.
+   Altura (por breakpoint) y opacidad del overlay llegan por custom properties
+   inline desde el twig: --carrusel-height (escritorio),
+   --carrusel-height-tablet (≤991.98px), --carrusel-height-mobile (≤767.98px)
+   y --carrusel-overlay.
    ------------------------------------------------------------------------- */
 /* Mismo contenedor que el hero banner (.banner-section / .outer-box):
    gutter lateral de 15px en la sección y caja centrada de max-width 1840px. */
@@ -1404,15 +1406,20 @@ hr.proyecto-separador {
   opacity: 1;
 }
 @media (max-width: 991.98px) {
+  /* Tablet: altura propia; si no se definió cae a la de escritorio. */
+  .respira-carrusel__slider,
+  .respira-carrusel__slide {
+    height: var(--carrusel-height-tablet, var(--carrusel-height, 600px));
+  }
   .respira-carrusel__content .title {
     font-size: 40px;
   }
 }
 @media (max-width: 767.98px) {
+  /* Móvil: altura propia; si no se definió cae a la de tablet y luego a la de escritorio. */
   .respira-carrusel__slider,
   .respira-carrusel__slide {
-    /* En móvil limitá la altura a lo definido pero sin pasar de la pantalla. */
-    height: min(var(--carrusel-height, 600px), 70vh);
+    height: var(--carrusel-height-mobile, var(--carrusel-height-tablet, var(--carrusel-height, 600px)));
   }
   .respira-carrusel__content-wrap {
     padding: 0 20px;

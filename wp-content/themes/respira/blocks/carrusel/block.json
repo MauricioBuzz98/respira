@@ -18,6 +18,14 @@
       "type": "number",
       "default": 600
     },
+    "heightTablet": {
+      "type": "number",
+      "default": 500
+    },
+    "heightMobile": {
+      "type": "number",
+      "default": 400
+    },
     "contentAlign": {
       "type": "string",
       "default": "center"

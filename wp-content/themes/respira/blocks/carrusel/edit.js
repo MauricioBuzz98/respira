@@ -24,7 +24,7 @@ const isFullUrl = ( url ) => !! url && /^https?:\/\//.test( url );
 
 export default function Edit( { attributes, setAttributes } ) {
 	const {
-		items, autoplayDelay, height, contentAlign,
+		items, autoplayDelay, height, heightTablet, heightMobile, contentAlign,
 		showOverlay, overlayOpacity, showArrows, showDots,
 	} = attributes;
 	const blockProps = useBlockProps( { className: 'respira-carrusel-editor' } );
@@ -65,12 +65,31 @@ export default function Edit( { attributes, setAttributes } ) {
 						help={ __( 'Cuánto se muestra cada slide antes de pasar al siguiente.', 'respira' ) }
 					/>
 					<RangeControl
-						label={ __( 'Altura (px)', 'respira' ) }
+						label={ __( 'Altura en escritorio (px)', 'respira' ) }
 						value={ height }
 						onChange={ ( v ) => setAttributes( { height: v || 300 } ) }
 						min={ 200 }
 						max={ 900 }
 						step={ 10 }
+						help={ __( 'Pantallas grandes (más de 991px de ancho).', 'respira' ) }
+					/>
+					<RangeControl
+						label={ __( 'Altura en tablet (px)', 'respira' ) }
+						value={ heightTablet }
+						onChange={ ( v ) => setAttributes( { heightTablet: v || 200 } ) }
+						min={ 150 }
+						max={ 900 }
+						step={ 10 }
+						help={ __( 'Pantallas medianas (768px a 991px de ancho).', 'respira' ) }
+					/>
+					<RangeControl
+						label={ __( 'Altura en móvil (px)', 'respira' ) }
+						value={ heightMobile }
+						onChange={ ( v ) => setAttributes( { heightMobile: v || 200 } ) }
+						min={ 150 }
+						max={ 900 }
+						step={ 10 }
+						help={ __( 'Pantallas pequeñas (hasta 767px de ancho).', 'respira' ) }
 					/>
 					<ToggleControl
 						label={ __( 'Flechas de navegación', 'respira' ) }

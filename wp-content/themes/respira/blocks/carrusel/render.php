@@ -62,6 +62,8 @@ foreach ( (array) ( $attributes['items'] ?? [] ) as $slide ) {
 // Tiempo entre slides: el editor lo configura en segundos; Swiper lo espera en ms.
 $autoplay_delay = max( 1, (int) ( $attributes['autoplayDelay'] ?? 6 ) ) * 1000;
 $height         = max( 200, (int) ( $attributes['height'] ?? 600 ) );
+$height_tablet  = max( 150, (int) ( $attributes['heightTablet'] ?? 500 ) );
+$height_mobile  = max( 150, (int) ( $attributes['heightMobile'] ?? 400 ) );
 $align          = ( 'left' === ( $attributes['contentAlign'] ?? 'center' ) ) ? 'left' : 'center';
 $show_overlay   = (bool) ( $attributes['showOverlay'] ?? true );
 $overlay_alpha  = max( 0, min( 90, (int) ( $attributes['overlayOpacity'] ?? 45 ) ) ) / 100;
@@ -70,6 +72,8 @@ $context                   = Timber::context();
 $context['items']          = $items;
 $context['autoplay_delay'] = $autoplay_delay;
 $context['height']         = $height;
+$context['height_tablet']  = $height_tablet;
+$context['height_mobile']  = $height_mobile;
 $context['show_overlay']   = $show_overlay;
 $context['overlay_alpha']  = $overlay_alpha;
 $context['show_arrows']    = (bool) ( $attributes['showArrows'] ?? true );
